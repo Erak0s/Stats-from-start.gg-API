@@ -19,7 +19,7 @@ params_get_events={
   "distance": "10km", # Pour chercher par géographique, avec $city
   "city": "43.604652,3.907186",
   # "name": "Flamin", # Pour chercher par nom
-  "perPage": 50
+  "perPage": 2 # Requête va inclure les x derniers events
 }
 
 params_best_perf={
