@@ -1,4 +1,5 @@
 # Stats-from-start.gg-API
 
-
-faire une requête pour les majors à venir (requête + de 300 joueurs de cap et date pas encore passée)
+requête par code postal
+requête par nombre d'entrants max
+requête par date (à venir / période)
