@@ -23,6 +23,10 @@ def get_singles_id(request, params):
               event_ids.append(event['id'])
     return(event_ids)
 
+params={
+  "name": "Miss'Tech"
+}
+
 singles = get_singles_id(get_all_events,params)
 
 # Pour chaque event, on récupère le standing et le seeding

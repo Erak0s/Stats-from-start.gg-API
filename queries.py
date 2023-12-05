@@ -1,21 +1,39 @@
 # Une requête qui doit renvoyer les id des tournois qu'on veut analyser
-get_all_events="""
-query get_events($name: String!) {
- tournaments(query: {page: 1, perPage: 2, filter: {name: $name}}) {
-   nodes {
-     name
-     events {
-       name
-       id
-     }
-   }
- }
+get_all_events_location="""
+query get_events($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int) {
+  tournaments(
+    query: {perPage: $perPage, filter: {name: $name, countryCode: $cCode, location: {distanceFrom: $city, distance: $distance}}}
+  ) {
+    nodes {
+      name
+      countryCode
+      postalCode
+      events {
+        name
+        id
+      }
+    }
+  }
 }
 """
-# Les paramètres de la requête précédente
-params={
-  "name": "Miss'Tech"
+
+get_all_events_no_location:"""
+query get_events($name: String, $cCode: String, $perPage: Int) {
+  tournaments(
+    query: {perPage: $perPage, filter: {name: $name, countryCode: $cCode}}
+  ) {
+    nodes {
+      name
+      countryCode
+      postalCode
+      events {
+        name
+        id
+      }
+    }
+  }
 }
+"""
 
 # Requête donnant les standings et les seedings de toutes les phases de l'évènement dont on passe l'id.
 get_standings_seed="""
