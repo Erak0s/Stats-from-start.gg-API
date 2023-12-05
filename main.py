@@ -35,14 +35,18 @@ def best_performance(events):
     }
     response = requests.post(url, headers=headers, json={'query': get_standings_seed, 'variables': params2})
     standing_seeding = response.json()
+    print(len(standing_seeding))
+    # print(standing_seeding)
     standings = get_standings(standing_seeding, event_id)
     seedings = get_seedings(standing_seeding, event_id)
     for key in (standings):
       if key==('CTS | Ikcrow', 1021654):
-        print(len(seedings))
-        print(len(standings))
+        print(standing_seeding)
+        # print(len(seedings))
+        # print(len(standings))
         # print("SEEDING:",seedings)
         # print("STANDING:",standings)
+        pass
       SPR = SPR_player(key[0], event_id, seedings, standings)
       if SPR > max_SPR:
         max_SPR = SPR
@@ -56,5 +60,6 @@ def best_performance(events):
     print("Meilleure performance:",best_perf[i]," à l'évènement",events[event[i]],"(SPR",max_SPR,")")
 
 # Problème avec la construction des listes standings/seedings: pas la bonne taille (devrait être égales au nombre d'entrants)
+# PB vient SOIT de la requête SOIT des deux fonctions get_seedings et get_standings à la fois
 
 best_performance(singles)
