@@ -23,9 +23,9 @@ params_get_events={
 }
 
 params_best_perf={
-      "perPage": 500,
-      "page": 1
-    }
+  "perPage": 500,
+  "page": 1
+}
 
 # Récupération des évènements à analyser
 
