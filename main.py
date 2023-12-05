@@ -51,41 +51,6 @@ def best_performance(events):
   for i in range (len(best_perf)):
     print("Meilleure performance:",best_perf[i]," à l'évènement",events[event[i]],"(SPR",max_SPR,")")
 
-# Transférer fonction best_perf dans fonctions.py
-# Problème avec ickrox au bout de 4 misstech en arrière
-# Faire une requête selon la date
+# Problème avec ickrow au bout de 4 misstech en arrière
 
 best_performance(singles)
-
-# print(SPR_player("NLA W'nS | Zelume", 1033454, seedings, standings))
-
-# Récup le seed et la perf de chaque jouer des évents singles des miss'tech des 30 derniers jours
-
-# variables_perf = {
-# }
-
-# getCharacterUsage = """
-# """
-
-# variables_char = {
-# }
-
-# getUpsets = """
-# """
-
-# variables_upsets = {
-# }
-
-# Joueur le plus régulier = plus autour de son seed en moyenne
-
-
-
-# response = requests.post(url, headers=headers, json={'query': getPerfomance, 'variables': variables_perf})
-# performance = response.json()
-
-# response = requests.post(url, headers=headers, json={'query': getCharacterUsage, 'variables': variables_char})
-# character_usage = response.json()
-
-# response = requests.post(url, headers=headers, json={'query': getUpsets, 'variables': variables_upsets})
-# upsets = response.json()
-
