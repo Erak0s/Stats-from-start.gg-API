@@ -76,4 +76,4 @@ def best_performance(events,params,url,headers):
           best_perf.append(key[0])
           event.append(event_id)
   for i in range (len(best_perf)):
-    print("Meilleure performance:",best_perf[i],"à l'évènement",events[event[i]],"(SPR",max_SPR,")")
+    print("Meilleure performance: ",best_perf[i]," à l'évènement ",events[event[i]]," (SPR +",max_SPR,")", sep='')
