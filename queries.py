@@ -37,11 +37,11 @@ query get_events($name: String, $cCode: String, $perPage: Int) {
 
 # Requête donnant les standings et les seedings de toutes les phases de l'évènement dont on passe l'id.
 get_standings_seed="""
-query get_standings_seed($eventId: ID!, $page: Int!, $perPage: Int!) {
+query get_standings_seed($eventId: ID!, $perPage: Int) {
   event(id: $eventId) {
     id
     name
-    standings(query: {perPage: $perPage, page: $page}) {
+    standings(query: {perPage: $perPage}) {
       nodes {
         placement
         entrant {
@@ -52,7 +52,7 @@ query get_standings_seed($eventId: ID!, $page: Int!, $perPage: Int!) {
     }
     phases {
       id
-      seeds(query: {page: 1, perPage: 50}, eventId: $eventId) {
+      seeds(query: {perPage: $perPage}, eventId: $eventId) {
         nodes {
           id
           seedNum

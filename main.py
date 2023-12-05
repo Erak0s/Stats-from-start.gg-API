@@ -12,37 +12,44 @@ headers = {
 
 # Requetes retournant les nom et ids de tous les events souhaités
 
-def get_singles_id(request, params):
-    response = requests.post(url, headers=headers, json={'query': request, 'variables': params})
-    events = response.json()
-
-    event_ids=[]
-    for tournament in events['data']['tournaments']['nodes']:
-      for event in tournament['events']:
-          if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) :
-              event_ids.append(event['id'])
-    return(event_ids)
-
 params={
-  "name": "Miss'Tech"
+  "cCode": "FR",
+  "perPage": 2,
+  "distance": "10km",
+  "city": "43.604652,3.907186",
+  "name": "Miss"
 }
 
-singles = get_singles_id(get_all_events,params)
+singles = get_singles_id(get_all_events_location,params, url, headers)
 
-# Pour chaque event, on récupère le standing et le seeding
-standings={}
-seedings={}
-for id in singles:
+def best_performance(events_id):
+  max_SPR=50
+  print("Event checked: ",singles)
+  for event_id in (events_id):
     params2={
-      "eventId": id, "page": 1, "perPage": 8
+      "eventId": str(event_id), 
     }
-
     response = requests.post(url, headers=headers, json={'query': get_standings_seed, 'variables': params2})
-    print(response)
-    standing_seeding = response.json
-    print(standing_seeding)
-    # for event in standing_seeding['data']['event']['standings']:
-    #   print(event)
+    standing_seeding = response.json()
+    standings = get_standings(standing_seeding, event_id)
+    seedings = get_seedings(standing_seeding, event_id)
+    print("In ",event_id)
+    for key in (standings):
+      print(key)
+      print(SPR_player(key[0], event_id, seedings, standings))
+
+
+best_performance(singles)
+
+
+
+
+
+
+
+
+
+# print(SPR_player("NLA W'nS | Zelume", 1033454, seedings, standings))
 
 # Récup le seed et la perf de chaque jouer des évents singles des miss'tech des 30 derniers jours
 
@@ -63,6 +70,8 @@ for id in singles:
 
 # variables_upsets = {
 # }
+
+# Joueur le plus régulier = plus autour de son seed en moyenne
 
 
 
