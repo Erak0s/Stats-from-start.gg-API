@@ -1,5 +1,4 @@
-{'data': {'event': {'id': 1021654, 'name': "Miss'Tech - Single", 
-'standings': {'nodes': [
+{'data': {'event': {'id': 1021654, 'name': "Miss'Tech - Single", 'standings': {'nodes': [
 {'placement': 1, 'entrant': {'id': 14831468, 'name': 'MES | Kajou'}}, 
 {'placement': 2, 'entrant': {'id': 14842323, 'name': 'BxH | ZeroFK'}}, 
 {'placement': 3, 'entrant': {'id': 14834520, 'name': 'MuoDuGenou'}}, 
@@ -53,12 +52,12 @@
     {'id': 27022156, 'seedNum': 27, 'entrant': {'id': 14844848, 'name': 'satho'}}, 
     {'id': 27002726, 'seedNum': 20, 'entrant': {'id': 14831658, 'name': 'Wender'}}]}}, 
     
-    {'id': 1511300, 'seeds': {'nodes': [
-        {'id': 27002140, 'seedNum': 1, 'entrant': {'id': 14831468, 'name': 'MES | Kajou'}}, 
-        {'id': 27002142, 'seedNum': 3, 'entrant': {'id': 14842323, 'name': 'BxH | ZeroFK'}}, 
-        {'id': 27002141, 'seedNum': 2, 'entrant': {'id': 14834520, 'name': 'MuoDuGenou'}}, 
-        {'id': 27002143, 'seedNum': 4, 'entrant': {'id': 14831542, 'name': 'BxH | Orik'}}, 
-        {'id': 27002144, 'seedNum': 5, 'entrant': {'id': 14831309, 'name': 'BxH | Gohurisson'}}, 
-        {'id': 27002146, 'seedNum': 7, 'entrant': {'id': 14831293, 'name': 'AUEC CTS | Goison'}}, 
-        {'id': 27002145, 'seedNum': 6, 'entrant': {'id': 14840996, 'name': 'NdL/BaL | Enzo'}}, 
-        {'id': 27002147, 'seedNum': 8, 'entrant': {'id': 14849435, 'name': 'NLA | Bizaute'}}]}}]}}
+{'id': 1511300, 'seeds': {'nodes': [
+    {'id': 27002140, 'seedNum': 1, 'entrant': {'id': 14831468, 'name': 'MES | Kajou'}}, 
+    {'id': 27002142, 'seedNum': 3, 'entrant': {'id': 14842323, 'name': 'BxH | ZeroFK'}}, 
+    {'id': 27002141, 'seedNum': 2, 'entrant': {'id': 14834520, 'name': 'MuoDuGenou'}}, 
+    {'id': 27002143, 'seedNum': 4, 'entrant': {'id': 14831542, 'name': 'BxH | Orik'}}, 
+    {'id': 27002144, 'seedNum': 5, 'entrant': {'id': 14831309, 'name': 'BxH | Gohurisson'}}, 
+    {'id': 27002146, 'seedNum': 7, 'entrant': {'id': 14831293, 'name': 'AUEC CTS | Goison'}}, 
+    {'id': 27002145, 'seedNum': 6, 'entrant': {'id': 14840996, 'name': 'NdL/BaL | Enzo'}}, 
+    {'id': 27002147, 'seedNum': 8, 'entrant': {'id': 14849435, 'name': 'NLA | Bizaute'}}]}}]}}
