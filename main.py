@@ -13,8 +13,9 @@ headers = {
 # Requetes retournant les nom et ids de tous les events souhaités
 
 params={
+  "page": 4,
   "cCode": "FR",
-  "perPage": 3,
+  "perPage": 4,
   "distance": "10km",
   "city": "43.604652,3.907186",
   "name": "Miss"
@@ -37,8 +38,9 @@ def best_performance(events):
     standings = get_standings(standing_seeding, event_id)
     seedings = get_seedings(standing_seeding, event_id)
     for key in (standings):
-      # print("SEEDING:\\",seedings)
-      # print("STANDING:\\",standings)
+      if key==('CTS | Ikcrow', 1021654):
+        print("SEEDING:\\",seedings)
+        print("STANDING:\\",standings)
       SPR = SPR_player(key[0], event_id, seedings, standings)
       if SPR > max_SPR:
         max_SPR = SPR

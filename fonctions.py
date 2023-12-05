@@ -49,4 +49,3 @@ def get_singles_id(events):
             if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) :
                 event_ids[event['id']] = tournament['name']
     return(event_ids)
-
