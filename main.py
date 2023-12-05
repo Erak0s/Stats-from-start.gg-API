@@ -14,18 +14,21 @@ headers = {
 
 params={
   "cCode": "FR",
-  "perPage": 2,
+  "perPage": 3,
   "distance": "10km",
   "city": "43.604652,3.907186",
   "name": "Miss"
 }
 
-singles = get_singles_id(get_all_events_location,params, url, headers)
+response = requests.post(url, headers=headers, json={'query': get_all_events_location, 'variables': params})
+events = response.json()
 
-def best_performance(events_id):
-  max_SPR=50
-  print("Event checked: ",singles)
-  for event_id in (events_id):
+singles = get_singles_id(events)
+
+def best_performance(events):
+  max_SPR=0
+  print("Event(s) checked: ",events)
+  for event_id in (events):
     params2={
       "eventId": str(event_id), 
     }
@@ -33,28 +36,30 @@ def best_performance(events_id):
     standing_seeding = response.json()
     standings = get_standings(standing_seeding, event_id)
     seedings = get_seedings(standing_seeding, event_id)
-    print("In ",event_id)
     for key in (standings):
-      print(key)
-      print(SPR_player(key[0], event_id, seedings, standings))
+      # print("SEEDING:\\",seedings)
+      # print("STANDING:\\",standings)
+      SPR = SPR_player(key[0], event_id, seedings, standings)
+      if SPR > max_SPR:
+        max_SPR = SPR
+        best_perf = [key[0]]
+        event = [event_id]
+      else:
+        if SPR == max_SPR:
+          best_perf.append(key[0])
+          event.append(event_id)
+  for i in range (len(best_perf)):
+    print("Meilleure performance:",best_perf[i]," à l'évènement",events[event[i]],"(SPR",max_SPR,")")
 
+# Transférer fonction best_perf dans fonctions.py
+# Problème avec ickrox au bout de 4 misstech en arrière
+# Faire une requête selon la date
 
 best_performance(singles)
-
-
-
-
-
-
-
-
 
 # print(SPR_player("NLA W'nS | Zelume", 1033454, seedings, standings))
 
 # Récup le seed et la perf de chaque jouer des évents singles des miss'tech des 30 derniers jours
-
-# getPerformance = """
-# """
 
 # variables_perf = {
 # }

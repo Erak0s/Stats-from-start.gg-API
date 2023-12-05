@@ -26,29 +26,27 @@ def spr(seed,perf):
 
 # Calcule le SPR d'un joueur à un évènement donné
 def SPR_player(player,event_id,dico_seed,dico_standings):
-  return(spr(dico_seed[player, event_id],dico_standings[player, event_id]))
+    return(spr(dico_seed[player, event_id],dico_standings[player, event_id]))
 
 # Récupère la liste des placement de l'event donné dans la requête donnée
 def get_standings(request,event_id):
-  standings={}
-  for i in request['data']['event']['standings']['nodes']:
-      standings[i['entrant']['name'],event_id] = i['placement']
-  return(standings)
+    standings={}
+    for i in request['data']['event']['standings']['nodes']:
+        standings[i['entrant']['name'],event_id] = i['placement']
+    return(standings)
 
 # Récupère la liste des seedings de l'event donné dans la requête donnée
 def get_seedings(request,event_id):
-  seedings={}
-  for j in request['data']['event']['phases'][0]['seeds']['nodes']:
-    seedings[j['entrant']['name'],event_id] = j['seedNum']
-  return(seedings)
+    seedings={}
+    for j in request['data']['event']['phases'][0]['seeds']['nodes']:
+        seedings[j['entrant']['name'],event_id] = j['seedNum']
+    return(seedings)
 
-def get_singles_id(request, params, url, headers):
-    response = requests.post(url, headers=headers, json={'query': request, 'variables': params})
-    events = response.json()
-
-    event_ids=[]
+def get_singles_id(events):
+    event_ids={}
     for tournament in events['data']['tournaments']['nodes']:
-      for event in tournament['events']:
-          if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) :
-              event_ids.append(event['id'])
+        for event in tournament['events']:
+            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) :
+                event_ids[event['id']] = tournament['name']
     return(event_ids)
+

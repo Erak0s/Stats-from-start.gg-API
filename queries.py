@@ -8,7 +8,7 @@ query get_events($name: String, $cCode: String, $distance: String, $city: String
       name
       countryCode
       postalCode
-      events {
+      events (filter: {videogameId: 1386}) {
         name
         id
       }
@@ -17,7 +17,7 @@ query get_events($name: String, $cCode: String, $distance: String, $city: String
 }
 """
 
-get_all_events_no_location:"""
+get_all_events_no_location="""
 query get_events($name: String, $cCode: String, $perPage: Int) {
   tournaments(
     query: {perPage: $perPage, filter: {name: $name, countryCode: $cCode}}
@@ -26,7 +26,7 @@ query get_events($name: String, $cCode: String, $perPage: Int) {
       name
       countryCode
       postalCode
-      events {
+      events (filter: {videogameId: 1386}) {
         name
         id
       }
