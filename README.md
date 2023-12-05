@@ -2,9 +2,7 @@
 
 ## Requêtes 
 
-- mieux filtrer les singles -> Comment ?
-
-- requête par nombre d'entrants max -> pas possible de query les entrants par numEntrants
+- requête par nombre d'entrants max -> pas possible de query les entrants par numEntrants FAUX: https://developer.start.gg/docs/examples/queries/attendee-counts
 
 - requête par date (à venir / période)
 

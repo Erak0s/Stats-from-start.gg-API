@@ -16,10 +16,10 @@ headers = {
 
 params_get_events={
   "cCode": "FR", # Pour chercher par pays
-  "perPage": 10,
   "distance": "10km", # Pour chercher par géographique, avec $city
   "city": "43.604652,3.907186",
-  "name": "Flamin" # Pour chercher par nom
+  # "name": "Flamin", # Pour chercher par nom
+  "perPage": 50
 }
 
 params_best_perf={
@@ -36,8 +36,7 @@ else:
 events = response.json()
 
 singles = get_singles_id(events)
-print(singles)
 
 # Analyses
 
-# best_performance(singles,params_best_perf,url,headers)
+best_performance(singles,params_best_perf,url,headers)

@@ -1,0 +1,5 @@
+test.py
+*.log
+temp/
+__pycache__
+.vscode

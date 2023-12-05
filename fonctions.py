@@ -13,15 +13,16 @@ def seed_round(seed):
 
 # Calcul du SPR (Seed Performance Rating) pour un seed et placement donné: comparaison du placement et du tier de seeding
 def spr(seed,perf):
-    tier=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025]
+    tier=[1,2,3,4,5,7,9,13,17,25,33,41,49,57,65,97,129,193,257,385,513,769,1025]
     true_seed = seed_round(seed)
-    if (true_seed not in tier) or (perf not in tier):
+    true_perf = seed_round(perf)
+    if (true_seed not in tier) or (true_perf not in tier):
         print("Erreur dans le seed ou le placement")
     else:
         for i in range (len(tier)):
             if true_seed == tier[i]:
                 seed_r = i
-            if perf == tier[i]:
+            if true_perf == tier[i]:
                 perf_r = i
     return(seed_r-perf_r)
 
@@ -47,8 +48,8 @@ def get_singles_id(events):
     event_ids={}
     for tournament in events['data']['tournaments']['nodes']:
         for event in tournament['events']:
-            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) or ("Double" not in event['name']) or ("Squad Strike" not in event['name']) or ("Amateur" not in event['name']) or ("Ladder" not in event['name']):
-                event_ids[event['id']] = [tournament['name'],event['name']]
+            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) or (("Double" not in event['name']) and ("Squad Strike" not in event['name']) and ("Amateur" not in event['name']) and ("Ladder" not in event['name'])):
+                event_ids[event['id']] = tournament['name']
     return(event_ids)
 
 def get_seeding_standings(event_id,params,url,headers):
