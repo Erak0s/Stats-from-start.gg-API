@@ -1,5 +1,7 @@
 # Stats-from-start.gg-API
 
+Faire marcher les listes seeding/standing (comparer taille avec nb d'entrants)
+
 Transférer fonction best_perf dans fonctions.py
 
 requête par code postal
