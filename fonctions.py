@@ -1,4 +1,5 @@
 import requests
+from queries import *
 
 # Pour un seeding donné en entrée, la fonction renvoie le "tier" de seeding (9ème, 13ème, 17ème ...)
 def seed_round(seed):
@@ -46,6 +47,32 @@ def get_singles_id(events):
     event_ids={}
     for tournament in events['data']['tournaments']['nodes']:
         for event in tournament['events']:
-            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) :
-                event_ids[event['id']] = tournament['name']
+            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) or ("Double" not in event['name']) or ("Squad Strike" not in event['name']) or ("Amateur" not in event['name']) or ("Ladder" not in event['name']):
+                event_ids[event['id']] = [tournament['name'],event['name']]
     return(event_ids)
+
+def get_seeding_standings(event_id,params,url,headers):
+  params["eventId"] = str(event_id)
+  response = requests.post(url, headers=headers, json={'query': get_standings_seed, 'variables': params})
+  standing_seeding = response.json()
+  standings = get_standings(standing_seeding, event_id)
+  seedings = get_seedings(standing_seeding, event_id)
+  return(standings,seedings)
+
+def best_performance(events,params,url,headers):
+  max_SPR=-100
+  print("Event(s) checked: ",events)
+  for event_id in (events):
+    [standings,seedings] = get_seeding_standings(event_id,params,url,headers)
+    for key in (standings):
+      SPR = SPR_player(key[0], event_id, seedings, standings)
+      if SPR > max_SPR:
+        max_SPR = SPR
+        best_perf = [key[0]]
+        event = [event_id]
+      else:
+        if SPR == max_SPR:
+          best_perf.append(key[0])
+          event.append(event_id)
+  for i in range (len(best_perf)):
+    print("Meilleure performance:",best_perf[i],"à l'évènement",events[event[i]],"(SPR",max_SPR,")")
