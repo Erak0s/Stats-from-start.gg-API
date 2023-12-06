@@ -209,7 +209,7 @@ def least_regu(events,params,url,headers):
                 least_regu.append(key)
     print("least_regu:",least_regu)
     print("sum_spr_dict",sum_spr_dict)
-    nb_tourn=nb_tournois(events,params,url,headers)
+    nb_tourn=count_tournois(events,params,url,headers)
     print("nb_tournois", nb_tourn)
     print("Joueur(s) le moins régulier:")
     for joueur in least_regu:
