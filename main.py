@@ -26,7 +26,7 @@ params_get_events={
   # "distance": "10km", 
   # "city": ville_coord["Montpellier"],
   "name": "Miss", 
-  "perPage": 3, 
+  "perPage": 5, 
   "page": 1
 }
 
@@ -47,6 +47,8 @@ singles = get_singles_id(events)
 
 # Analyses
 
-best_performance(singles,params_standings_seedings,url,headers)
-worst_performance(singles,params_standings_seedings,url,headers)
+# best_performance(singles,params_standings_seedings,url,headers)
+# worst_performance(singles,params_standings_seedings,url,headers)
+# most_regu(singles,params_standings_seedings,url,headers)
+least_regu(singles,params_standings_seedings,url,headers)
 # top_seed(50,singles,params_standings_seedings,url,headers)

@@ -103,6 +103,50 @@ def worst_performance(events,params,url,headers):
     for i in range (len(worst_perf)):
         print(worst_perf[i]," à l'évènement ",events[event[i]]," (SPR ",min_SPR,")", sep='')
 
+def get_sum_spr(events,params,url,headers):
+    sum_spr_dict={}
+    print("Event(s) checked:")
+    for k,v in events.items():
+        print(events[k])
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        seeding = get_seeding(event_id,params,url,headers)
+        for key in (standings):
+            SPR = SPR_player(key[0], event_id, seeding, standings)
+            if key[0] not in sum_spr_dict:
+                sum_spr_dict[key[0]]=SPR
+            else:
+                sum_spr_dict[key[0]]+=SPR
+    return(sum_spr_dict)
+
+def most_regu(events,params,url,headers):
+    max_ecart_spr=100
+    sum_spr_dict=get_sum_spr(events,params,url,headers)
+    for key in sum_spr_dict.items():
+        if abs(key[1])<max_ecart_spr:
+            max_ecart_spr=abs(key[1])
+            most_regu=[key[0]]
+        else:
+            if abs(key[1])==max_ecart_spr:
+                most_regu.append(key[0])
+    print("Joueur(s) le plus régulier:","(somme du SPR:",max_ecart_spr,")")
+    for i in most_regu:
+        print(i)   
+
+def least_regu(events,params,url,headers):
+    min_ecart_spr=-1
+    sum_spr_dict=get_sum_spr(events,params,url,headers)
+    for key in sum_spr_dict.items():
+        if abs(key[1])>min_ecart_spr:
+            min_ecart_spr=abs(key[1])
+            least_regu=[key[0]]
+        else:
+            if abs(key[1])==min_ecart_spr:
+                least_regu.append(key[0])
+    print("Joueur(s) le moins régulier:","(somme du SPR:",min_ecart_spr,")")
+    for i in least_regu:
+        print(i)           
+
 def top_seed(n,events,params,url,headers):
     for event_id in (events):
         print("Top",n,"seeds in",events[event_id],":")

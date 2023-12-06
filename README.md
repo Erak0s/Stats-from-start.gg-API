@@ -14,9 +14,11 @@
 
 ## Analyses
 
+- Nombre de joueurs distincts sur tous les évènements donnés
+
 - Fonction plus gros flop = min(SPR) : PROBLEME pire perf = top qui DQ
 
-- Fonction Joueur le plus régulier = plus autour de son seed en moyenne (SPR moyen sur les x derniers tournois/mois)
+- Joueur le moins régulier -> afficher SPR brut (pas absolu), pour chaque joueur retourné
 
 - Fonction calcul character usage
 
