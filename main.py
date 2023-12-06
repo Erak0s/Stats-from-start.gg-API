@@ -20,14 +20,16 @@ ville_coord={"Montpellier":"43.604652,3.907186"}
 # $cCode pour chercher par pays 
 # $distance pour chercher dans un rayon autour de $city
 # $name our chercher par nom
+# $a_venir True pour ne voir que les tournois à venir
 # $page et $perPage pour paginer les évènements
 params_get_events={
   "cCode": ccodes["France"], 
   # "distance": "10km", 
   # "city": ville_coord["Montpellier"],
-  "name": "Miss", 
-  "perPage": 5, 
-  "page": 1
+  "name": "Downtown", 
+  "a_venir": False,
+  "perPage":1 , 
+  "page": 17
 }
 
 params_standings_seedings={
@@ -44,6 +46,7 @@ else:
 events = response.json()
 
 singles = get_singles_id(events)
+print(singles)
 
 # Analyses
 
@@ -53,3 +56,4 @@ singles = get_singles_id(events)
 # most_regu(singles,params_standings_seedings,url,headers)
 # least_regu(singles,params_standings_seedings,url,headers)
 # top_seed(50,singles,params_standings_seedings,url,headers)
+# top_standings(50,singles,params_standings_seedings,url,headers)

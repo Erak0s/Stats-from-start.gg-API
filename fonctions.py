@@ -5,9 +5,21 @@ def get_singles_id(events):
     event_ids={}
     for tournament in events['data']['tournaments']['nodes']:
         for event in tournament['events']:
-            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) or (("Double" not in event['name']) and ("Squad Strike" not in event['name']) and ("Amateur" not in event['name']) and ("Ladder" not in event['name'])):
+            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) or (("Double" not in event['name']) and ("Squad Strike" not in event['name']) and ("Amateur" not in event['name']) and ("Ladder" not in event['name']) and ("attente" not in event['name'])):
                 event_ids[event['id']] = tournament['name']
     return(event_ids)
+
+def is_single(Name):
+    name = Name.lower()
+    print(name)
+    goodlist=["single","singles"]
+    banlist=["double","squad strike","amateur","ladder","attente"]
+    for word in goodlist:
+        if (word in name):
+            return(True)
+    for word in banlist:
+        if (word in name):
+            return(False)
 
 # Récupère la liste des placement de l'event donné dans la requête donnée
 def get_standings(event_id,params,url,headers):
@@ -58,12 +70,13 @@ def spr(seed,perf):
 def SPR_player(player,event_id,dico_seed,dico_standings):
     return(spr(dico_seed[player, event_id],dico_standings[player, event_id]))
 
-# Calcule la/les meilleure performance (en terme de SPR) sur les év_è
+# Calcule la/les meilleure performance (en terme de SPR) sur les évènements donnés
 def best_performance(events,params,url,headers):
     max_SPR=-100
     print("Event(s) checked:")
     for k,v in events.items():
         print(events[k])
+    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         seeding = get_seeding(event_id,params,url,headers)
@@ -81,11 +94,13 @@ def best_performance(events,params,url,headers):
     for i in range (len(best_perf)):
         print(best_perf[i]," à l'évènement ",events[event[i]]," (SPR +",max_SPR,")", sep='')
 
+# Calcule la/les pire performance (en terme de SPR) sur les évènements donnés
 def worst_performance(events,params,url,headers):
     min_SPR=100
     print("Event(s) checked:")
     for k,v in events.items():
         print(events[k])
+    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         seeding = get_seeding(event_id,params,url,headers)
@@ -103,11 +118,13 @@ def worst_performance(events,params,url,headers):
     for i in range (len(worst_perf)):
         print(worst_perf[i]," à l'évènement ",events[event[i]]," (SPR ",min_SPR,")", sep='')
 
+# Calcule la somme du SPR pour chaque joueur sur les évènements donnés
 def get_sum_spr(events,params,url,headers):
     sum_spr_dict={}
     print("Event(s) checked:")
     for k,v in events.items():
         print(events[k])
+    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         seeding = get_seeding(event_id,params,url,headers)
@@ -119,11 +136,13 @@ def get_sum_spr(events,params,url,headers):
                 sum_spr_dict[key[0]]+=SPR
     return(sum_spr_dict)
 
+# Affiche la liste et le nombre des joueurs distincts sur les évènements donnés
 def get_distinct_players(events,params,url,headers):
     players_list=[]
     print("Event(s) checked:")
     for k,v in events.items():
         print(events[k])
+    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for key in (standings):
@@ -134,6 +153,7 @@ def get_distinct_players(events,params,url,headers):
     print()
     print("Nombre de joueurs distincts:",len(players_list))
 
+# Affiche les joueurs avec une somme du SPR la plus proche de 0 sur les évènements donnés
 def most_regu(events,params,url,headers):
     max_ecart_spr=100
     sum_spr_dict=get_sum_spr(events,params,url,headers)
@@ -148,6 +168,7 @@ def most_regu(events,params,url,headers):
     for i in most_regu:
         print(i)   
 
+# Affiche les joueurs avec une somme du SPR la plus éloignée de 0 sur les évènements donnés
 def least_regu(events,params,url,headers):
     min_ecart_spr=-1
     sum_spr_dict=get_sum_spr(events,params,url,headers)
@@ -162,12 +183,23 @@ def least_regu(events,params,url,headers):
     for i in least_regu:
         print(i[0]," (somme du SPR: ",i[1],")", sep="")           
 
+# Affiche les n premiers seeds des évènements donnés
 def top_seed(n,events,params,url,headers):
     for event_id in (events):
         print("Top",n,"seeds in",events[event_id],":")
         seeding = get_seeding(event_id,params,url,headers)
         for i in range (1,n+1):
             for k, v in seeding.items():
+                if v ==i:
+                    print(v,": ",k[0], sep="")
+        print()
+
+def top_standings(n,events,params,url,headers):
+    for event_id in (events):
+        print("Top",n,"of",events[event_id],":")
+        standings = get_standings(event_id,params,url,headers)
+        for i in range (1,n+1):
+            for k, v in standings.items():
                 if v ==i:
                     print(v,": ",k[0], sep="")
         print()
