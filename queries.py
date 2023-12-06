@@ -1,4 +1,16 @@
 # Une requête qui doit renvoyer les id des tournois qu'on veut analyser
+get_all_events_slug="""
+query get_all_events_slug($gameId: [ID], $slug: String) {
+  tournament(slug: $slug) {
+    name
+    events (filter: {videogameId: $gameId}) {
+      name
+      id
+      }
+    }
+  }
+"""
+
 get_all_events_location="""
 query get_events_loc($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID]) {
   tournaments(

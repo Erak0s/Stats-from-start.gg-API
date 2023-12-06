@@ -12,11 +12,9 @@
 
 ## Requêtes:
 
-- Events par "URL" (slug = partie finale de l'url): https://developer.start.gg/docs/examples/queries/attendee-counts
-
 - requête par date (période)
 
-- Enrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
+- Entrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
 
 - requête pour avoir les sets/games avec score, et personnages utilisés
 
@@ -25,11 +23,10 @@
 
 ## Analyses:
 
-- Joueur ayant fait le plus de top 8
-
 - Taille de la commu -> comme distinct players mais compter les apparitions et mettre un seuil
 
 - Fonction calcul character usage 
+    -> persos les plus/moins utilisés
     + winrate par personnage (ou juste pour Link)
 
 - Perf moyenne en fonction du nombre d'entrants (placement/entrants)

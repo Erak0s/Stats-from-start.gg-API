@@ -1,6 +1,7 @@
 import requests
 from queries import *
 
+# Affiche les tournois dans lesquels sont les évènements analysés
 def print_tournaments(events):
     print("Event(s) checked:")
     for event in events.items():
@@ -23,16 +24,24 @@ def is_singles(Name):
 # Récupère les évènements Simples parmis les évènements donnés
 def get_singles_id(params,url,headers):
     event_ids={}
-    if("distance" in params and "city" in params):
-        response = requests.post(url, headers=headers, json={'query': get_all_events_location, 'variables': params})
+    if ("slug"in params):
+        query=get_all_events_slug
+    elif("distance" in params and "city" in params):
+        query=get_all_events_location
     else:
-        response = requests.post(url, headers=headers, json={'query': get_all_events_no_location, 'variables': params})
+        query=get_all_events_no_location
+    
+    response = requests.post(url, headers=headers, json={'query': query, 'variables': params})
     events = response.json()
-    # print(events)
-    for tournament in events['data']['tournaments']['nodes']:
-        for event in tournament['events']:
-            if (is_singles(event['name'])):
-                event_ids[event['id']] = tournament['name']
+    if ("slug"in params):
+        for event in events['data']['tournament']['events']:
+                if is_singles(event['name']):
+                    event_ids[event['id']] = events['data']['tournament']['name']
+    else:
+        for tournament in events['data']['tournaments']['nodes']:
+            for event in tournament['events']:
+                if (is_singles(event['name'])):
+                    event_ids[event['id']] = tournament['name']
     return(event_ids)   
 
 # Récupère la liste des placement de l'event donné dans la requête donnée
@@ -156,7 +165,7 @@ def get_distinct_players(events,params,url,headers):
     print("Nombre de joueurs distincts:",len(players_list))
 
 # Retourne le nombre de tournois effectués par chaque joueur sur la période
-def nb_tournois(events,params,url,headers):
+def count_tournois(events,params,url,headers):
     nb_tournois={}
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
@@ -168,19 +177,9 @@ def nb_tournois(events,params,url,headers):
     return(nb_tournois)
 
 # Retourne le ou les joueurs ayant participé au plus de tournois sur les évènements donnés
-def max_nb_tournois(events,params,url,headers):
-    nb_tourn = nb_tournois(events,params,url,headers)
-    max=0
-    liste_max=[]
-    for joueur in nb_tourn:
-        if nb_tourn[joueur] > max:
-            max = nb_tourn[joueur]
-    for joueur in nb_tourn:
-        if nb_tourn[joueur] == max:
-            liste_max+=[joueur]
-    print("Joueurs les plus présents avec",max,"participations:")
-    for i in liste_max:
-        print(i)
+def max_tournois(n,events,params,url,headers):
+    nb_tourn = count_tournois(events,params,url,headers)
+    max_dico(n,nb_tourn)
 
 # Affiche les joueurs avec une somme du SPR la plus proche de 0 sur les évènements donnés
 def most_regu(events,params,url,headers):
@@ -239,3 +238,36 @@ def top_standings(n,events,params,url,headers):
                     print(v,": ",k[0], sep="")
         print()
 
+def count_top_x(x,events,params,url,headers):
+    nb_top_x={}
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        for player in standings.items():
+            if player[1]<=x:
+                if player[0][0] in nb_top_x:
+                    nb_top_x[player[0][0]]+=1
+                else:
+                    nb_top_x[player[0][0]]=1
+    return(nb_top_x)
+
+def max_dico(n,dico):
+    dico_trie=dict(sorted(dico.items(), key=lambda item: item[1], reverse=True))
+    # print(dico_trie)
+    j=0
+    for i in dico_trie:
+        if j<n:
+            print(i,dico_trie[i])
+            j+=1
+
+def min_dico(n,dico):
+    dico_trie=dict(sorted(dico.items(), key=lambda item: item[1]))
+    # print(dico_trie)
+    j=0
+    for i in dico_trie:
+        if j<n:
+            print(i,dico_trie[i])
+            j+=1
+
+def max_top_x(n,x,events,params,url,headers):
+    top_x = count_top_x(x,events,params,url,headers)
+    max_dico(n,top_x)
