@@ -16,8 +16,13 @@
 
 ## Analyses
 
+- Fonction plus gros flop = min(SPR)
+
+- Fonction Joueur le plus régulier = plus autour de son seed en moyenne (SPR moyen sur les x derniers tournois/mois)
+
 - Fonction calcul character usage
 
 - Fonction calcul plus gros upset
 
-- Fonction Joueur le plus régulier = plus autour de son seed en moyenne (SPR moyen sur les x derniers tournois/mois)
+- Fonction calcul taux/nombre moyen d'upset par tournoi 
+

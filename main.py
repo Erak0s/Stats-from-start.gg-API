@@ -16,13 +16,13 @@ headers = {
 
 params_get_events={
   "cCode": "FR", # Pour chercher par pays
-  "distance": "10km", # Pour chercher par géographique, avec $city
-  "city": "43.604652,3.907186",
-  # "name": "Flamin", # Pour chercher par nom
-  "perPage": 2 # Requête va inclure les x derniers events
+  # "distance": "10km", # Pour chercher par géographique, avec $city
+  # "city": "43.604652,3.907186",
+  "name": "Miss", # Pour chercher par nom
+  "perPage": 5 # Requête va inclure les x derniers events
 }
 
-params_best_perf={
+params_standings_seedings={
   "perPage": 500,
   "page": 1
 }
@@ -39,4 +39,5 @@ singles = get_singles_id(events)
 
 # Analyses
 
-best_performance(singles,params_best_perf,url,headers)
+# best_performance(singles,params_standings_seedings,url,headers)
+top_seed(10,singles,params_standings_seedings,url,headers)

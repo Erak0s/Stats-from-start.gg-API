@@ -9,23 +9,21 @@ def get_singles_id(events):
                 event_ids[event['id']] = tournament['name']
     return(event_ids)
 
-def get_seeding_standings(event_id,params,url,headers):
-  params["eventId"] = str(event_id)
-  response = requests.post(url, headers=headers, json={'query': get_standings_seed, 'variables': params})
-  standing_seeding = response.json()
-  standings = get_standings(standing_seeding, event_id)
-  seedings = get_seedings(standing_seeding, event_id)
-  return(standings,seedings)
-
 # Récupère la liste des placement de l'event donné dans la requête donnée
-def get_standings(request,event_id):
+def get_standings(event_id,params,url,headers):
+    params["eventId"] = str(event_id)
+    response = requests.post(url, headers=headers, json={'query': get_event_standings, 'variables': params})
+    request = response.json()
     standings={}
     for i in request['data']['event']['standings']['nodes']:
         standings[i['entrant']['name'],event_id] = i['placement']
     return(standings)
 
 # Récupère la liste des seedings de l'event donné dans la requête donnée
-def get_seedings(request,event_id):
+def get_seeding(event_id,params,url,headers):
+    params["eventId"] = str(event_id)
+    response = requests.post(url, headers=headers, json={'query': get_event_seeding, 'variables': params})
+    request = response.json()
     seedings={}
     for j in request['data']['event']['phases'][0]['seeds']['nodes']:
         seedings[j['entrant']['name'],event_id] = j['seedNum']
@@ -60,13 +58,18 @@ def spr(seed,perf):
 def SPR_player(player,event_id,dico_seed,dico_standings):
     return(spr(dico_seed[player, event_id],dico_standings[player, event_id]))
 
+# Calcule la/les meilleure performance (en terme de SPR) sur les év_è
 def best_performance(events,params,url,headers):
   max_SPR=-100
   print("Event(s) checked: ",events)
   for event_id in (events):
-    [standings,seedings] = get_seeding_standings(event_id,params,url,headers)
+    standings = get_standings(event_id,params,url,headers)
+    seeding = get_seeding(event_id,params,url,headers)
+    for k, v in seeding.items():
+        if v <=5:
+            print("Player: ",k[0],", seed:",v, sep="")
     for key in (standings):
-      SPR = SPR_player(key[0], event_id, seedings, standings)
+      SPR = SPR_player(key[0], event_id, seeding, standings)
       if SPR > max_SPR:
         max_SPR = SPR
         best_perf = [key[0]]
@@ -77,3 +80,13 @@ def best_performance(events,params,url,headers):
           event.append(event_id)
   for i in range (len(best_perf)):
     print("Meilleure performance: ",best_perf[i]," à l'évènement ",events[event[i]]," (SPR +",max_SPR,")", sep='')
+
+def top_seed(n,events,params,url,headers):
+    for event_id in (events):
+        print("Top",n,"seeds in",events[event_id],":") # récup plutôt le nom
+        seeding = get_seeding(event_id,params,url,headers)
+        for i in range (1,n+1):
+            for k, v in seeding.items():
+                if v ==i:
+                    print(v,": ",k[0], sep="")
+        print()

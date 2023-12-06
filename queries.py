@@ -36,8 +36,8 @@ query get_events_no_loc($name: String, $cCode: String, $perPage: Int) {
 """
 
 # Requête donnant les standings et les seedings de toutes les phases de l'évènement dont on passe l'id.
-get_standings_seed="""
-query get_standings_seed($eventId: ID!, $perPage: Int, $page: Int) {
+get_event_standings="""
+query get_standings($eventId: ID!, $perPage: Int) {
   event(id: $eventId) {
     id
     name
@@ -50,9 +50,18 @@ query get_standings_seed($eventId: ID!, $perPage: Int, $page: Int) {
         }
       }
     }
+  }
+}
+"""
+
+get_event_seeding="""
+query get_seeding($eventId: ID!, $perPage: Int) {
+  event(id: $eventId) {
+    id
+    name
     phases {
       id
-      seeds(query: {perPage: $perPage, page: $page}, eventId: $eventId) {
+      seeds(query: {perPage: $perPage}, eventId: $eventId) {
         nodes {
           id
           seedNum
