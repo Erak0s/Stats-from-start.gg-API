@@ -119,6 +119,21 @@ def get_sum_spr(events,params,url,headers):
                 sum_spr_dict[key[0]]+=SPR
     return(sum_spr_dict)
 
+def get_distinct_players(events,params,url,headers):
+    players_list=[]
+    print("Event(s) checked:")
+    for k,v in events.items():
+        print(events[k])
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        for key in (standings):
+            if key[0] not in players_list:
+                players_list.append(key[0])
+    print("Liste des joueurs:")
+    print(players_list)
+    print()
+    print("Nombre de joueurs distincts:",len(players_list))
+
 def most_regu(events,params,url,headers):
     max_ecart_spr=100
     sum_spr_dict=get_sum_spr(events,params,url,headers)
@@ -137,15 +152,15 @@ def least_regu(events,params,url,headers):
     min_ecart_spr=-1
     sum_spr_dict=get_sum_spr(events,params,url,headers)
     for key in sum_spr_dict.items():
-        if abs(key[1])>min_ecart_spr:
-            min_ecart_spr=abs(key[1])
-            least_regu=[key[0]]
+        if abs(key[1])>abs(min_ecart_spr):
+            min_ecart_spr=key[1]
+            least_regu=[key]
         else:
-            if abs(key[1])==min_ecart_spr:
-                least_regu.append(key[0])
-    print("Joueur(s) le moins régulier:","(somme du SPR:",min_ecart_spr,")")
+            if abs(key[1])==abs(min_ecart_spr):
+                least_regu.append(key)
+    print("Joueur(s) le moins régulier:")
     for i in least_regu:
-        print(i)           
+        print(i[0]," (somme du SPR: ",i[1],")", sep="")           
 
 def top_seed(n,events,params,url,headers):
     for event_id in (events):

@@ -14,11 +14,9 @@
 
 ## Analyses
 
-- Nombre de joueurs distincts sur tous les évènements donnés
+- Joueur le moins régulier -> afficher moyenne du SPR plutôt que sa somme
 
 - Fonction plus gros flop = min(SPR) : PROBLEME pire perf = top qui DQ
-
-- Joueur le moins régulier -> afficher SPR brut (pas absolu), pour chaque joueur retourné
 
 - Fonction calcul character usage
 
