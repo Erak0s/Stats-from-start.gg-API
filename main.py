@@ -8,9 +8,9 @@ headers = {
   "Authorization": "Bearer 3622a9c31282bd7cea09d8c9874f18c4"
 }
 
-cCodes={"France":"FR","Japon":"JP","Etas-Unis":"US","Autriche":"AT"}
+cCodes={"France":"FR","Japon":"JP","Etats-Unis":"US","Autriche":"AT"}
 ville_coord={"Montpellier":"43.604652,3.907186"}
-game_Ids={"Super Smash Bros. Ultimate":"1386"}
+game_Ids={"Super Smash Bros. Ultimate":"1386","Super Smash Bros. Melee":"1","Street Fighter 6":"43868","DRAGON BALL FighterZ":"287","Rivals of Aether":"24","Rivals 2":"53945"}
 
 ###################################################
 ###           PARAMETRES DES REQUETES          ####
@@ -24,13 +24,13 @@ game_Ids={"Super Smash Bros. Ultimate":"1386"}
 # $page et $perPage pour paginer les évènements
 params_get_events={
   "cCode": cCodes["France"], 
-  # "distance": "10km", 
-  # "city": ville_coord["Montpellier"],
-  "name": "King Con", 
-  "a_venir": True,
+  "distance": "10km", 
+  "city": ville_coord["Montpellier"],
+  "name": "Miss", 
+  "a_venir": False,
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
-  "perPage":1 , 
-  "page": 2
+  "perPage":5 , 
+  "page": 1
 }
 
 params_standings_seedings={
@@ -41,9 +41,8 @@ params_standings_seedings={
 ##################################################################
 ###           RECUPERATION DES EVENEMENTS A ANALYSER          ####
 ##################################################################
+ 
 singles = get_singles_id(params_get_events, url, headers)
-singles = {1017523: 'King Con'}
-print(singles)
 
 ####################################
 ###           ANALYSES          ####
@@ -53,6 +52,7 @@ print(singles)
 # best_performance(singles,params_standings_seedings,url,headers)
 # worst_performance(singles,params_standings_seedings,url,headers)
 # most_regu(singles,params_standings_seedings,url,headers)
-# least_regu(singles,params_standings_seedings,url,headers)
+least_regu(singles,params_standings_seedings,url,headers)
 # top_seed(50,singles,params_standings_seedings,url,headers)
 # top_standings(50,singles,params_standings_seedings,url,headers)
+# max_nb_tournois(singles,params_standings_seedings,url,headers)

@@ -2,21 +2,11 @@
 
 # Bugs à fix 
 
-- Tester si marche sur +500 joueurs
-
 - Dans les paramètres, "a_venir": False renvoie quand même les tournois à venir
 
 - cCode: "ES" fait bugger jsp pourquoi
 
 # Améliorations à apporter
-
-- ajouter game_id de melee, SF6, DBFZ à la liste
-
-- Afficher seed et placement pour best et worst perf
-
-- least_regu: afficher moyenne du SPR plutôt que sa somme
-
-- worst_perf: pire perf = top qui DQ
 
 # Fonctionnalités à ajouter
 
@@ -37,10 +27,6 @@
 
 ## Analyses:
 
-- Compter le nb de fois qu'un joueur est venu
-
-- Calculer joueur qui est le plus venu
-
 - Joueur ayant fait le plus de top 8
 
 - Taille de la commu -> comme distinct players mais compter les apparitions et mettre un seuil
@@ -48,13 +34,29 @@
 - Fonction calcul character usage 
     + winrate par personnage (ou juste pour Link)
 
+- Perf moyenne en fonction du nombre d'entrants (placement/entrants)
+
+- Plus grand écart de perf moyenne entre miss'tech et bars
+
 - Fonction calcul plus gros upset
+
+- Fonction calcul du nombre de fois qu'un joueur s'est fait upset
+
+- Calcul joueur qui upset/se fait upset le plus souvent
 
 - Fonction calcul taux/nombre moyen d'upset par tournoi 
 
-## Abandonné
+## A demander à d'autres gens (Richard)
 
-- requête par nombre d'entrants max -> pas possible de query les entrants par numEntrants 
+- least_regu: afficher moyenne du SPR plutôt que sa somme -> est-ce vraiment plus pertinent ?
 
-- Mieux filtrer les évènements de type singles
+## Problèmes connus mais résolution abandonnée
+
+- requête par nombre d'entrants max -> pas possible de query les tournois par numEntrants 
+
+- Bien filtrer les évènements de type singles
+
+- Faire fonctionner sur +500 joueurs
+
+- worst_perf: pire perf sur les gros tournois = top qui DQ -> comment filtrer les DQs ?
 
