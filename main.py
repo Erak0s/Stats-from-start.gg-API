@@ -26,8 +26,8 @@ params_get_events={
   "cCode": cCodes["France"], 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  "name": "Miss", 
-  "a_venir": False,
+  "name": "Roll'Inn", 
+  # "a_venir": True,
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   "perPage":5 , 
   "page": 1
@@ -48,11 +48,12 @@ singles = get_singles_id(params_get_events, url, headers)
 ###           ANALYSES          ####
 ####################################
 
+print_tournaments(singles)
 # get_distinct_players(singles,params_standings_seedings,url,headers)
 # best_performance(singles,params_standings_seedings,url,headers)
 # worst_performance(singles,params_standings_seedings,url,headers)
 # most_regu(singles,params_standings_seedings,url,headers)
-least_regu(singles,params_standings_seedings,url,headers)
-# top_seed(50,singles,params_standings_seedings,url,headers)
-# top_standings(50,singles,params_standings_seedings,url,headers)
+# least_regu(singles,params_standings_seedings,url,headers)
+# top_seed(32,singles,params_standings_seedings,url,headers)
+# top_standings(32,singles,params_standings_seedings,url,headers)
 # max_nb_tournois(singles,params_standings_seedings,url,headers)

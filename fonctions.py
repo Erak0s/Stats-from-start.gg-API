@@ -1,6 +1,12 @@
 import requests
 from queries import *
 
+def print_tournaments(events):
+    print("Event(s) checked:")
+    for event in events.items():
+        print(events[event[0]])
+    print()
+
 # Vérifie si le nom de l'évènement donné correspond à un évènement de Simple (True par défaut)
 def is_singles(Name):
     name = Name.lower()
@@ -81,10 +87,6 @@ def SPR_player(player,event_id,dico_seed,dico_standings):
 # Calcule la/les meilleure performance (en terme de SPR) sur les évènements donnés
 def best_performance(events,params,url,headers):
     max_SPR=-100
-    print("Event(s) checked:")
-    for k,v in events.items():
-        print(events[k])
-    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         seeding = get_seeding(event_id,params,url,headers)
@@ -107,10 +109,6 @@ def best_performance(events,params,url,headers):
 # Calcule la/les pire performance (en terme de SPR) sur les évènements donnés
 def worst_performance(events,params,url,headers):
     min_SPR=100
-    print("Event(s) checked:")
-    for k,v in events.items():
-        print(events[k])
-    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         seeding = get_seeding(event_id,params,url,headers)
@@ -133,10 +131,6 @@ def worst_performance(events,params,url,headers):
 # Calcule la somme du SPR pour chaque joueur sur les évènements donnés
 def get_sum_spr(events,params,url,headers):
     sum_spr_dict={}
-    print("Event(s) checked:")
-    for k,v in events.items():
-        print(events[k])
-    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         seeding = get_seeding(event_id,params,url,headers)
@@ -151,10 +145,6 @@ def get_sum_spr(events,params,url,headers):
 # Affiche la liste et le nombre des joueurs distincts sur les évènements donnés
 def get_distinct_players(events,params,url,headers):
     players_list=[]
-    print("Event(s) checked:")
-    for k,v in events.items():
-        print(events[k])
-    print()
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for key in (standings):
@@ -179,9 +169,6 @@ def nb_tournois(events,params,url,headers):
 
 # Retourne le ou les joueurs ayant participé au plus de tournois sur les évènements donnés
 def max_nb_tournois(events,params,url,headers):
-    print("Event(s) checked:")
-    for k in events.items():
-        print(events[k[0]])
     nb_tourn = nb_tournois(events,params,url,headers)
     max=0
     liste_max=[]

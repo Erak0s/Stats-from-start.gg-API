@@ -14,8 +14,6 @@
 
 - requête par date (période)
 
-- get attendees (pour les tournois pas encore seedés) (vérifier si besoin)
-
 - Enrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
 
 - Events par "URL" (slug = partie finale de l'url): https://developer.start.gg/docs/examples/queries/attendee-counts
@@ -60,3 +58,15 @@
 
 - worst_perf: pire perf sur les gros tournois = top qui DQ -> comment filtrer les DQs ?
 
+# Autres notes importantes
+
+
+- Les placements sont calculés selon un système d'arbre à double élimination. Si vous finissez à des placements bizarres à cause d'un système particulier (41ème après des poules en ronde suisse par exemple), votre placement sera assimilé à celui que vous auriez eu en bracekt à double élimination (33ème dans ce cas)
+
+- Je ne traite pas les side-events pour l'instant, uniquement les singles(dans la mesure du possible)
+
+- Il peut y avoir des subtilités propres à certains jeux qui ne sont pas prises en compte ici
+
+# Disclaimer
+
+Je ne suis ni développeur, ni expert en statistiques. Certaines mesures ne seront pas pertinentes et le programme est implémentée de manire tout au plus fonctionnelle. Si vous souhaitez l'améliorer, vous pouvez me contacter ou le faire de votre côté.
