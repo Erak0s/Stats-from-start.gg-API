@@ -1,24 +1,28 @@
-# Stats-from-start.gg-API
+# Stats-from-start.gg-API:  à faire
 
-Faire marcher les listes seeding/standing (comparer taille avec nb d'entrants)
+## BUGS à fix
 
-Transférer fonction best_perf dans fonctions.py
+## Requêtes 
 
-requête par code postal
+- requête par nombre d'entrants max -> pas possible de query les entrants par numEntrants FAUX: https://developer.start.gg/docs/examples/queries/attendee-counts
 
-requête par nombre d'entrants max
+- requête par date (à venir / période), par défaut: tournois avant auj
 
-requête par date (à venir / période)
+- requête pour avoir les sets/games avec score, et personnages utilisés
 
-requête pour avoir l'utilisation des personnages
+- requête pour avoir le nombre de sets et/ou games total
 
-requête pour avoir le nombre de sets et/ou games
+## Analyses
 
-requête pour accéder aux sets
+- Taille de la commu -> comme distinct players mais compter les apparitions et mettre un seuil
 
+- Joueur le moins régulier -> afficher moyenne du SPR plutôt que sa somme
 
-Fonction calcul character usage
+- Fonction plus gros flop = min(SPR) : PROBLEME pire perf = top qui DQ
 
-Fonction calcul plus gros upset
+- Fonction calcul character usage
 
-Fonction Joueur le plus régulier = plus autour de son seed en moyenne (SPR moyen sur les x derniers tournois/mois)
+- Fonction calcul plus gros upset
+
+- Fonction calcul taux/nombre moyen d'upset par tournoi 
+

@@ -1,8 +1,8 @@
 # Une requête qui doit renvoyer les id des tournois qu'on veut analyser
 get_all_events_location="""
-query get_events($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int) {
+query get_events_loc($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int, $page: Int) {
   tournaments(
-    query: {perPage: $perPage, filter: {name: $name, countryCode: $cCode, location: {distanceFrom: $city, distance: $distance}}}
+    query: {perPage: $perPage, page: $page, filter: {name: $name, countryCode: $cCode, location: {distanceFrom: $city, distance: $distance}}}
   ) {
     nodes {
       name
@@ -18,9 +18,9 @@ query get_events($name: String, $cCode: String, $distance: String, $city: String
 """
 
 get_all_events_no_location="""
-query get_events($name: String, $cCode: String, $perPage: Int) {
+query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int) {
   tournaments(
-    query: {perPage: $perPage, filter: {name: $name, countryCode: $cCode}}
+    query: {perPage: $perPage, page: $page filter: {name: $name, countryCode: $cCode}}
   ) {
     nodes {
       name
@@ -36,8 +36,8 @@ query get_events($name: String, $cCode: String, $perPage: Int) {
 """
 
 # Requête donnant les standings et les seedings de toutes les phases de l'évènement dont on passe l'id.
-get_standings_seed="""
-query get_standings_seed($eventId: ID!, $perPage: Int) {
+get_event_standings="""
+query get_standings($eventId: ID!, $perPage: Int) {
   event(id: $eventId) {
     id
     name
@@ -50,6 +50,15 @@ query get_standings_seed($eventId: ID!, $perPage: Int) {
         }
       }
     }
+  }
+}
+"""
+
+get_event_seeding="""
+query get_seeding($eventId: ID!, $perPage: Int) {
+  event(id: $eventId) {
+    id
+    name
     phases {
       id
       seeds(query: {perPage: $perPage}, eventId: $eventId) {
