@@ -14,6 +14,8 @@
 
 ## Analyses
 
+- Taille de la commu -> comme distinct players mais compter les apparitions et mettre un seuil
+
 - Joueur le moins régulier -> afficher moyenne du SPR plutôt que sa somme
 
 - Fonction plus gros flop = min(SPR) : PROBLEME pire perf = top qui DQ
