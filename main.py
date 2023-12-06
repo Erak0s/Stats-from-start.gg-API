@@ -10,8 +10,9 @@ headers = {
   "Authorization": "Bearer 3622a9c31282bd7cea09d8c9874f18c4"
 }
 
-ccodes={"France":"FR"}
+cCodes={"France":"FR","Japon":"JP","Etas-Unis":"US","Autriche":"AT"}
 ville_coord={"Montpellier":"43.604652,3.907186"}
+game_Ids={"Super Smash Bros. Ultimate":"1386"}
 
 ###################################################
 ###           PARAMETRES DES REQUETES          ####
@@ -21,15 +22,17 @@ ville_coord={"Montpellier":"43.604652,3.907186"}
 # $distance pour chercher dans un rayon autour de $city
 # $name our chercher par nom
 # $a_venir True pour ne voir que les tournois à venir
+# $gameId pour filtrer par jeu
 # $page et $perPage pour paginer les évènements
 params_get_events={
-  "cCode": ccodes["France"], 
-  # "distance": "10km", 
-  # "city": ville_coord["Montpellier"],
-  "name": "Downtown", 
+  "cCode": cCodes["France"], 
+  "distance": "10km", 
+  "city": ville_coord["Montpellier"],
+  # "name": "Roll'inn", 
   "a_venir": False,
-  "perPage":1 , 
-  "page": 17
+  "gameId": game_Ids["Super Smash Bros. Ultimate"],
+  "perPage":10 , 
+  "page": 1
 }
 
 params_standings_seedings={
@@ -37,18 +40,15 @@ params_standings_seedings={
   "page": 1
 }
 
-# Récupération des évènements à analyser
-
-if("distance" in params_get_events and "city" in params_get_events):
-    response = requests.post(url, headers=headers, json={'query': get_all_events_location, 'variables': params_get_events})
-else:
-    response = requests.post(url, headers=headers, json={'query': get_all_events_no_location, 'variables': params_get_events})
-events = response.json()
-
-singles = get_singles_id(events)
+##################################################################
+###           RECUPERATION DES EVENEMENTS A ANALYSER          ####
+##################################################################
+singles = get_singles_id(params_get_events, url, headers)
 print(singles)
 
-# Analyses
+####################################
+###           ANALYSES          ####
+####################################
 
 # get_distinct_players(singles,params_standings_seedings,url,headers)
 # best_performance(singles,params_standings_seedings,url,headers)

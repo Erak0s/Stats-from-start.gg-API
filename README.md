@@ -4,11 +4,13 @@
 
 - Tester si marche sur +500 joueurs
 
-- Upcoming: False renvoie quand même les tournois à venir
+- Dans les paramètres, "a_venir": False renvoie quand même les tournois à venir
+
+- cCode: "ES" fait bugger jsp pourquoi
 
 # Améliorations à apporter
 
-- Mieux faire liste des mots à inclure / exclure pour filtrer les singles
+- ajouter game_id de melee, SF6, DBFZ à la liste
 
 - Afficher seed et placement pour best et worst perf
 
@@ -41,7 +43,8 @@
 
 - Taille de la commu -> comme distinct players mais compter les apparitions et mettre un seuil
 
-- Fonction calcul character usage
+- Fonction calcul character usage 
+    + winrate par personnage (ou juste pour Link)
 
 - Fonction calcul plus gros upset
 
@@ -50,4 +53,6 @@
 ## Abandonné
 
 - requête par nombre d'entrants max -> pas possible de query les entrants par numEntrants 
+
+- Mieux filtrer les évènements de type singles
 

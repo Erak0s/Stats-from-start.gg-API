@@ -1,25 +1,33 @@
 import requests
 from queries import *
 
-def get_singles_id(events):
-    event_ids={}
-    for tournament in events['data']['tournaments']['nodes']:
-        for event in tournament['events']:
-            if ("Single" in event['name']) or ("single" in event['name']) or ("Singles" in event['name']) or ("singles" in event['name']) or (("Double" not in event['name']) and ("Squad Strike" not in event['name']) and ("Amateur" not in event['name']) and ("Ladder" not in event['name']) and ("attente" not in event['name'])):
-                event_ids[event['id']] = tournament['name']
-    return(event_ids)
-
-def is_single(Name):
+# Vérifie si le nom de l'évènement donné correspond à un évènement de Simple (True par défaut)
+def is_singles(Name):
     name = Name.lower()
-    print(name)
-    goodlist=["single","singles"]
-    banlist=["double","squad strike","amateur","ladder","attente"]
-    for word in goodlist:
-        if (word in name):
-            return(True)
+    goodlist=["single","singles","1v1"]
+    banlist=["double","doubles","squad strike","amateur","ladder","attente","2v2","Redemption"]
     for word in banlist:
         if (word in name):
             return(False)
+    for word in goodlist:
+        if (word in name):
+            return(True)
+    return(True)
+
+# Récupère les évènements Simples parmis les évènements donnés
+def get_singles_id(params,url,headers):
+    event_ids={}
+    if("distance" in params and "city" in params):
+        response = requests.post(url, headers=headers, json={'query': get_all_events_location, 'variables': params})
+    else:
+        response = requests.post(url, headers=headers, json={'query': get_all_events_no_location, 'variables': params})
+    events = response.json()
+    # print(events)
+    for tournament in events['data']['tournaments']['nodes']:
+        for event in tournament['events']:
+            if (is_singles(event['name'])):
+                event_ids[event['id']] = tournament['name']
+    return(event_ids)   
 
 # Récupère la liste des placement de l'event donné dans la requête donnée
 def get_standings(event_id,params,url,headers):
