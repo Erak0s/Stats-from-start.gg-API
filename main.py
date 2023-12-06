@@ -1,5 +1,3 @@
-import requests
-from queries import *
 from fonctions import *
 
 # API de start.gg
@@ -18,21 +16,21 @@ game_Ids={"Super Smash Bros. Ultimate":"1386"}
 ###           PARAMETRES DES REQUETES          ####
 ###################################################
 
-# $cCode pour chercher par pays 
+# $cCode pour chercher par pays
 # $distance pour chercher dans un rayon autour de $city
 # $name our chercher par nom
-# $a_venir True pour ne voir que les tournois à venir
+# $a_venir True pour ne voir que les tou rnois à venir
 # $gameId pour filtrer par jeu
 # $page et $perPage pour paginer les évènements
 params_get_events={
   "cCode": cCodes["France"], 
-  "distance": "10km", 
-  "city": ville_coord["Montpellier"],
-  # "name": "Roll'inn", 
-  "a_venir": False,
+  # "distance": "10km", 
+  # "city": ville_coord["Montpellier"],
+  "name": "King Con", 
+  "a_venir": True,
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
-  "perPage":10 , 
-  "page": 1
+  "perPage":1 , 
+  "page": 2
 }
 
 params_standings_seedings={
@@ -44,6 +42,7 @@ params_standings_seedings={
 ###           RECUPERATION DES EVENEMENTS A ANALYSER          ####
 ##################################################################
 singles = get_singles_id(params_get_events, url, headers)
+singles = {1017523: 'King Con'}
 print(singles)
 
 ####################################

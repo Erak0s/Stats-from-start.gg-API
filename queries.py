@@ -18,7 +18,7 @@ query get_events_loc($name: String, $cCode: String, $distance: String, $city: St
 """
 
 get_all_events_no_location="""
-query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int, $a_venir: Boolean) {
+query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID]) {
   tournaments(
     query: {perPage: $perPage, page: $page filter: {name: $name, countryCode: $cCode, upcoming: $a_venir}}
   ) {
@@ -26,7 +26,7 @@ query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int
       name
       countryCode
       postalCode
-      events (filter: {videogameId: 1386}) {
+      events (filter: {videogameId: $gameId}) {
         name
         id
       }

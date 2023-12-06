@@ -5,7 +5,7 @@ from queries import *
 def is_singles(Name):
     name = Name.lower()
     goodlist=["single","singles","1v1"]
-    banlist=["double","doubles","squad strike","amateur","ladder","attente","2v2","Redemption"]
+    banlist=["double","doubles","squad strike","amateur","ladder","attente","2v2","redemption","spectateur"]
     for word in banlist:
         if (word in name):
             return(False)
@@ -202,6 +202,7 @@ def top_seed(n,events,params,url,headers):
                     print(v,": ",k[0], sep="")
         print()
 
+# Affiche les n premiers seeds des évènements donnés
 def top_standings(n,events,params,url,headers):
     for event_id in (events):
         print("Top",n,"of",events[event_id],":")

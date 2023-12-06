@@ -24,6 +24,8 @@
 
 - requête par date (période)
 
+- get attendees (pour les tournois pas encore seedés) (vérifier si besoin)
+
 - Enrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
 
 - Events par "URL" (slug = partie finale de l'url): https://developer.start.gg/docs/examples/queries/attendee-counts
