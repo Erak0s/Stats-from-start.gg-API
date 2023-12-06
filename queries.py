@@ -1,8 +1,8 @@
 # Une requête qui doit renvoyer les id des tournois qu'on veut analyser
 get_all_events_location="""
-query get_events_loc($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int) {
+query get_events_loc($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int, $page: Int) {
   tournaments(
-    query: {perPage: $perPage, filter: {name: $name, countryCode: $cCode, location: {distanceFrom: $city, distance: $distance}}}
+    query: {perPage: $perPage, page: $page, filter: {name: $name, countryCode: $cCode, location: {distanceFrom: $city, distance: $distance}}}
   ) {
     nodes {
       name
@@ -18,9 +18,9 @@ query get_events_loc($name: String, $cCode: String, $distance: String, $city: St
 """
 
 get_all_events_no_location="""
-query get_events_no_loc($name: String, $cCode: String, $perPage: Int) {
+query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int) {
   tournaments(
-    query: {perPage: $perPage, filter: {name: $name, countryCode: $cCode}}
+    query: {perPage: $perPage, page: $page filter: {name: $name, countryCode: $cCode}}
   ) {
     nodes {
       name

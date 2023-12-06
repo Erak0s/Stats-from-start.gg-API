@@ -60,30 +60,52 @@ def SPR_player(player,event_id,dico_seed,dico_standings):
 
 # Calcule la/les meilleure performance (en terme de SPR) sur les év_è
 def best_performance(events,params,url,headers):
-  max_SPR=-100
-  print("Event(s) checked: ",events)
-  for event_id in (events):
-    standings = get_standings(event_id,params,url,headers)
-    seeding = get_seeding(event_id,params,url,headers)
-    for k, v in seeding.items():
-        if v <=5:
-            print("Player: ",k[0],", seed:",v, sep="")
-    for key in (standings):
-      SPR = SPR_player(key[0], event_id, seeding, standings)
-      if SPR > max_SPR:
-        max_SPR = SPR
-        best_perf = [key[0]]
-        event = [event_id]
-      else:
-        if SPR == max_SPR:
-          best_perf.append(key[0])
-          event.append(event_id)
-  for i in range (len(best_perf)):
-    print("Meilleure performance: ",best_perf[i]," à l'évènement ",events[event[i]]," (SPR +",max_SPR,")", sep='')
+    max_SPR=-100
+    print("Event(s) checked:")
+    for k,v in events.items():
+        print(events[k])
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        seeding = get_seeding(event_id,params,url,headers)
+        for key in (standings):
+            SPR = SPR_player(key[0], event_id, seeding, standings)
+            if SPR > max_SPR:
+                max_SPR = SPR
+                best_perf = [key[0]]
+                event = [event_id]
+            else:
+                if SPR == max_SPR:
+                    best_perf.append(key[0])
+                    event.append(event_id)
+    print("Meilleure performance: ")            
+    for i in range (len(best_perf)):
+        print(best_perf[i]," à l'évènement ",events[event[i]]," (SPR +",max_SPR,")", sep='')
+
+def worst_performance(events,params,url,headers):
+    min_SPR=100
+    print("Event(s) checked:")
+    for k,v in events.items():
+        print(events[k])
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        seeding = get_seeding(event_id,params,url,headers)
+        for key in (standings):
+            SPR = SPR_player(key[0], event_id, seeding, standings)
+            if SPR < min_SPR:
+                min_SPR = SPR
+                worst_perf = [key[0]]
+                event = [event_id]
+            else:
+                if SPR == min_SPR:
+                    worst_perf.append(key[0])
+                    event.append(event_id)
+    print("Pire(s) performance(s):")
+    for i in range (len(worst_perf)):
+        print(worst_perf[i]," à l'évènement ",events[event[i]]," (SPR ",min_SPR,")", sep='')
 
 def top_seed(n,events,params,url,headers):
     for event_id in (events):
-        print("Top",n,"seeds in",events[event_id],":") # récup plutôt le nom
+        print("Top",n,"seeds in",events[event_id],":")
         seeding = get_seeding(event_id,params,url,headers)
         for i in range (1,n+1):
             for k, v in seeding.items():
