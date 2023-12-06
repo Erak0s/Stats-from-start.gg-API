@@ -1,12 +1,6 @@
 from fonctions import *
 from variables import *
 
-
-
-
-
-
-
 ###################################################
 ###           PARAMETRES DES REQUETES          ####
 ###################################################
@@ -17,6 +11,7 @@ from variables import *
 # $a_venir True pour ne voir que les tou rnois à venir
 # $gameId pour filtrer par jeu
 # $page et $perPage pour paginer les évènements
+
 params_get_events={
   "cCode": cCodes["France"], 
   "distance": "10km", 
