@@ -8,6 +8,8 @@
 
 # Améliorations à apporter
 
+- stocker les listes et les variables ailleurs
+
 # Fonctionnalités à ajouter
 
 ## Requêtes:
