@@ -67,6 +67,7 @@ def get_singles_id(params,url,headers):
         for tournament in events['data']['tournaments']['nodes']:
             for event in tournament['events']:
                 if (is_singles(event['name'])):
+                    # print(event['id'])
                     event_ids[event['id']] = tournament['name']
     return(event_ids)   
 
@@ -300,6 +301,7 @@ def top_standings(n,events,params,url,headers):
                     print(v,": ",k[0], sep="")
         print()
 
+# Compte les sets dans les évènements donnés
 def count_sets(events,params,url,headers):
     nb_sets=0
     for event_id in (events):
@@ -308,13 +310,119 @@ def count_sets(events,params,url,headers):
         request = response.json()
         nb_sets += request['data']['event']['sets']['pageInfo']['total']
     print("Nombre total de sets joués:",nb_sets)
+    print()
 
-def get_setcount(playerA,playerB,events,params,url,headers):
-    nb_sets=0
+# Compte le nombre de games dans les évènements donnés
+def count_games(events,params,url,headers):
+    nb_games=0
+    for event_id in (events):
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_no_char, 'variables': params})
+        request = response.json()
+        for node in request['data']['event']['sets']['nodes']:
+            if (node['games']!=None):
+                nb_games+=len(node['games'])
+    print(nb_games)
+    return(nb_games)
+
+
+# Calcule le setcount entre les joueurs donnés dans les évènements donnés
+def get_setcount_players(playerA,playerB,events,params,url,headers):
+    setcount={playerA:0,playerB:0}
     for event_id in (events):
         params["eventId"] = str(event_id)
         response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
         request = response.json()
-        # print(request['data']['event']['sets']['nodes'])
         for i in request['data']['event']['sets']['nodes']:
-            print(i)
+            winner=i['winnerId']
+            if (((i['slots'][0]['entrant']['name']==playerA) or (i['slots'][0]['entrant']['name']==playerB)) and ((i['slots'][1]['entrant']['name']==playerA) or (i['slots'][1]['entrant']['name']==playerB))) :
+                if (i['slots'][0]['entrant']['id']==winner):
+                    setcount[i['slots'][0]['entrant']['name']]+=1
+                elif (i['slots'][1]['entrant']['id']==winner):
+                    setcount[i['slots'][1]['entrant']['name']]+=1
+    print(playerA,setcount[playerA],"-",setcount[playerB],playerB)
+    print()
+
+# Calcule le setcount entre les teams données dans les évènements donnés
+def get_setcount_prefix(teamA,teamB,events,params,url,headers):
+    setcount={teamA:0,teamB:0}
+    for event_id in (events):
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
+        request = response.json()
+        for i in request['data']['event']['sets']['nodes']:
+            winner=i['winnerId']
+            if ((teamA in i['slots'][0]['entrant']['name']) and (teamB in i['slots'][1]['entrant']['name'])):
+                if i['slots'][0]['entrant']['id']==winner:
+                    setcount[teamA]+=1
+                else:
+                    setcount[teamB]+=1
+            elif ((teamB in i['slots'][0]['entrant']['name']) and (teamA in i['slots'][1]['entrant']['name'])):
+                if i['slots'][0]['entrant']['id']==winner:
+                    setcount[teamB]+=1
+                else:
+                    setcount[teamA]+=1
+    print(teamA,setcount[teamA],"-",setcount[teamB],teamB)
+    print()
+
+# Compte le nombre d'utilisations de chaque personnage
+def get_character_usage(events,params,url,headers):
+    character_usage={}
+    for event_id in events:
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_characters, 'variables': params})
+        request = response.json()
+        for node in request['data']['event']['sets']['nodes']:
+            if (node['games']!=None):
+                for game in node['games']:
+                    for selection in game['selections']:
+                        if selection['character']['name'] not in character_usage:
+                            character_usage[selection['character']['name']]=1
+                        else:
+                            character_usage[selection['character']['name']]+=1
+    return(character_usage)
+
+def get_character_usage_rate(events,params,url,headers):
+    character_usage_rate={}
+    nb_games=count_games(events,params,url,headers)
+    for event_id in events:
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_characters, 'variables': params})
+        request = response.json()
+        for node in request['data']['event']['sets']['nodes']:
+            if (node['games']!=None):
+                for game in node['games']:
+                    for selection in game['selections']:
+                        if selection['character']['name'] not in character_usage_rate:
+                            character_usage_rate[selection['character']['name']]=1
+                        else:
+                            character_usage_rate[selection['character']['name']]+=1
+    for i in character_usage_rate:
+        character_usage_rate[i]=(character_usage_rate[i]/(2*nb_games))*100
+    return(character_usage_rate)
+
+# Affiche les n personnages les plus utilisés
+def max_character_usage(n,events,params,url,headers):
+    character_usage=get_character_usage(events,params,url,headers)
+    print("Les",n,"personnages les plus joués:")
+    max_dico(n,character_usage)
+    print()
+
+def min_character_usage(n,events,params,url,headers):
+    character_usage=get_character_usage(events,params,url,headers)
+    print("Les",n,"personnages les moins joués:")
+    min_dico(n,character_usage)
+    print()
+
+def max_character_usage_rate(n,events,params,url,headers):
+    character_usage_rate=get_character_usage_rate(events,params,url,headers)
+    print("Les",n,"personnages les plus joués:")
+    max_dico(n,character_usage_rate)
+    print()
+
+def min_character_usage_rate(n,events,params,url,headers):
+    character_usage_rate=get_character_usage_rate(events,params,url,headers)
+    print("Les",n,"personnages les moins joués:")
+    min_dico(n,character_usage_rate)
+    print()
+                

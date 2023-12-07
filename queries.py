@@ -126,6 +126,53 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
 }
 """
 
+get_sets_no_char="""
+query get_sets_no_char($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    id
+    name
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      pageInfo {
+        total
+      }
+      nodes {
+        id
+        winnerId
+        games {
+          winnerId
+        }
+      }
+    }
+  }
+}
+"""
+
+get_characters="""
+query get_characters($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      nodes {
+        games {
+          selections{
+            character{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
 get_sets_nogames="""
 query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
   event(id: $eventId) {

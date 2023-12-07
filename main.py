@@ -23,9 +23,9 @@ params_get_events={
   "name": "Miss", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   # "slug": "yggdrasil-1-1",
-  # "after": get_date(1,1,2023),
+  "after": get_date(1,1,2023),
   "before":  today,
-  "perPage": 1, 
+  "perPage": 4, 
   "page": 1
 }
 
@@ -57,4 +57,9 @@ print_tournaments(singles)
 # max_top_x(5,8,singles,params_standings_seedings,url,headers)
 
 # count_sets(singles,params_standings_seedings,url,headers)
-get_setcount("CTS | Guilhem","NdL | Threllox", singles, params_standings_seedings, url, headers)
+# count_games(singles,params_standings_seedings,url,headers)
+# get_setcount_prefix("CTS","Her", singles, params_standings_seedings, url, headers)
+# max_character_usage(5,singles,params_standings_seedings,url,headers)
+# min_character_usage(5,singles,params_standings_seedings,url,headers)
+# max_character_usage_rate(5,singles,params_standings_seedings,url,headers)
+# min_character_usage_rate(5,singles,params_standings_seedings,url,headers)
