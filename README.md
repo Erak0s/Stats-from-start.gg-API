@@ -6,13 +6,11 @@
 
 # Améliorations à apporter
 
+- faire différentes requêtes pour juste nb de sets, avec les games et avec les personnages
+
 # Fonctionnalités à ajouter
 
 ## Requêtes:
-
-- requête pour avoir les sets/games avec score, et personnages utilisés (https://developer.start.gg/docs/examples/queries/sets-in-event)
-
-- requête pour avoir le nombre de sets et/ou games total
 
 - requête setcount entre 2 joueurs donnés
 
@@ -27,6 +25,8 @@
     + winrate par personnage (ou juste pour Link)
 
 - Perf moyenne en fonction du nombre d'entrants (placement/entrants)
+
+- Nombre de games au total
 
 - Plus grand écart de perf moyenne entre miss'tech et bars
 

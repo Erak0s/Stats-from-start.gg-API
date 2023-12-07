@@ -6,12 +6,13 @@ from datetime import *
 def print_tournaments(events):
     print(len(events),"évènements analysés:")
     for event in events.items():
-        print(event[0])
+        # print(event[0])
         print(events[event[0]])
     print()
 
-def get_date(j,m,a):
-    return(int(datetime(a,m,j).timestamp()))
+# Renvoie une date à partir du jour, mois et année donnés
+def get_date(jour,mois,annee):
+    return(int(datetime(annee,mois,jour).timestamp()))
 
 # Affiche les n couples clé,valeur ayant la valeur la plus élevée 
 def max_dico(n,dico):
@@ -298,3 +299,12 @@ def top_standings(n,events,params,url,headers):
                 if v ==i:
                     print(v,": ",k[0], sep="")
         print()
+
+def count_sets(events,params,url,headers):
+    nb_sets=0
+    for event_id in (events):
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nb, 'variables': params})
+        request = response.json()
+        nb_sets += request['data']['event']['sets']['pageInfo']['total']
+    print("Nombre total de sets joués:",nb_sets)

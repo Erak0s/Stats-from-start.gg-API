@@ -88,7 +88,7 @@ query get_seeding($eventId: ID!, $perPage: Int) {
 }
 """
 
-get__sets="""
+get_sets="""
 query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
   event(id: $eventId) {
     id
@@ -104,6 +104,14 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
       nodes {
         id
         winnerId
+        games {
+          winnerId
+          selections{
+            character{
+              name
+            }
+          }
+        }
         slots {
           id
           entrant {
@@ -111,6 +119,24 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
             name
           }
         }
+      }
+    }
+  }
+}
+"""
+
+get_sets_nb="""
+query get_sets_nb($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    id
+    name
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      pageInfo {
+        total
       }
     }
   }

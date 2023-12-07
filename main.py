@@ -25,7 +25,7 @@ params_get_events={
   # "slug": "yggdrasil-1-1",
   # "after": get_date(1,1,2023),
   "before":  today,
-  "perPage": 5, 
+  "perPage": 3, 
   "page": 1
 }
 
@@ -55,3 +55,5 @@ print_tournaments(singles)
 # top_standings(8,singles,params_standings_seedings,url,headers)
 # max_tournois(5,singles,params_standings_seedings,url,headers)
 # max_top_x(5,8,singles,params_standings_seedings,url,headers)
+
+# count_sets(singles,params_standings_seedings,url,headers)
