@@ -6,13 +6,13 @@
 
 # Améliorations à apporter
 
-- faire différentes requêtes pour juste nb de sets, avec les games et avec les personnages
+- faire différentes requêtes pour juste nb de sets, avec les games et avec les personnages (nécessaire ?)
 
 # Fonctionnalités à ajouter
 
 ## Requêtes:
 
-- requête setcount entre 2 joueurs donnés
+- requête setcount entre 2 joueurs donnés (uniquement )
 
 - Entrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
 

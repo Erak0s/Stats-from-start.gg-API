@@ -308,3 +308,13 @@ def count_sets(events,params,url,headers):
         request = response.json()
         nb_sets += request['data']['event']['sets']['pageInfo']['total']
     print("Nombre total de sets joués:",nb_sets)
+
+def get_setcount(playerA,playerB,events,params,url,headers):
+    nb_sets=0
+    for event_id in (events):
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
+        request = response.json()
+        # print(request['data']['event']['sets']['nodes'])
+        for i in request['data']['event']['sets']['nodes']:
+            print(i)

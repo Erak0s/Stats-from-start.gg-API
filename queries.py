@@ -88,6 +88,7 @@ query get_seeding($eventId: ID!, $perPage: Int) {
 }
 """
 
+# Returns all sets in the event, with all matches and characters data
 get_sets="""
 query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
   event(id: $eventId) {
@@ -125,6 +126,36 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
 }
 """
 
+get_sets_nogames="""
+query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    id
+    name
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      pageInfo {
+        total
+      }
+      nodes {
+        id
+        winnerId
+        slots {
+          id
+          entrant {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
+# Shorter request to only get the number of sets
 get_sets_nb="""
 query get_sets_nb($eventId: ID!, $page: Int!, $perPage: Int!) {
   event(id: $eventId) {
