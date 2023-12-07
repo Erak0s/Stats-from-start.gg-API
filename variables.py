@@ -1,3 +1,5 @@
+from datetime import *
+
 # URL de l'API de start.gg
 url = "https://api.start.gg/gql/alpha"
 
@@ -5,6 +7,8 @@ url = "https://api.start.gg/gql/alpha"
 headers = {
   "Authorization": "Bearer 3622a9c31282bd7cea09d8c9874f18c4"
 }
+
+today = int(datetime.now().timestamp())
 
 ############
 ## Listes ##

@@ -1,5 +1,6 @@
 from functions import *
 from variables import *
+from datetime import *
 
 ###################################################
 ###           PARAMETRES DES REQUETES          ####
@@ -11,16 +12,19 @@ from variables import *
 # $a_venir True pour ne voir que les tou rnois à venir
 # $gameId pour filtrer par jeu
 # $page et $perPage pour paginer les évènements
+# ex de date: 
+# A COMPLETER
 
 params_get_events={
   "cCode": cCodes["France"], 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  "name": "Miss", 
-  # "a_venir": True,
+  # "name": "Roll'Inn", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   # "slug": "yggdrasil-1-1",
-  "perPage":5 , 
+  "after": get_date(25,11,2023),
+  "before":  today,
+  "perPage":20 , 
   "page": 1
 }
 

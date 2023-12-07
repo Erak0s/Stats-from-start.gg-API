@@ -12,9 +12,9 @@ query get_all_events_slug($gameId: [ID], $slug: String) {
 """
 
 get_all_events_location="""
-query get_events_loc($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID]) {
+query get_events_loc($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID], $before: Timestamp, $after: Timestamp) {
   tournaments(
-    query: {perPage: $perPage, page: $page, filter: {name: $name, countryCode: $cCode, upcoming: $a_venir, location: {distanceFrom: $city, distance: $distance}}}
+    query: {perPage: $perPage, page: $page, filter: {name: $name, countryCode: $cCode, upcoming: $a_venir, beforeDate: $before, afterDate: $after, location: {distanceFrom: $city, distance: $distance}}}
   ) {
     nodes {
       name
@@ -30,9 +30,9 @@ query get_events_loc($name: String, $cCode: String, $distance: String, $city: St
 """
 
 get_all_events_no_location="""
-query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID]) {
+query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID], $before: Timestamp, $after: Timestamp) {
   tournaments(
-    query: {perPage: $perPage, page: $page filter: {name: $name, countryCode: $cCode, upcoming: $a_venir}}
+    query: {perPage: $perPage, page: $page filter: {name: $name, countryCode: $cCode, upcoming: $a_venir, beforeDate: $before, afterDate: $after}}
   ) {
     nodes {
       name

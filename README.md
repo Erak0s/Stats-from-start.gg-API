@@ -16,9 +16,11 @@
 
 - Entrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
 
-- requête pour avoir les sets/games avec score, et personnages utilisés
+- requête pour avoir les sets/games avec score, et personnages utilisés (https://developer.start.gg/docs/examples/queries/sets-in-event)
 
 - requête pour avoir le nombre de sets et/ou games total
+
+- requête setcount entre 2 joueurs donnés
 
 
 ## Analyses:
