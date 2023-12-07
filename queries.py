@@ -1,6 +1,6 @@
 # Une requête qui doit renvoyer les id des tournois qu'on veut analyser
 get_all_events_slug="""
-query get_all_events_slug($gameId: [ID], $slug: String) {
+query get_all_events_slug($slug: String!, $gameId: [ID]) {
   tournament(slug: $slug) {
     name
     events (filter: {videogameId: $gameId}) {
@@ -12,9 +12,9 @@ query get_all_events_slug($gameId: [ID], $slug: String) {
 """
 
 get_all_events_location="""
-query get_events_loc($name: String, $cCode: String, $distance: String, $city: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID], $before: Timestamp, $after: Timestamp) {
+query get_events_loc($name: String, $distance: String, $city: String, $perPage: Int, $page: Int, $gameId: [ID], $before: Timestamp, $after: Timestamp) {
   tournaments(
-    query: {perPage: $perPage, page: $page, filter: {name: $name, countryCode: $cCode, upcoming: $a_venir, beforeDate: $before, afterDate: $after, location: {distanceFrom: $city, distance: $distance}}}
+    query: {perPage: $perPage, page: $page, filter: {name: $name, beforeDate: $before, afterDate: $after, location: {distanceFrom: $city, distance: $distance}}}
   ) {
     nodes {
       name
@@ -30,9 +30,9 @@ query get_events_loc($name: String, $cCode: String, $distance: String, $city: St
 """
 
 get_all_events_no_location="""
-query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int, $a_venir: Boolean, $gameId: [ID], $before: Timestamp, $after: Timestamp) {
+query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int, $gameId: [ID], $before: Timestamp, $after: Timestamp) {
   tournaments(
-    query: {perPage: $perPage, page: $page filter: {name: $name, countryCode: $cCode, upcoming: $a_venir, beforeDate: $before, afterDate: $after}}
+    query: {perPage: $perPage, page: $page filter: {name: $name, countryCode: $cCode, beforeDate: $before, afterDate: $after}}
   ) {
     nodes {
       name
@@ -77,6 +77,35 @@ query get_seeding($eventId: ID!, $perPage: Int) {
         nodes {
           id
           seedNum
+          entrant {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
+get__sets="""
+query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    id
+    name
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      pageInfo {
+        total
+      }
+      nodes {
+        id
+        winnerId
+        slots {
+          id
           entrant {
             id
             name

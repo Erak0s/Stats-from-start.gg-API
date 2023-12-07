@@ -2,9 +2,7 @@
 
 # Bugs à fix 
 
-- Dans les paramètres, "a_venir": False renvoie quand même les tournois à venir
-
-- cCode: "ES" fait bugger jsp pourquoi
+- least regu marche pas
 
 # Améliorations à apporter
 
@@ -12,16 +10,13 @@
 
 ## Requêtes:
 
-- requête par date (période)
-
-- Entrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
-
 - requête pour avoir les sets/games avec score, et personnages utilisés (https://developer.start.gg/docs/examples/queries/sets-in-event)
 
 - requête pour avoir le nombre de sets et/ou games total
 
 - requête setcount entre 2 joueurs donnés
 
+- Entrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
 
 ## Analyses:
 
@@ -58,7 +53,6 @@
 - worst_perf: pire perf sur les gros tournois = top qui DQ -> comment filtrer les DQs ?
 
 # Autres notes importantes
-
 
 - Les placements sont calculés selon un système d'arbre à double élimination. Si vous finissez à des placements bizarres à cause d'un système particulier (41ème après des poules en ronde suisse par exemple), votre placement sera assimilé à celui que vous auriez eu en bracekt à double élimination (33ème dans ce cas).
 

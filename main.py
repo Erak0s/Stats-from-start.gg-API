@@ -8,27 +8,29 @@ from datetime import *
 
 # $cCode pour chercher par pays
 # $distance pour chercher dans un rayon autour de $city
-# $name our chercher par nom
-# $a_venir True pour ne voir que les tou rnois à venir
+# $name pour chercher par nom
 # $gameId pour filtrer par jeu
+# $slug pour filtrer par "slug" (la partie à la fin du lien start.gg)
+  # Par exemple dans le lien "https://www.start.gg/tournament/genesis-8/details", le slug est "tournament/genesis-8" ou juste "genesis-8"
+# $after et $before pour chercher les évènements à garder avant ou après une certaine date
+  # today pour aujourd'hui, get_date(jour,mois,année) pour une autre date
 # $page et $perPage pour paginer les évènements
-# ex de date: 
-# A COMPLETER
 
 params_get_events={
-  "cCode": cCodes["France"], 
+  "cCode": "FR", 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  # "name": "Roll'Inn", 
+  "name": "Miss", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   # "slug": "yggdrasil-1-1",
-  "after": get_date(25,11,2023),
+  # "after": get_date(1,1,2023),
   "before":  today,
-  "perPage":20 , 
+  "perPage": 5, 
   "page": 1
 }
 
 params_standings_seedings={
+  # "eventId": 1033454,
   "perPage": 500,
   "page": 1
 }
@@ -49,7 +51,7 @@ print_tournaments(singles)
 # worst_performance(singles,params_standings_seedings,url,headers)
 # most_regu(singles,params_standings_seedings,url,headers)
 # least_regu(singles,params_standings_seedings,url,headers)
-# top_seed(32,singles,params_standings_seedings,url,headers)
+# top_seed(8,singles,params_standings_seedings,url,headers)
 # top_standings(8,singles,params_standings_seedings,url,headers)
 # max_tournois(5,singles,params_standings_seedings,url,headers)
 # max_top_x(5,8,singles,params_standings_seedings,url,headers)

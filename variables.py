@@ -17,13 +17,15 @@ today = int(datetime.now().timestamp())
 cCodes={"France":"FR",
         "Japon":"JP",
         "Etats-Unis":"US",
+        "Espagne":"ES",
         "Autriche":"AT"
         }
 
 ville_coord={"Montpellier":"43.604652,3.907186",
              "Paris":"48.854461, 2.352326",
              "Toulouse":"43.604440, 1.444205",
-             "Nimes":"43.836047, 4.359866"
+             "Nimes":"43.836047, 4.359866",
+             "Narbonne":"43.183461, 3.002915"
              }
 
 game_Ids={"Super Smash Bros. Ultimate":"1386",

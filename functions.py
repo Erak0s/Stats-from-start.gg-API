@@ -6,11 +6,32 @@ from datetime import *
 def print_tournaments(events):
     print(len(events),"évènements analysés:")
     for event in events.items():
+        print(event[0])
         print(events[event[0]])
     print()
 
 def get_date(j,m,a):
     return(int(datetime(a,m,j).timestamp()))
+
+# Affiche les n couples clé,valeur ayant la valeur la plus élevée 
+def max_dico(n,dico):
+    dico_trie=dict(sorted(dico.items(), key=lambda item: item[1], reverse=True))
+    # print(dico_trie)
+    j=0
+    for i in dico_trie:
+        if j<n:
+            print(i,dico_trie[i])
+            j+=1
+
+# Affiche les n couples clé,valeur ayant la valeur la plus faible 
+def min_dico(n,dico):
+    dico_trie=dict(sorted(dico.items(), key=lambda item: item[1]))
+    # print(dico_trie)
+    j=0
+    for i in dico_trie:
+        if j<n:
+            print(i,dico_trie[i])
+            j+=1
 
 # Vérifie si le nom de l'évènement donné correspond à un évènement de Simple (True par défaut)
 def is_singles(Name):
@@ -124,6 +145,7 @@ def best_performance(events,params,url,headers):
               " (Seed " ,seeding_dict[event[i]][best_perf[i]],", placement ",standings_dict[event[i]][best_perf[i]],
               ", SPR +",max_SPR,")", sep=''
               )
+    print()
 
 # Calcule la/les pire performance (en terme de SPR) sur les évènements donnés
 def worst_performance(events,params,url,headers):
@@ -147,7 +169,9 @@ def worst_performance(events,params,url,headers):
     for i in range (len(worst_perf)):
         print(worst_perf[i][0]," à l'évènement ",events[event[i]],
               " (Seed " ,seeding_dict[event[i]][worst_perf[i]],", placement ",standings_dict[event[i]][worst_perf[i]],
-              ", SPR ",min_SPR,")", sep='')
+              ", SPR ",min_SPR,")", sep=''
+              )
+    print()
 
 # Calcule la somme du SPR pour chaque joueur sur les évènements donnés
 def get_sum_spr(events,params,url,headers):
@@ -175,6 +199,7 @@ def get_distinct_players(events,params,url,headers):
     print(players_list)
     print()
     print("Nombre de joueurs distincts:",len(players_list))
+    print()
 
 # Retourne le nombre de tournois effectués par chaque joueur sur la période
 def count_tournois(events,params,url,headers):
@@ -191,7 +216,29 @@ def count_tournois(events,params,url,headers):
 # Retourne le ou les joueurs ayant participé au plus de tournois sur les évènements donnés
 def max_tournois(n,events,params,url,headers):
     nb_tourn = count_tournois(events,params,url,headers)
+    print("Les",n,"joueurs ayant fait le plus de tournois:")
     max_dico(n,nb_tourn)
+    print()
+
+# Compte le nombre de placements dans le top x pour chaque participant dans les évènements donnés
+def count_top_x(x,events,params,url,headers):
+    nb_top_x={}
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        for player in standings.items():
+            if player[1]<=x:
+                if player[0][0] in nb_top_x:
+                    nb_top_x[player[0][0]]+=1
+                else:
+                    nb_top_x[player[0][0]]=1
+    return(nb_top_x)
+
+# Affiche les n joueurs ayant fait le plus de top x
+def max_top_x(n,x,events,params,url,headers):
+    top_x = count_top_x(x,events,params,url,headers)
+    print("Les",n,"joueurs ayant fait le plus de top",x,":")
+    max_dico(n,top_x)
+    print()
 
 # Affiche les joueurs avec une somme du SPR la plus proche de 0 sur les évènements donnés
 def most_regu(events,params,url,headers):
@@ -207,6 +254,7 @@ def most_regu(events,params,url,headers):
     print("Joueur(s) le plus régulier:","(somme du SPR sur ces évènements:",max_ecart_spr,")")
     for i in most_regu:
         print(i)   
+    print()
 
 # Affiche les joueurs avec une somme du SPR la plus éloignée de 0 sur les évènements donnés
 def least_regu(events,params,url,headers):
@@ -227,6 +275,7 @@ def least_regu(events,params,url,headers):
     for joueur in least_regu:
         print(joueur[0]," (somme du SPR: ",joueur[1],")", sep="")        
         # /nb_tourn[joueur[0]]
+    print()
 
 # Affiche les n premiers seeds des évènements donnés
 def top_seed(n,events,params,url,headers):
@@ -249,41 +298,3 @@ def top_standings(n,events,params,url,headers):
                 if v ==i:
                     print(v,": ",k[0], sep="")
         print()
-
-# Compte le nombre de placements dans le top x pour chaque participant dans les évènements donnés
-def count_top_x(x,events,params,url,headers):
-    nb_top_x={}
-    for event_id in (events):
-        standings = get_standings(event_id,params,url,headers)
-        for player in standings.items():
-            if player[1]<=x:
-                if player[0][0] in nb_top_x:
-                    nb_top_x[player[0][0]]+=1
-                else:
-                    nb_top_x[player[0][0]]=1
-    return(nb_top_x)
-
-# Affiche les n couples clé,valeur ayant la valeur la plus élevée 
-def max_dico(n,dico):
-    dico_trie=dict(sorted(dico.items(), key=lambda item: item[1], reverse=True))
-    # print(dico_trie)
-    j=0
-    for i in dico_trie:
-        if j<n:
-            print(i,dico_trie[i])
-            j+=1
-
-# Affiche les n couples clé,valeur ayant la valeur la plus faible 
-def min_dico(n,dico):
-    dico_trie=dict(sorted(dico.items(), key=lambda item: item[1]))
-    # print(dico_trie)
-    j=0
-    for i in dico_trie:
-        if j<n:
-            print(i,dico_trie[i])
-            j+=1
-
-# Affiche les n joueurs ayant fait le plus de top x
-def max_top_x(n,x,events,params,url,headers):
-    top_x = count_top_x(x,events,params,url,headers)
-    max_dico(n,top_x)
