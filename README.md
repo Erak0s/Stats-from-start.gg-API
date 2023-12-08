@@ -2,17 +2,15 @@
 
 # Bugs à fix 
 
+- requêtes sur le nombre de persos pas possible dès qu'on dépasse un certain nombre de sets (pour environ 50 entrantes) -> fix en faisant plusieurs requêtes pour chaque tournoi ?
+
 - least regu marche pas
 
 # Améliorations à apporter
 
-- faire différentes requêtes pour juste nb de sets, avec les games et avec les personnages (nécessaire ?)
-
 # Fonctionnalités à ajouter
 
 ## Requêtes:
-
-- Entrants par sponsor/prefix: https://developer.start.gg/docs/examples/queries/attendees-by-sponsor/
 
 ## Analyses:
 
@@ -24,9 +22,8 @@
 
 - Perf moyenne en fonction du nombre d'entrants (placement/entrants)
 
-- Nombre de games au total
-
 - Plus grand écart de perf moyenne entre miss'tech et bars
+    -> utiliser fct perf moyenne 2 fois et comparer la différence pour chaque joueur
 
 - Fonction calcul plus gros upset
 
@@ -42,13 +39,12 @@
 
 ## Problèmes connus mais résolution abandonnée
 
-- requête par nombre d'entrants max -> pas possible de query les tournois par numEntrants 
+- requête par nombre d'entrants max -> pas possible de query sur les évènements
 
 - Bien filtrer les évènements de type singles
 
-- Faire fonctionner sur +500 joueurs
-
 - worst_perf: pire perf sur les gros tournois = top qui DQ -> comment filtrer les DQs ?
+
 
 # Autres notes importantes
 
