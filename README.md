@@ -63,10 +63,17 @@ Je ne suis ni développeur, ni expert en statistiques. Certaines mesures ne sero
 # Stats de l'avent
 
 24: tableau du setcount entre teams (CTS,BxH,Her,NLA,BàL,NdL,????)
+
 23: meilleure perf
+
 22: max de top 8 (miss'tech, bars, total)
+
 21: max de tournois (miss'tech, bars, total)
+
 20: moins régu par rapport à son seed #si ça marche (inseedable)
+
 19: plus régu par rapport à son seed
+
 18: nombre de sets joués (miss'tech, roll'inn, melt, flamin'goat, total)
+
 17: nombre de tournois (miss'tech, roll'inn, melt, flamin'goat, total)
