@@ -74,6 +74,7 @@ def get_singles_id(params,url,headers):
 # Récupère la liste des placement de l'event donné dans la requête donnée
 def get_standings(event_id,params,url,headers):
     params["eventId"] = str(event_id)
+    print("Paramètres:",params)
     response = requests.post(url, headers=headers, json={'query': get_event_standings, 'variables': params})
     request = response.json()
     print(request)

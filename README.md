@@ -2,7 +2,7 @@
 
 # Bugs à fix 
 
-- requête get_event_standings marche pas ? renvoie le tounoi mais 'event' = None
+- requête get_event_standings marche pas ? renvoie bien le tounoi mais 'event' = None
 
 - requêtes sur le nombre de persos pas possible dès qu'on dépasse un certain nombre de sets (pour environ 50 entrantes) -> fix en faisant plusieurs requêtes pour chaque tournoi ?
 
