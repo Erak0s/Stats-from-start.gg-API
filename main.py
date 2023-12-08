@@ -20,12 +20,12 @@ params_get_events={
   "cCode": "FR", 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  "name": "Miss", 
+  # "name": "Miss", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   # "slug": "yggdrasil-1-1",
   "after": get_date(1,1,2023),
   "before":  today,
-  "perPage": 1, 
+  "perPage": 500, 
   "page": 1
 }
 
@@ -40,13 +40,14 @@ params_standings_seedings={
 ##################################################################
  
 singles = get_singles_id(params_get_events, url, headers)
+print(singles)
 
 ####################################
 ###           ANALYSES          ####
 ####################################
 
-print_tournaments(singles)
-# get_distinct_players(singles,params_standings_seedings,url,headers)
+# print_tournaments(singles)
+# taille_commu(1,singles,params_standings_seedings,url,headers)
 # best_performance(singles,params_standings_seedings,url,headers)
 # worst_performance(singles,params_standings_seedings,url,headers)
 # most_regu(singles,params_standings_seedings,url,headers)
@@ -64,4 +65,13 @@ print_tournaments(singles)
 # min_character_usage(5,singles,params_standings_seedings,url,headers)
 # max_character_usage_rate(5,singles,params_standings_seedings,url,headers)
 # min_character_usage_rate(5,singles,params_standings_seedings,url,headers)
-biggest_upset(5,singles,params_standings_seedings,url,headers)
+# upsets=(get_upsets(singles,params_standings_seedings,url,headers))
+# for i in upsets:
+#     for j in range(len(i)):
+#         print(i[j])
+# count_upsets(singles,params_standings_seedings,url,headers)
+# count_upsets_par_tournois(singles,params_standings_seedings,url,headers)
+# biggest_upset(singles,params_standings_seedings,url,headers)
+# max_upsets_realises(5,singles,params_standings_seedings,url,headers)
+# max_upsets_subis(5,singles,params_standings_seedings,url,headers)
+# min_upsets_subis(5,singles,params_standings_seedings,url,headers)

@@ -2,13 +2,13 @@
 
 # Bugs à fix 
 
-- requête get_event_standings marche pas ? renvoie bien le tounoi mais 'event' = None
-
 - requêtes sur le nombre de persos pas possible dès qu'on dépasse un certain nombre de sets (pour environ 50 entrantes) -> fix en faisant plusieurs requêtes pour chaque tournoi ?
 
 - least regu marche pas
 
 # Améliorations à apporter
+
+- calculer upsets réalisés/subis en proportion du nb de games jouées ?
 
 # Fonctionnalités à ajouter
 
@@ -16,21 +16,12 @@
 
 ## Analyses:
 
-- Fonction calcul plus gros upset 
-
-- Fonction calcul du nombre de fois qu'un joueur s'est fait upset / a upset
-    -> Calcul joueur qui upset/se fait upset le plus souvent
-
-- Fonction calcul taux/nombre moyen d'upset par tournoi 
-
 - Perf moyenne en fonction du nombre d'entrants (placement/entrants)
 
 - joueur le plus / moins régu (écart type minimal sur ses placements)
 
 - Plus grand écart de perf moyenne entre miss'tech et bars
     -> utiliser fct perf moyenne 2 fois et comparer la différence pour chaque joueur
-
-- Taille de la commu -> comme distinct players mais compter les apparitions et mettre un seuil
 
 - Fonction calcul character usage 
     -> persos les plus/moins utilisés
@@ -56,6 +47,8 @@
 
 - Ce programme étant conçu initialement pour Super Smash Bros. Ultimate, il peut y avoir des subtilités propres à certains jeux qui ne sont pas traitées ici.
 
+- INORI A PAS MIS NLA EN TAG IL EST PAS COMPTÉ TANT PIS POUR LUI
+
 # Disclaimer
 
 Je ne suis ni développeur, ni expert en statistiques. Certaines mesures ne seront pas pertinentes et le programme est implémentée de manire tout au plus fonctionnelle. Si vous souhaitez l'améliorer, vous pouvez me contacter ou le faire de votre côté.
@@ -77,3 +70,11 @@ Je ne suis ni développeur, ni expert en statistiques. Certaines mesures ne sero
 18: nombre de sets joués (miss'tech, roll'inn, melt, flamin'goat, total)
 
 17: nombre de tournois (miss'tech, roll'inn, melt, flamin'goat, total)
+
+16: Nombre d'upsets total (et nombre par tournois)
+
+15: Plus gros upsets
+
+14: Le plus d'upset réalisés/subis
+
+13:

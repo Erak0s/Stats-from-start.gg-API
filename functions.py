@@ -74,13 +74,13 @@ def get_singles_id(params,url,headers):
 # Récupère la liste des placement de l'event donné dans la requête donnée
 def get_standings(event_id,params,url,headers):
     params["eventId"] = str(event_id)
-    print("Paramètres:",params)
+    # print("Paramètres:",params)
     response = requests.post(url, headers=headers, json={'query': get_event_standings, 'variables': params})
     request = response.json()
     standings={}
     for i in request['data']['event']['standings']['nodes']:
         standings[i['entrant']['name'],event_id] = i['placement']
-    print(standings, len(standings))
+    # print(standings, len(standings))
     return(standings)
 
 # Récupère la liste des seedings de l'event donné dans la requête donnée
@@ -191,18 +191,24 @@ def get_sum_spr(events,params,url,headers):
                 sum_spr_dict[key[0]]+=SPR
     return(sum_spr_dict)
 
-# Affiche la liste et le nombre des joueurs distincts sur les évènements donnés
-def get_distinct_players(events,params,url,headers):
-    players_list=[]
+# Affiche la liste et le nombre des joueurs ayant fait au moins n évènements parmis ceux donnés
+def taille_commu(n,events,params,url,headers):
+    players_list={}
+    commu=0
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
-        for key in (standings):
-            if key[0] not in players_list:
-                players_list.append(key[0])
+        for player in (standings):
+            if player[0] not in players_list:
+                players_list[player[0]]=1
+            else:
+                players_list[player[0]]+=1
+    for player in players_list:
+        if players_list[player]>=n:
+            commu+=1
     print("Liste des joueurs:")
     print(players_list)
     print()
-    print("Nombre de joueurs distincts:",len(players_list))
+    print("Nombre de joueurs distincts:",commu)
     print()
 
 # Retourne le nombre de tournois effectués par chaque joueur sur la période
@@ -383,6 +389,7 @@ def get_character_usage(events,params,url,headers):
                             character_usage[selection['character']['name']]+=1
     return(character_usage)
 
+# Calcule le tauxx d'utilisation de chaque personnage sur les évènements donnés
 def get_character_usage_rate(events,params,url,headers):
     character_usage_rate={}
     nb_games=count_games(events,params,url,headers)
@@ -402,40 +409,156 @@ def get_character_usage_rate(events,params,url,headers):
         character_usage_rate[i]=(character_usage_rate[i]/(2*nb_games))*100
     return(character_usage_rate)
 
-# Affiche les n personnages les plus utilisés
+# Affiche les n personnages les plus utilisés (nombre d'utilisations)
 def max_character_usage(n,events,params,url,headers):
     character_usage=get_character_usage(events,params,url,headers)
     print("Les",n,"personnages les plus joués:")
     max_dico(n,character_usage)
     print()
 
+# Affiche les n personnages les moins utilisés (mais pick au moins une fois) (nombre d'utilisations)
 def min_character_usage(n,events,params,url,headers):
     character_usage=get_character_usage(events,params,url,headers)
     print("Les",n,"personnages les moins joués:")
     min_dico(n,character_usage)
     print()
 
+# Affiche les n personnages les plus utilisés (taux d'utilisation)
 def max_character_usage_rate(n,events,params,url,headers):
     character_usage_rate=get_character_usage_rate(events,params,url,headers)
     print("Les",n,"personnages les plus joués:")
     max_dico(n,character_usage_rate)
     print()
 
+# Affiche les n personnages les moins utilisés (mais pick au moins une fois) (taux d'utilisation)
 def min_character_usage_rate(n,events,params,url,headers):
     character_usage_rate=get_character_usage_rate(events,params,url,headers)
     print("Les",n,"personnages les moins joués:")
     min_dico(n,character_usage_rate)
     print()
-                
-def biggest_upset(n,events,params,url,headers):
-    max_UF=0
+
+# Renvoie la liste des upsets dans les évènements donnés     
+def get_upsets(events,params,url,headers):
+    upsets=[]
+    seeding={}
     for event_id in events:
-        seeding=get_seeding(event_id, params, url, headers)
+        dict_seeding=get_seeding(event_id, params, url, headers)
+        for i in dict_seeding:
+            seeding[i[0]]=dict_seeding[i]
         params["eventId"] = str(event_id)
         response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
         request = response.json()
         for node in request['data']['event']['sets']['nodes']:
             winner_id=node['winnerId']
-            print('Winner:',winner_id)
-            for slots in node:
-                print(slots)
+            for entrant in node['slots']:
+                if(entrant['entrant']['id'])==winner_id:
+                    winner_name=entrant['entrant']['name']
+                else:
+                    loser_name=entrant['entrant']['name']
+            if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
+                upsets.append([winner_name,loser_name,spr(seeding[winner_name],seeding[loser_name]),event_id])
+    return(upsets)
+
+# Compte les upsets dans les évènements donnés
+def count_upsets(events,params,url,headers,silent):
+    upsets=get_upsets(events,params,url,headers)
+    if silent is not True:
+        print("Nombre d'upsets:",len(upsets))
+        print()
+    return(len(upsets))
+
+# Renvoie le/les plus gros upsets dans les évènements donnés
+def biggest_upset(events,params,url,headers):
+    UF_max=0
+    upsets=get_upsets(events,params,url,headers)
+    for upset in upsets:
+        if upset[2]>UF_max:
+            biggest_upset=[]
+            biggest_upset.append(upset)
+            UF_max=upset[2]
+        elif upset[2]==UF_max:
+            biggest_upset.append(upset)
+    for upset in biggest_upset:
+        print(upset[0]," upset ",upset[1],", UF +",upset[2]," à l'évènement ",events[upset[3]],sep="")
+        print()
+
+# Renvoie le nombre moyen d'upset par tournois
+def count_upsets_par_tournois(events,params,url,headers):
+    nb_upset=count_upsets(events,params,url,headers,True)
+    nb_tournois=len(events)
+    print(nb_upset/nb_tournois)
+    print()
+
+# Récupère le nombre d'upsets réalisés par chaque joueur
+def get_upsets_realises(events,params,url,headers):
+    nb_upsets={}
+    seeding={}
+    for event_id in events:
+        dict_seeding=get_seeding(event_id, params, url, headers)
+        for i in dict_seeding:
+            seeding[i[0]]=dict_seeding[i]
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
+        request = response.json()
+        for node in request['data']['event']['sets']['nodes']:
+            winner_id=node['winnerId']
+            for entrant in node['slots']:
+                if(entrant['entrant']['id'])==winner_id:
+                    winner_name=entrant['entrant']['name']
+                else:
+                    loser_name=entrant['entrant']['name']
+            if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
+                if winner_name in nb_upsets:
+                    nb_upsets[winner_name]+=1
+                else:
+                    nb_upsets[winner_name]=1
+    # nb_tournois=count_tournois(events,params,url,headers)
+    # for player in nb_upsets:
+    #     nb_upsets[player]=((nb_upsets[player]/nb_tournois[player])*100)
+    return(nb_upsets)
+
+# Récupère le nombre d'upsets subis par chaque joueur
+def get_upsets_subis(events,params,url,headers):
+    nb_upsets={}
+    seeding={}
+    for event_id in events:
+        dict_seeding=get_seeding(event_id, params, url, headers)
+        for i in dict_seeding:
+            seeding[i[0]]=dict_seeding[i]
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
+        request = response.json()
+        for node in request['data']['event']['sets']['nodes']:
+            winner_id=node['winnerId']
+            for entrant in node['slots']:
+                if(entrant['entrant']['id'])==winner_id:
+                    winner_name=entrant['entrant']['name']
+                else:
+                    loser_name=entrant['entrant']['name']
+            if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
+                if loser_name in nb_upsets:
+                    nb_upsets[loser_name]+=1
+                else:
+                    nb_upsets[loser_name]=1
+    return(nb_upsets)
+
+# Affiche les n joueurs ayant le plus réalisé d'uppsets
+def max_upsets_realises(n,events,params,url,headers):
+    upsets_realises=get_upsets_realises(events,params,url,headers)
+    print("Les",n,"joueurs ayant réalisé le plus d'upsets:")
+    max_dico(n,upsets_realises)
+    print()
+
+# Affiche les n joueurs ayant le plus subis d'uppsets
+def max_upsets_subis(n,events,params,url,headers):
+    upsets_subis=get_upsets_subis(events,params,url,headers)
+    print("Les",n,"joueurs ayant subis le plus d'upsets:")
+    max_dico(n,upsets_subis)
+    print()
+
+# Affiche les n joueurs ayant le moins subis d'uppsets
+def min_upsets_subis(n,events,params,url,headers):
+    upsets_subis=get_upsets_subis(events,params,url,headers)
+    print("Les",n,"joueurs ayant subis le moins d'upsets:")
+    min_dico(n,upsets_subis)
+    print()
