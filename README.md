@@ -25,7 +25,7 @@
 - Plus grand écart de perf moyenne entre miss'tech et bars
     -> utiliser fct perf moyenne 2 fois et comparer la différence pour chaque joueur
 
-- Fonction calcul plus gros upset
+- Fonction calcul plus gros upset 
 
 - Fonction calcul du nombre de fois qu'un joueur s'est fait upset
 
