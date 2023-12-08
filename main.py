@@ -20,12 +20,12 @@ params_get_events={
   "cCode": "FR", 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  "name": "Miss", 
+  "name": "Roll'inn", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   # "slug": "yggdrasil-1-1",
   "after": get_date(1,1,2023),
   "before":  today,
-  "perPage": 4, 
+  "perPage": 500, 
   "page": 1
 }
 
@@ -58,6 +58,7 @@ print_tournaments(singles)
 
 # count_sets(singles,params_standings_seedings,url,headers)
 # count_games(singles,params_standings_seedings,url,headers)
+# get_setcount_players('CTS | Erakos','BxH | Ewanz',singles,params_standings_seedings,url,headers)
 # get_setcount_prefix("CTS","Her", singles, params_standings_seedings, url, headers)
 # max_character_usage(5,singles,params_standings_seedings,url,headers)
 # min_character_usage(5,singles,params_standings_seedings,url,headers)

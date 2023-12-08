@@ -6,6 +6,8 @@
 
 # Améliorations à apporter
 
+- faire différentes requêtes pour juste nb de sets, avec les games et avec les personnages (nécessaire ?)
+
 # Fonctionnalités à ajouter
 
 ## Requêtes:
@@ -16,7 +18,13 @@
 
 - Taille de la commu -> comme distinct players mais compter les apparitions et mettre un seuil
 
+- Fonction calcul character usage 
+    -> persos les plus/moins utilisés
+    + winrate par personnage (ou juste pour Link)
+
 - Perf moyenne en fonction du nombre d'entrants (placement/entrants)
+
+- Nombre de games au total
 
 - Plus grand écart de perf moyenne entre miss'tech et bars
 
@@ -32,19 +40,15 @@
 
 - least_regu: afficher moyenne du SPR plutôt que sa somme -> est-ce vraiment plus pertinent ?
 
-- taux d'utilisation d'un personnage: diviser par 2 fois le nombre de games ? sinon on pourrait avoir + de 100% de pickrate
-
 ## Problèmes connus mais résolution abandonnée
 
 - requête par nombre d'entrants max -> pas possible de query les tournois par numEntrants 
 
 - Bien filtrer les évènements de type singles
 
+- Faire fonctionner sur +500 joueurs
+
 - worst_perf: pire perf sur les gros tournois = top qui DQ -> comment filtrer les DQs ?
-
-- Fonction calcul character usage impossible car complexité trop élevée dès qu'on dépasse un certain nombre de games dans un évènement (possible de faire en 2 requêtes ?)
-
-- Fonctions qui parse les games ne vont pas marchehr sur les gros events (flamin'goat notamment)
 
 # Autres notes importantes
 
