@@ -77,7 +77,6 @@ def get_standings(event_id,params,url,headers):
     print("Paramètres:",params)
     response = requests.post(url, headers=headers, json={'query': get_event_standings, 'variables': params})
     request = response.json()
-    print(request)
     standings={}
     for i in request['data']['event']['standings']['nodes']:
         standings[i['entrant']['name'],event_id] = i['placement']
@@ -328,7 +327,6 @@ def count_games(events,params,url,headers):
     print(nb_games)
     return(nb_games)
 
-
 # Calcule le setcount entre les joueurs donnés dans les évènements donnés
 def get_setcount_players(playerA,playerB,events,params,url,headers):
     setcount={playerA:0,playerB:0}
@@ -429,3 +427,15 @@ def min_character_usage_rate(n,events,params,url,headers):
     min_dico(n,character_usage_rate)
     print()
                 
+def biggest_upset(n,events,params,url,headers):
+    max_UF=0
+    for event_id in events:
+        seeding=get_seeding(event_id, params, url, headers)
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
+        request = response.json()
+        for node in request['data']['event']['sets']['nodes']:
+            winner_id=node['winnerId']
+            print('Winner:',winner_id)
+            for slots in node:
+                print(slots)
