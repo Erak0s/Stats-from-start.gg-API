@@ -76,9 +76,11 @@ def get_standings(event_id,params,url,headers):
     params["eventId"] = str(event_id)
     response = requests.post(url, headers=headers, json={'query': get_event_standings, 'variables': params})
     request = response.json()
+    print(request)
     standings={}
     for i in request['data']['event']['standings']['nodes']:
         standings[i['entrant']['name'],event_id] = i['placement']
+    print(standings, len(standings))
     return(standings)
 
 # Récupère la liste des seedings de l'event donné dans la requête donnée

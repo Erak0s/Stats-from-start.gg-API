@@ -20,12 +20,12 @@ params_get_events={
   "cCode": "FR", 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  "name": "Roll'inn", 
+  "name": "Miss", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   # "slug": "yggdrasil-1-1",
   "after": get_date(1,1,2023),
   "before":  today,
-  "perPage": 500, 
+  "perPage": 1, 
   "page": 1
 }
 
@@ -53,6 +53,7 @@ print_tournaments(singles)
 # least_regu(singles,params_standings_seedings,url,headers)
 # top_seed(8,singles,params_standings_seedings,url,headers)
 # top_standings(8,singles,params_standings_seedings,url,headers)
+get_standings(singles,params_standings_seedings,url,headers)
 # max_tournois(5,singles,params_standings_seedings,url,headers)
 # max_top_x(5,8,singles,params_standings_seedings,url,headers)
 
