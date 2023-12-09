@@ -20,11 +20,11 @@ params_get_events={
   "cCode": "FR", 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  # "name": "Miss", 
+  # "name": "Flamin", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
-  # "slug": "yggdrasil-1-1",
+  # "slug": "watch-the-throne",
   "after": get_date(1,1,2023),
-  "before":  today,
+  "before":  get_date(15,12,2023),
   "perPage": 100, 
   "page": 1
 }
@@ -39,8 +39,8 @@ params_standings_seedings={
 ###           RECUPERATION DES EVENEMENTS A ANALYSER          ####
 ##################################################################
  
-# singles = get_singles_id(params_get_events, url, headers)
-singles=tournois_sans_flamingoat
+singles = get_singles_id(params_get_events, url, headers)
+# singles=bars
 
 ####################################
 ###           ANALYSES          ####
@@ -52,8 +52,8 @@ print_tournaments(singles)
 # worst_performance(singles,params_standings_seedings,url,headers)
 # most_regu(singles,params_standings_seedings,url,headers)
 # least_regu(singles,params_standings_seedings,url,headers)
-# top_seed(8,singles,params_standings_seedings,url,headers)
-# top_standings(8,singles,params_standings_seedings,url,headers)
+# top_seed(16,singles,params_standings_seedings,url,headers)
+# top_standings(16,singles,params_standings_seedings,url,headers)
 # max_tournois(500,singles,params_standings_seedings,url,headers)
 # max_top_x(500,8,singles,params_standings_seedings,url,headers)
 
@@ -73,6 +73,6 @@ print_tournaments(singles)
 # count_upsets_par_tournois(singles,params_standings_seedings,url,headers)
 # biggest_upset(singles,params_standings_seedings,url,headers)
 # max_upsets_realises(500,singles,params_standings_seedings,url,headers)
-max_upsets_subis(20,singles,params_standings_seedings,url,headers)
-max_upsets_subis_par_defaite(20,singles,params_standings_seedings,url,headers)
+# max_upsets_subis(20,singles,params_standings_seedings,url,headers)
+# max_upsets_subis_par_defaite(20,singles,params_standings_seedings,url,headers)
 # min_upsets_subis(500,singles,params_standings_seedings,url,headers)
