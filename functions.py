@@ -19,20 +19,26 @@ def max_dico(n,dico):
     dico_trie=dict(sorted(dico.items(), key=lambda item: item[1], reverse=True))
     # print(dico_trie)
     j=0
+    k=0
     for i in dico_trie:
         if j<n:
-            print(i,dico_trie[i])
+            k+=1
+            print(k,") ",i,": ",dico_trie[i],sep="")
             j+=1
+    print()
 
 # Affiche les n couples clé,valeur ayant la valeur la plus faible 
 def min_dico(n,dico):
     dico_trie=dict(sorted(dico.items(), key=lambda item: item[1]))
     # print(dico_trie)
     j=0
+    k=0
     for i in dico_trie:
         if j<n:
-            print(i,dico_trie[i])
+            k+=1
+            print(k,") ",i,": ",dico_trie[i],sep="")
             j+=1
+    print()
 
 # Vérifie si le nom de l'évènement donné correspond à un évènement de Simple (True par défaut)
 def is_singles(Name):
@@ -277,11 +283,12 @@ def least_regu(events,params,url,headers):
         else:
             if abs(key[1])==abs(min_ecart_spr):
                 least_regu.append(key)
-    print("least_regu:",least_regu)
-    print("sum_spr_dict",sum_spr_dict)
-    nb_tourn=count_tournois(events,params,url,headers)
-    print("nb_tournois", nb_tourn)
+    # print("least_regu:",least_regu)
+    # print("sum_spr_dict",sum_spr_dict)
+    # nb_tourn=count_tournois(events,params,url,headers)
+    # print("nb_tournois", nb_tourn)
     print("Joueur(s) le moins régulier:")
+    # print(least_regu)
     for joueur in least_regu:
         print(joueur[0]," (somme du SPR: ",joueur[1],")", sep="")        
         # /nb_tourn[joueur[0]]
@@ -523,6 +530,7 @@ def get_upsets_subis(events,params,url,headers):
     seeding={}
     for event_id in events:
         dict_seeding=get_seeding(event_id, params, url, headers)
+        seeding={}
         for i in dict_seeding:
             seeding[i[0]]=dict_seeding[i]
         params["eventId"] = str(event_id)
@@ -542,6 +550,23 @@ def get_upsets_subis(events,params,url,headers):
                     nb_upsets[loser_name]=1
     return(nb_upsets)
 
+# Récupère le nombre de défaite par joueur
+def get_defaites(events,params,url,headers):
+    nb_defaite={}
+    for event_id in events:
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_players, 'variables': params})
+        request = response.json()
+        for node in request['data']['event']['sets']['nodes']:
+            winner_id=node['winnerId']
+            for entrant in node['slots']:
+                if(entrant['entrant']['id'])!=winner_id:
+                    if (entrant['entrant']['name']) not in nb_defaite:
+                        nb_defaite[entrant['entrant']['name']]=1
+                    else:
+                        nb_defaite[entrant['entrant']['name']]+=1
+    return(nb_defaite)
+
 # Affiche les n joueurs ayant le plus réalisé d'uppsets
 def max_upsets_realises(n,events,params,url,headers):
     upsets_realises=get_upsets_realises(events,params,url,headers)
@@ -549,11 +574,22 @@ def max_upsets_realises(n,events,params,url,headers):
     max_dico(n,upsets_realises)
     print()
 
-# Affiche les n joueurs ayant le plus subis d'uppsets
+# Affiche les n joueurs ayant le plus subis d'upsets par défaite
 def max_upsets_subis(n,events,params,url,headers):
     upsets_subis=get_upsets_subis(events,params,url,headers)
     print("Les",n,"joueurs ayant subis le plus d'upsets:")
     max_dico(n,upsets_subis)
+    print()
+
+# Affiche les n joueurs ayant le plus subis d'upsets par défaite
+def max_upsets_subis_par_defaite(n,events,params,url,headers):
+    upsets_subis=get_upsets_subis(events,params,url,headers)
+    defaites=get_defaites(events,params,url,headers)
+    upsets_par_defaite={}
+    for player in upsets_subis:
+        upsets_par_defaite[player]=upsets_subis[player]/defaites[player]
+    print("Les",n,"joueurs ayant subis le plus d'upsets par défaite:")
+    max_dico(n,upsets_par_defaite)
     print()
 
 # Affiche les n joueurs ayant le moins subis d'uppsets

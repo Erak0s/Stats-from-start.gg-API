@@ -151,6 +151,35 @@ query get_sets_no_char($eventId: ID!, $page: Int!, $perPage: Int!) {
 }
 """
 
+get_sets_players="""
+query get_sets_no_char($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    id
+    name
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      pageInfo {
+        total
+      }
+      nodes {
+        id
+        winnerId
+        slots {
+          id
+          entrant {
+            id
+            name
+          }
+        } 
+      }
+    }
+  }
+}
+"""
+
 get_characters="""
 query get_characters($eventId: ID!, $page: Int!, $perPage: Int!) {
   event(id: $eventId) {
@@ -183,14 +212,9 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
       perPage: $perPage
       sortType: STANDARD
     ) {
-      pageInfo {
-        total
-      }
       nodes {
-        id
         winnerId
         slots {
-          id
           entrant {
             id
             name

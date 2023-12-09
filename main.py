@@ -25,7 +25,7 @@ params_get_events={
   # "slug": "yggdrasil-1-1",
   "after": get_date(1,1,2023),
   "before":  today,
-  "perPage": 500, 
+  "perPage": 100, 
   "page": 1
 }
 
@@ -39,14 +39,14 @@ params_standings_seedings={
 ###           RECUPERATION DES EVENEMENTS A ANALYSER          ####
 ##################################################################
  
-singles = get_singles_id(params_get_events, url, headers)
-print(singles)
+# singles = get_singles_id(params_get_events, url, headers)
+singles=tournois_sans_flamingoat
 
 ####################################
 ###           ANALYSES          ####
 ####################################
 
-# print_tournaments(singles)
+print_tournaments(singles)
 # taille_commu(1,singles,params_standings_seedings,url,headers)
 # best_performance(singles,params_standings_seedings,url,headers)
 # worst_performance(singles,params_standings_seedings,url,headers)
@@ -54,17 +54,17 @@ print(singles)
 # least_regu(singles,params_standings_seedings,url,headers)
 # top_seed(8,singles,params_standings_seedings,url,headers)
 # top_standings(8,singles,params_standings_seedings,url,headers)
-# max_tournois(5,singles,params_standings_seedings,url,headers)
-# max_top_x(5,8,singles,params_standings_seedings,url,headers)
+# max_tournois(500,singles,params_standings_seedings,url,headers)
+# max_top_x(500,8,singles,params_standings_seedings,url,headers)
 
 # count_sets(singles,params_standings_seedings,url,headers)
 # count_games(singles,params_standings_seedings,url,headers)
 # get_setcount_players('CTS | Erakos','BxH | Ewanz',singles,params_standings_seedings,url,headers)
 # get_setcount_prefix("CTS","Her", singles, params_standings_seedings, url, headers)
-# max_character_usage(5,singles,params_standings_seedings,url,headers)
-# min_character_usage(5,singles,params_standings_seedings,url,headers)
-# max_character_usage_rate(5,singles,params_standings_seedings,url,headers)
-# min_character_usage_rate(5,singles,params_standings_seedings,url,headers)
+# max_character_usage(500,singles,params_standings_seedings,url,headers)
+# min_character_usage(500,singles,params_standings_seedings,url,headers)
+# max_character_usage_rate(50,singles,params_standings_seedings,url,headers)
+# min_character_usage_rate(50,singles,params_standings_seedings,url,headers)
 # upsets=(get_upsets(singles,params_standings_seedings,url,headers))
 # for i in upsets:
 #     for j in range(len(i)):
@@ -72,6 +72,7 @@ print(singles)
 # count_upsets(singles,params_standings_seedings,url,headers)
 # count_upsets_par_tournois(singles,params_standings_seedings,url,headers)
 # biggest_upset(singles,params_standings_seedings,url,headers)
-# max_upsets_realises(5,singles,params_standings_seedings,url,headers)
-# max_upsets_subis(5,singles,params_standings_seedings,url,headers)
-# min_upsets_subis(5,singles,params_standings_seedings,url,headers)
+# max_upsets_realises(500,singles,params_standings_seedings,url,headers)
+max_upsets_subis(20,singles,params_standings_seedings,url,headers)
+max_upsets_subis_par_defaite(20,singles,params_standings_seedings,url,headers)
+# min_upsets_subis(500,singles,params_standings_seedings,url,headers)
