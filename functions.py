@@ -191,10 +191,10 @@ def get_sum_spr(events,params,url,headers):
         seeding = get_seeding(event_id,params,url,headers)
         for key in (standings):
             SPR = SPR_player(key[0], event_id, seeding, standings)
-            if key[0] not in sum_spr_dict:
-                sum_spr_dict[key[0]]=SPR
+            if split_noms(key[0])[1] not in sum_spr_dict:
+                sum_spr_dict[split_noms(key[0])[1]]=SPR
             else:
-                sum_spr_dict[key[0]]+=SPR
+                sum_spr_dict[split_noms(key[0])[1]]+=SPR
     return(sum_spr_dict)
 
 # Affiche la liste et le nombre des joueurs ayant fait au moins n évènements parmis ceux donnés
@@ -204,10 +204,10 @@ def taille_commu(n,events,params,url,headers):
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for player in (standings):
-            if player[0] not in players_list:
-                players_list[player[0]]=1
+            if split_noms(player[0])[1] not in players_list:
+                players_list[split_noms(player[0])[1]]=1
             else:
-                players_list[player[0]]+=1
+                players_list[split_noms(player[0])[1]]+=1
     for player in players_list:
         if players_list[player]>=n:
             commu+=1
@@ -223,10 +223,10 @@ def count_tournois(events,params,url,headers):
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for player in (standings):
-            if player[0] not in nb_tournois:
-                nb_tournois[player[0]]=1
+            if split_noms(player[0])[1] not in nb_tournois:
+                nb_tournois[split_noms(player[0])[1]]=1
             else:
-                nb_tournois[player[0]]+=1
+                nb_tournois[split_noms(player[0])[1]]+=1
     return(nb_tournois)
 
 # Retourne le ou les joueurs ayant participé au plus de tournois sur les évènements donnés
@@ -243,10 +243,10 @@ def count_top_x(x,events,params,url,headers):
         standings = get_standings(event_id,params,url,headers)
         for player in standings.items():
             if player[1]<=x:
-                if player[0][0] in nb_top_x:
-                    nb_top_x[player[0][0]]+=1
+                if split_noms(player[0][0])[1] in nb_top_x:
+                    nb_top_x[split_noms(player[0][0])[1]]+=1
                 else:
-                    nb_top_x[player[0][0]]=1
+                    nb_top_x[split_noms(player[0][0])[1]]=1
     return(nb_top_x)
 
 # Affiche les n joueurs ayant fait le plus de top x
@@ -256,33 +256,37 @@ def max_top_x(n,x,events,params,url,headers):
     max_dico(n,top_x)
     print()
 
-# Affiche les joueurs avec une somme du SPR la plus proche de 0 sur les évènements donnés
-def most_regu(events,params,url,headers):
+# Affiche les joueurs ayant fait au moins n tournois avec une somme du SPR la plus proche de 0 sur les évènements donnés
+def most_regu(n,events,params,url,headers):
     max_ecart_spr=100
     sum_spr_dict=get_sum_spr(events,params,url,headers)
+    nb_tournois=count_tournois(events,params,url,headers)
     for key in sum_spr_dict.items():
-        if abs(key[1])<max_ecart_spr:
-            max_ecart_spr=abs(key[1])
-            most_regu=[key[0]]
-        else:
-            if abs(key[1])==max_ecart_spr:
-                most_regu.append(key[0])
+        if nb_tournois[key[0]]>=n:
+            if abs(key[1])<max_ecart_spr:
+                max_ecart_spr=abs(key[1])
+                most_regu=[key[0]]
+            else:
+                if abs(key[1])==max_ecart_spr:
+                    most_regu.append(key[0])
     print("Joueur(s) le plus régulier:","(somme du SPR sur ces évènements:",max_ecart_spr,")")
     for i in most_regu:
         print(i)   
     print()
 
 # Affiche les joueurs avec une somme du SPR la plus éloignée de 0 sur les évènements donnés
-def least_regu(events,params,url,headers):
+def least_regu(n,events,params,url,headers):
     min_ecart_spr=-1
     sum_spr_dict=get_sum_spr(events,params,url,headers)
+    nb_tournois=count_tournois(events,params,url,headers)
     for key in sum_spr_dict.items():
-        if abs(key[1])>abs(min_ecart_spr):
-            min_ecart_spr=key[1]
-            least_regu=[key]
-        else:
-            if abs(key[1])==abs(min_ecart_spr):
-                least_regu.append(key)
+        if nb_tournois[key[0]]>=n:
+            if abs(key[1])>min_ecart_spr:
+                min_ecart_spr=key[1]
+                least_regu=[key]
+            else:
+                if abs(key[1])==abs(min_ecart_spr):
+                    least_regu.append(key)
     # print("least_regu:",least_regu)
     # print("sum_spr_dict",sum_spr_dict)
     # nb_tourn=count_tournois(events,params,url,headers)
@@ -349,11 +353,11 @@ def get_setcount_players(playerA,playerB,events,params,url,headers):
         request = response.json()
         for i in request['data']['event']['sets']['nodes']:
             winner=i['winnerId']
-            if (((i['slots'][0]['entrant']['name']==playerA) or (i['slots'][0]['entrant']['name']==playerB)) and ((i['slots'][1]['entrant']['name']==playerA) or (i['slots'][1]['entrant']['name']==playerB))) :
+            if (((split_noms(i['slots'][0]['entrant']['name'])[1]==playerA) or (split_noms(i['slots'][0]['entrant']['name'])[1]==playerB)) and ((split_noms(i['slots'][1]['entrant']['name'])[1]==playerA) or (split_noms(i['slots'][1]['entrant']['name'])[1]==playerB))) :
                 if (i['slots'][0]['entrant']['id']==winner):
-                    setcount[i['slots'][0]['entrant']['name']]+=1
+                    setcount[split_noms(i['slots'][0]['entrant']['name'])[1]]+=1
                 elif (i['slots'][1]['entrant']['id']==winner):
-                    setcount[i['slots'][1]['entrant']['name']]+=1
+                    setcount[split_noms(i['slots'][1]['entrant']['name'])[1]]+=1
     print(playerA,setcount[playerA],"-",setcount[playerB],playerB)
     print()
 
@@ -515,10 +519,10 @@ def get_upsets_realises(events,params,url,headers):
                 else:
                     loser_name=entrant['entrant']['name']
             if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
-                if winner_name in nb_upsets:
-                    nb_upsets[winner_name]+=1
+                if split_noms(winner_name)[1] in nb_upsets:
+                    nb_upsets[split_noms(winner_name)[1]]+=1
                 else:
-                    nb_upsets[winner_name]=1
+                    nb_upsets[split_noms(winner_name)[1]]=1
     # nb_tournois=count_tournois(events,params,url,headers)
     # for player in nb_upsets:
     #     nb_upsets[player]=((nb_upsets[player]/nb_tournois[player])*100)
@@ -544,10 +548,10 @@ def get_upsets_subis(events,params,url,headers):
                 else:
                     loser_name=entrant['entrant']['name']
             if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
-                if loser_name in nb_upsets:
-                    nb_upsets[loser_name]+=1
+                if split_noms(loser_name)[1] in nb_upsets:
+                    nb_upsets[split_noms(loser_name)[1]]+=1
                 else:
-                    nb_upsets[loser_name]=1
+                    nb_upsets[split_noms(loser_name)[1]]=1
     return(nb_upsets)
 
 # Récupère le nombre de défaite par joueur
@@ -560,11 +564,12 @@ def get_defaites(events,params,url,headers):
         for node in request['data']['event']['sets']['nodes']:
             winner_id=node['winnerId']
             for entrant in node['slots']:
+                # print(entrant)
                 if(entrant['entrant']['id'])!=winner_id:
-                    if (entrant['entrant']['name']) not in nb_defaite:
-                        nb_defaite[entrant['entrant']['name']]=1
+                    if (split_noms(entrant['entrant']['name'])[1]) not in nb_defaite:
+                        nb_defaite[split_noms(entrant['entrant']['name'])[1]]=1
                     else:
-                        nb_defaite[entrant['entrant']['name']]+=1
+                        nb_defaite[split_noms(entrant['entrant']['name'])[1]]+=1
     return(nb_defaite)
 
 # Affiche les n joueurs ayant le plus réalisé d'uppsets
@@ -587,7 +592,9 @@ def max_upsets_subis_par_defaite(n,events,params,url,headers):
     defaites=get_defaites(events,params,url,headers)
     upsets_par_defaite={}
     for player in upsets_subis:
-        upsets_par_defaite[player]=upsets_subis[player]/defaites[player]
+        print("upsets subis par",player,":",upsets_subis[player])
+        print("Nb défaites:",defaites[player])
+        upsets_par_defaite[player]=(upsets_subis[player]/defaites[player])
     print("Les",n,"joueurs ayant subis le plus d'upsets par défaite:")
     max_dico(n,upsets_par_defaite)
     print()
@@ -598,3 +605,9 @@ def min_upsets_subis(n,events,params,url,headers):
     print("Les",n,"joueurs ayant subis le moins d'upsets:")
     min_dico(n,upsets_subis)
     print()
+
+def split_noms(nom):
+    if "|" in nom:
+        return(nom.split("| "))
+    else:
+        return["",nom]

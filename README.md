@@ -6,6 +6,8 @@
 
 # Améliorations à apporter
 
+- scan les noms selon le VRAI nom sans prefix
+
 # Fonctionnalités à ajouter
 
 ## Requêtes:
