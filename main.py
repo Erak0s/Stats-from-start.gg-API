@@ -22,7 +22,7 @@ params_get_events={
   "city": ville_coord["Montpellier"],
   # "name": "Flamin", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
-  # "slug": "watch-the-throne",
+  "slug": "watch-the-throne",
   # "after": today,
   "after": get_date(1,1,2023),
   "before":  get_date(15,12,2023),
@@ -40,9 +40,9 @@ params_standings_seedings={
 ###           RECUPERATION DES EVENEMENTS A ANALYSER          ####
 ##################################################################
  
-# singles = get_singles_id(params_get_events, url, headers)
+singles = get_singles_id(params_get_events, url, headers)
 # singles=tournois_sans_flamingoat
-singles=test
+# singles=test
 
 ####################################
 ###           ANALYSES          ####
@@ -55,7 +55,7 @@ print_tournaments(singles)
 # most_regu(2,singles,params_standings_seedings,url,headers)
 # least_regu(2,singles,params_standings_seedings,url,headers)
 # top_seed(16,singles,params_standings_seedings,url,headers)
-# top_standings(16,singles,params_standings_seedings,url,headers)
+top_standings(16,singles,params_standings_seedings,url,headers)
 # max_tournois(500,singles,params_standings_seedings,url,headers)
 # max_top_x(500,8,singles,params_standings_seedings,url,headers)
 
@@ -77,4 +77,4 @@ print_tournaments(singles)
 # max_upsets_realises(500,singles,params_standings_seedings,url,headers)
 # max_upsets_subis(500,singles,params_standings_seedings,url,headers)
 # max_upsets_subis_par_defaite(20,singles,params_standings_seedings,url,headers)
-min_upsets_subis(500,singles,params_standings_seedings,url,headers)
+# min_upsets_subis(500,singles,params_standings_seedings,url,headers)

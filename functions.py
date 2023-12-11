@@ -309,15 +309,18 @@ def top_seed(n,events,params,url,headers):
                     print(v,": ",k[0], sep="")
         print()
 
-# Affiche les n premiers seeds des évènements donnés
+# Affiche les n premiers joueurs des évènements donnés
 def top_standings(n,events,params,url,headers):
     for event_id in (events):
         print("Top",n,"of",events[event_id],":")
         standings = get_standings(event_id,params,url,headers)
+        seeding = get_seeding(event_id,params,url,headers)
         for i in range (1,n+1):
             for k, v in standings.items():
                 if v ==i:
-                    print(v,": ",k[0], sep="")
+                    # print(seeding)
+                    # print(k[0])
+                    print(v,": ",k[0]," (seed ",seeding[k],", SPR ",spr(seeding[k],v),")", sep="")
         print()
 
 # Compte les sets dans les évènements donnés
@@ -370,12 +373,12 @@ def get_setcount_prefix(teamA,teamB,events,params,url,headers):
         request = response.json()
         for i in request['data']['event']['sets']['nodes']:
             winner=i['winnerId']
-            if ((teamA in i['slots'][0]['entrant']['name']) and (teamB in i['slots'][1]['entrant']['name'])):
+            if ((split_noms(i['slots'][0]['entrant']['name'])[0]==teamA) and (split_noms(i['slots'][1]['entrant']['name'])[0]==teamB)):
                 if i['slots'][0]['entrant']['id']==winner:
                     setcount[teamA]+=1
                 else:
                     setcount[teamB]+=1
-            elif ((teamB in i['slots'][0]['entrant']['name']) and (teamA in i['slots'][1]['entrant']['name'])):
+            elif ((split_noms(i['slots'][0]['entrant']['name'])[0]==teamB) and (split_noms(i['slots'][1]['entrant']['name'])[0]==teamA)):
                 if i['slots'][0]['entrant']['id']==winner:
                     setcount[teamB]+=1
                 else:
@@ -608,6 +611,6 @@ def min_upsets_subis(n,events,params,url,headers):
 
 def split_noms(nom):
     if "|" in nom:
-        return(nom.split("| "))
+        return(nom.split(" | "))
     else:
         return["",nom]
