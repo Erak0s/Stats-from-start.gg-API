@@ -18,6 +18,7 @@ query get_events_loc($name: String, $distance: String, $city: String, $perPage: 
   ) {
     nodes {
       name
+      slug
       countryCode
       postalCode
       events (filter: {videogameId: $gameId}) {
@@ -36,6 +37,7 @@ query get_events_no_loc($name: String, $cCode: String, $perPage: Int, $page: Int
   ) {
     nodes {
       name
+      slug
       countryCode
       postalCode
       events (filter: {videogameId: $gameId}) {

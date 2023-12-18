@@ -70,7 +70,9 @@ def get_singles_id(params,url,headers):
                 if is_singles(event['name']):
                     event_ids[event['id']] = events['data']['tournament']['name']
     else:
+            
         for tournament in events['data']['tournaments']['nodes']:
+            print(tournament['slug'])
             for event in tournament['events']:
                 if (is_singles(event['name'])):
                     # print(event['id'])
@@ -197,6 +199,19 @@ def get_sum_spr(events,params,url,headers):
                 sum_spr_dict[split_noms(key[0])[1]]+=SPR
     return(sum_spr_dict)
 
+def get_sum_abs_spr(events,params,url,headers):
+    sum_spr_dict={}
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        seeding = get_seeding(event_id,params,url,headers)
+        for key in (standings):
+            SPR = SPR_player(key[0], event_id, seeding, standings)
+            if split_noms(key[0])[1] not in sum_spr_dict:
+                sum_spr_dict[split_noms(key[0])[1]]=abs(SPR)
+            else:
+                sum_spr_dict[split_noms(key[0])[1]]+=abs(SPR)
+    return(sum_spr_dict)
+
 # Affiche la liste et le nombre des joueurs ayant fait au moins n évènements parmis ceux donnés
 def taille_commu(n,events,params,url,headers):
     players_list={}
@@ -259,7 +274,7 @@ def max_top_x(n,x,events,params,url,headers):
 # Affiche les joueurs ayant fait au moins n tournois avec une somme du SPR la plus proche de 0 sur les évènements donnés
 def most_regu(n,events,params,url,headers):
     max_ecart_spr=100
-    sum_spr_dict=get_sum_spr(events,params,url,headers)
+    sum_spr_dict=get_sum_abs_spr(events,params,url,headers)
     nb_tournois=count_tournois(events,params,url,headers)
     for key in sum_spr_dict.items():
         if nb_tournois[key[0]]>=n:
@@ -277,25 +292,26 @@ def most_regu(n,events,params,url,headers):
 # Affiche les joueurs avec une somme du SPR la plus éloignée de 0 sur les évènements donnés
 def least_regu(n,events,params,url,headers):
     min_ecart_spr=-1
-    sum_spr_dict=get_sum_spr(events,params,url,headers)
+    sum_spr_dict=get_sum_abs_spr(events,params,url,headers)
     nb_tournois=count_tournois(events,params,url,headers)
     for key in sum_spr_dict.items():
         if nb_tournois[key[0]]>=n:
             if abs(key[1])>min_ecart_spr:
-                min_ecart_spr=key[1]
+                min_ecart_spr=abs(key[1])
                 least_regu=[key]
             else:
-                if abs(key[1])==abs(min_ecart_spr):
+                if abs(key[1])==min_ecart_spr:
                     least_regu.append(key)
-    # print("least_regu:",least_regu)
-    # print("sum_spr_dict",sum_spr_dict)
-    # nb_tourn=count_tournois(events,params,url,headers)
-    # print("nb_tournois", nb_tourn)
     print("Joueur(s) le moins régulier:")
-    # print(least_regu)
     for joueur in least_regu:
         print(joueur[0]," (somme du SPR: ",joueur[1],")", sep="")        
-        # /nb_tourn[joueur[0]]
+    print()
+
+def least_regu2(n,events,params,url,headers):
+    sum_spr_dict=get_sum_spr(events,params,url,headers)
+    max_dico(5, sum_spr_dict)
+    print()
+    min_dico(5, sum_spr_dict)
     print()
 
 # Affiche les n premiers seeds des évènements donnés
@@ -373,12 +389,16 @@ def get_setcount_prefix(teamA,teamB,events,params,url,headers):
         request = response.json()
         for i in request['data']['event']['sets']['nodes']:
             winner=i['winnerId']
-            if ((split_noms(i['slots'][0]['entrant']['name'])[0]==teamA) and (split_noms(i['slots'][1]['entrant']['name'])[0]==teamB)):
+            if ((teamA in split_noms(i['slots'][0]['entrant']['name'])[0]) and (teamB in split_noms(i['slots'][1]['entrant']['name'])[0])):
+                # print(i['slots'][0]['entrant']['name'])
+                # print(i['slots'][1]['entrant']['name'])
                 if i['slots'][0]['entrant']['id']==winner:
                     setcount[teamA]+=1
                 else:
                     setcount[teamB]+=1
-            elif ((split_noms(i['slots'][0]['entrant']['name'])[0]==teamB) and (split_noms(i['slots'][1]['entrant']['name'])[0]==teamA)):
+            elif ((teamB in split_noms(i['slots'][0]['entrant']['name'])[0]) and (teamA in split_noms(i['slots'][1]['entrant']['name'])[0])):
+                # print(i['slots'][0]['entrant']['name'])
+                # print(i['slots'][1]['entrant']['name'])
                 if i['slots'][0]['entrant']['id']==winner:
                     setcount[teamB]+=1
                 else:
@@ -496,13 +516,6 @@ def biggest_upset(events,params,url,headers):
         print(upset[0]," upset ",upset[1],", UF +",upset[2]," à l'évènement ",events[upset[3]],sep="")
         print()
 
-# Renvoie le nombre moyen d'upset par tournois
-def count_upsets_par_tournois(events,params,url,headers):
-    nb_upset=count_upsets(events,params,url,headers,True)
-    nb_tournois=len(events)
-    print(nb_upset/nb_tournois)
-    print()
-
 # Récupère le nombre d'upsets réalisés par chaque joueur
 def get_upsets_realises(events,params,url,headers):
     nb_upsets={}
@@ -614,3 +627,12 @@ def split_noms(nom):
         return(nom.split(" | "))
     else:
         return["",nom]
+    
+def get_player_placement(player,events,params,url,headers):
+    placements={}
+    for event_id in (events):
+        standings = get_standings(event_id,params,url,headers)
+        for nplayer in standings.items():
+            if split_noms(nplayer[0][0])[1] == player:
+                placements[event_id]=nplayer[1]
+    return(placements)

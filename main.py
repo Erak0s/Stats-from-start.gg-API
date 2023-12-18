@@ -20,13 +20,13 @@ params_get_events={
   "cCode": "FR", 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  # "name": "Flamin", 
+  # "name": "Colosseum", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
-  "slug": "watch-the-throne",
+  # "slug": "yggdrasil-1-1",
   # "after": today,
   "after": get_date(1,1,2023),
   "before":  get_date(15,12,2023),
-  "perPage": 100, 
+  "perPage": 500, 
   "page": 1
 }
 
@@ -41,7 +41,7 @@ params_standings_seedings={
 ##################################################################
  
 singles = get_singles_id(params_get_events, url, headers)
-# singles=tournois_sans_flamingoat
+# singles=tournois_sauf_flamingoat
 # singles=test
 
 ####################################
@@ -49,20 +49,21 @@ singles = get_singles_id(params_get_events, url, headers)
 ####################################
 
 print_tournaments(singles)
-# taille_commu(2,singles,params_standings_seedings,url,headers)
+# taille_commu(10,singles,params_standings_seedings,url,headers)
 # best_performance(singles,params_standings_seedings,url,headers)
 # worst_performance(singles,params_standings_seedings,url,headers)
-# most_regu(2,singles,params_standings_seedings,url,headers)
-# least_regu(2,singles,params_standings_seedings,url,headers)
-# top_seed(16,singles,params_standings_seedings,url,headers)
-top_standings(16,singles,params_standings_seedings,url,headers)
-# max_tournois(500,singles,params_standings_seedings,url,headers)
-# max_top_x(500,8,singles,params_standings_seedings,url,headers)
+# most_regu(10,singles,params_standings_seedings,url,headers)
+# least_regu(10,singles,params_standings_seedings,url,headers)
+# top_seed(64,singles,params_standings_seedings,url,headers)
+# top_standings(16,singles,params_standings_seedings,url,headers)
+# max_tournois(50,singles,params_standings_seedings,url,headers)
+# max_top_x(30,8,singles,params_standings_seedings,url,headers)
+
 
 # count_sets(singles,params_standings_seedings,url,headers)
 # count_games(singles,params_standings_seedings,url,headers)
 # get_setcount_players('Erakos','Ewanz',singles,params_standings_seedings,url,headers)
-# get_setcount_prefix("CTS","BxH", singles, params_standings_seedings, url, headers)
+# get_setcount_prefix("BaL","NdL", singles, params_standings_seedings, url, headers)
 # max_character_usage(500,singles,params_standings_seedings,url,headers)
 # min_character_usage(500,singles,params_standings_seedings,url,headers)
 # max_character_usage_rate(50,singles,params_standings_seedings,url,headers)
@@ -71,10 +72,16 @@ top_standings(16,singles,params_standings_seedings,url,headers)
 # for i in upsets:
 #     for j in range(len(i)):
 #         print(i[j])
-# count_upsets(singles,params_standings_seedings,url,headers)
-# count_upsets_par_tournois(singles,params_standings_seedings,url,headers)
+# count_upsets(singles,params_standings_seedings,url,headers, False)
 # biggest_upset(singles,params_standings_seedings,url,headers)
-# max_upsets_realises(500,singles,params_standings_seedings,url,headers)
-# max_upsets_subis(500,singles,params_standings_seedings,url,headers)
+# max_upsets_realises(20,singles,params_standings_seedings,url,headers)
+# max_upsets_subis(20,singles,params_standings_seedings,url,headers)
 # max_upsets_subis_par_defaite(20,singles,params_standings_seedings,url,headers)
 # min_upsets_subis(500,singles,params_standings_seedings,url,headers)
+placements=get_player_placement("El Tépe",singles,params_standings_seedings,url,headers)
+n=0
+for event in placements:
+  if placements[event] == 9:
+    n+=1
+print("El tépe a participé à",len(placements),"tournois")
+print("El Tépe a fini 9ème",n,"fois (",(n/len(placements))*100,"%)")
