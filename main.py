@@ -20,7 +20,7 @@ params_get_events={
   "cCode": "FR", 
   "distance": "10km", 
   "city": ville_coord["Montpellier"],
-  # "name": "Colosseum", 
+  # "name": "Downtown", 
   "gameId": game_Ids["Super Smash Bros. Ultimate"],
   # "slug": "yggdrasil-1-1",
   # "after": today,
@@ -40,9 +40,9 @@ params_standings_seedings={
 ###           RECUPERATION DES EVENEMENTS A ANALYSER          ####
 ##################################################################
  
-singles = get_singles_id(params_get_events, url, headers)
-# singles=tournois_sauf_flamingoat
-# singles=test
+# singles = get_singles_id(params_get_events, url, headers)
+singles=tournois_sauf_flamingoat
+# singles=misstechs
 
 ####################################
 ###           ANALYSES          ####
@@ -50,14 +50,17 @@ singles = get_singles_id(params_get_events, url, headers)
 
 print_tournaments(singles)
 # taille_commu(10,singles,params_standings_seedings,url,headers)
-# best_performance(singles,params_standings_seedings,url,headers)
+# best_performances(20,singles,params_standings_seedings,url,headers)
 # worst_performance(singles,params_standings_seedings,url,headers)
 # most_regu(10,singles,params_standings_seedings,url,headers)
-# least_regu(10,singles,params_standings_seedings,url,headers)
+# least_regu(1,singles,params_standings_seedings,url,headers)
+# print(least_regu(20,10,singles,params_standings_seedings,url,headers))
 # top_seed(64,singles,params_standings_seedings,url,headers)
 # top_standings(16,singles,params_standings_seedings,url,headers)
 # max_tournois(50,singles,params_standings_seedings,url,headers)
 # max_top_x(30,8,singles,params_standings_seedings,url,headers)
+affrontements_freq(50,singles,params_standings_seedings,url,headers)
+bracket_demon(100,5,singles,params_standings_seedings,url,headers)
 
 
 # count_sets(singles,params_standings_seedings,url,headers)
@@ -73,15 +76,16 @@ print_tournaments(singles)
 #     for j in range(len(i)):
 #         print(i[j])
 # count_upsets(singles,params_standings_seedings,url,headers, False)
-# biggest_upset(singles,params_standings_seedings,url,headers)
+# biggest_upsets(50,singles,params_standings_seedings,url,headers)
 # max_upsets_realises(20,singles,params_standings_seedings,url,headers)
 # max_upsets_subis(20,singles,params_standings_seedings,url,headers)
 # max_upsets_subis_par_defaite(20,singles,params_standings_seedings,url,headers)
 # min_upsets_subis(500,singles,params_standings_seedings,url,headers)
-placements=get_player_placement("El Tépe",singles,params_standings_seedings,url,headers)
-n=0
-for event in placements:
-  if placements[event] == 9:
-    n+=1
-print("El tépe a participé à",len(placements),"tournois")
-print("El Tépe a fini 9ème",n,"fois (",(n/len(placements))*100,"%)")
+
+# placements=get_player_placement("El Tépe",singles,params_standings_seedings,url,headers)
+# n=0
+# for event in placements:
+#   if placements[event] == 9:
+#     n+=1
+# print("El tépe a participé à",len(placements),"tournois")
+# print("El Tépe a fini 9ème",n,"fois (",(n/len(placements))*100,"%)")

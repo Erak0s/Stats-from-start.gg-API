@@ -6,11 +6,16 @@
 
 # Améliorations à apporter
 
+Biggest upsets : TEJ LES WINS PAR DQ !!!!
+
 # Fonctionnalités à ajouter
 
 ## Requêtes:
 
 ## Analyses:
+
+- les plus souvent sous-seed (nb de fois ou ils font SPR+2 / nb de tournois)
+- tournois avec le plus/moins d'upsets 
 
 ## A demander à d'autres gens (Richard)
 

@@ -72,7 +72,7 @@ def get_singles_id(params,url,headers):
     else:
             
         for tournament in events['data']['tournaments']['nodes']:
-            print(tournament['slug'])
+            # print(tournament['slug'])
             for event in tournament['events']:
                 if (is_singles(event['name'])):
                     # print(event['id'])
@@ -130,32 +130,24 @@ def spr(seed,perf):
 def SPR_player(player,event_id,dico_seed,dico_standings):
     return(spr(dico_seed[player, event_id],dico_standings[player, event_id]))
 
-# Calcule la/les meilleure performance (en terme de SPR) sur les évènements donnés
-def best_performance(events,params,url,headers):
-    max_SPR=-100
+# Calcule les n meilleure performance (en terme de SPR) sur les évènements donnés
+def best_performances(n,events,params,url,headers):
     standings_dict={}
     seeding_dict={}
+    perfs=[]
     for event_id in (events):
         standings_dict[event_id] = get_standings(event_id,params,url,headers)
         seeding_dict[event_id] = get_seeding(event_id,params,url,headers)
         for key in (standings_dict[event_id]):
             SPR = SPR_player(key[0], event_id, seeding_dict[event_id], standings_dict[event_id])
-            if SPR > max_SPR:
-                max_SPR = SPR
-                best_perf = [key]
-                event = [event_id]
-            else:
-                if SPR == max_SPR:
-                    best_perf.append(key)
-                    event.append(event_id)
+            perfs.append([key[0],standings_dict[event_id][key],seeding_dict[event_id][key],SPR,event_id])
+    sorted_perfs=sorted(perfs, key=lambda x: x[3], reverse=True)
+    best_perfs=sorted_perfs[:n]
     print("Meilleure(s) performance(s): ")            
-    for i in range (len(best_perf)):
-        # print(best_perf[i])
-        # print(event[i])
-        # print(seeding_dict[event[i]][best_perf[i]])
-        print(best_perf[i][0]," à l'évènement ",events[event[i]],
-              " (Seed " ,seeding_dict[event[i]][best_perf[i]],", placement ",standings_dict[event[i]][best_perf[i]],
-              ", SPR +",max_SPR,")", sep=''
+    for i in range (len(best_perfs)):
+        print(best_perfs[i][0]," à l'évènement ",events[best_perfs[i][4]],
+              " (Seed " ,best_perfs[i][2],", placement ",best_perfs[i][1],
+              ", SPR +",best_perfs[i][3],")", sep=''
               )
     print()
 
@@ -216,6 +208,7 @@ def get_sum_abs_spr(events,params,url,headers):
 def taille_commu(n,events,params,url,headers):
     players_list={}
     commu=0
+    total=0
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for player in (standings):
@@ -224,12 +217,14 @@ def taille_commu(n,events,params,url,headers):
             else:
                 players_list[split_noms(player[0])[1]]+=1
     for player in players_list:
+        total+=1
         if players_list[player]>=n:
             commu+=1
     print("Liste des joueurs:")
     print(players_list)
     print()
-    print("Nombre de joueurs distincts:",commu)
+    print("Nombre de joueurs distincts:",total)
+    print("Nombre de joueurs ayant fait plus de",n,"tournois:",commu)
     print()
 
 # Retourne le nombre de tournois effectués par chaque joueur sur la période
@@ -273,45 +268,24 @@ def max_top_x(n,x,events,params,url,headers):
 
 # Affiche les joueurs ayant fait au moins n tournois avec une somme du SPR la plus proche de 0 sur les évènements donnés
 def most_regu(n,events,params,url,headers):
-    max_ecart_spr=100
     sum_spr_dict=get_sum_abs_spr(events,params,url,headers)
     nb_tournois=count_tournois(events,params,url,headers)
-    for key in sum_spr_dict.items():
-        if nb_tournois[key[0]]>=n:
-            if abs(key[1])<max_ecart_spr:
-                max_ecart_spr=abs(key[1])
-                most_regu=[key[0]]
-            else:
-                if abs(key[1])==max_ecart_spr:
-                    most_regu.append(key[0])
-    print("Joueur(s) le plus régulier:","(somme du SPR sur ces évènements:",max_ecart_spr,")")
-    for i in most_regu:
-        print(i)   
+    true_dict={}
+    for key in sum_spr_dict:
+        if nb_tournois[key]>=nb_tourn:
+            true_dict[key]=sum_spr_dict[key]
+    min_dico(n, true_dict)
     print()
 
 # Affiche les joueurs avec une somme du SPR la plus éloignée de 0 sur les évènements donnés
-def least_regu(n,events,params,url,headers):
-    min_ecart_spr=-1
+def least_regu(n,nb_tourn,events,params,url,headers):
     sum_spr_dict=get_sum_abs_spr(events,params,url,headers)
     nb_tournois=count_tournois(events,params,url,headers)
-    for key in sum_spr_dict.items():
-        if nb_tournois[key[0]]>=n:
-            if abs(key[1])>min_ecart_spr:
-                min_ecart_spr=abs(key[1])
-                least_regu=[key]
-            else:
-                if abs(key[1])==min_ecart_spr:
-                    least_regu.append(key)
-    print("Joueur(s) le moins régulier:")
-    for joueur in least_regu:
-        print(joueur[0]," (somme du SPR: ",joueur[1],")", sep="")        
-    print()
-
-def least_regu2(n,events,params,url,headers):
-    sum_spr_dict=get_sum_spr(events,params,url,headers)
-    max_dico(5, sum_spr_dict)
-    print()
-    min_dico(5, sum_spr_dict)
+    true_dict={}
+    for key in sum_spr_dict:
+        if nb_tournois[key]>=nb_tourn:
+            true_dict[key]=sum_spr_dict[key]
+    max_dico(n, true_dict)
     print()
 
 # Affiche les n premiers seeds des évènements donnés
@@ -378,6 +352,78 @@ def get_setcount_players(playerA,playerB,events,params,url,headers):
                 elif (i['slots'][1]['entrant']['id']==winner):
                     setcount[split_noms(i['slots'][1]['entrant']['name'])[1]]+=1
     print(playerA,setcount[playerA],"-",setcount[playerB],playerB)
+    print()
+
+# récupère les n affrontements les plus fréquents sur les évènements donnés
+def affrontements_freq(n,events,params,url,headers):
+    h2h={}
+    for event_id in (events):
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
+        request = response.json()
+        for i in request['data']['event']['sets']['nodes']:
+            A=split_noms(i['slots'][0]['entrant']['name'])[1]
+            B=split_noms(i['slots'][1]['entrant']['name'])[1]
+            if (A,B) in h2h:
+                h2h[A,B]+=1
+            elif (B,A) in h2h:
+                h2h[B,A]+=1
+            else:
+                h2h[A,B]=1
+    max_dico(n,h2h)
+    return(h2h)
+
+# calcule les setcounts les plus one-sided sur les évènements donnés
+def bracket_demon(top,min_h2h,events,params,url,headers):
+    setcounts={}
+    for event_id in (events):
+        params["eventId"] = str(event_id)
+        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
+        request = response.json()
+        for i in request['data']['event']['sets']['nodes']:
+            winner=i['winnerId']
+            A_name=split_noms(i['slots'][0]['entrant']['name'])[1]
+            B_name=split_noms(i['slots'][1]['entrant']['name'])[1]
+            A_id=i['slots'][0]['entrant']['id']
+            B_id=i['slots'][1]['entrant']['id']
+            if (A_name,B_name) in setcounts:
+                if winner==A_id:
+                    setcounts[A_name,B_name][0]+=1
+                else:
+                    setcounts[A_name,B_name][1]+=1
+            elif (B_name,A_name) in setcounts:
+                if winner==A_id:
+                    setcounts[B_name,A_name][1]+=1
+                else:
+                    setcounts[B_name,A_name][0]+=1
+            else:
+                if winner==A_id:
+                    setcounts[A_name,B_name]=[1,0]
+                elif winner==B_id:
+                    setcounts[A_name,B_name]=[0,1]
+    ordered_setcounts={}
+    for i in setcounts:
+        if setcounts[i][1]>setcounts[i][0]:
+            ordered_setcounts[(i[1],i[0])]=[setcounts[i][1],setcounts[i][0]]
+        else:
+            ordered_setcounts[i]=setcounts[i]
+    winrate={}
+    for i in ordered_setcounts:
+        winrate[i]=(ordered_setcounts[i][0]/(ordered_setcounts[i][0]+ordered_setcounts[i][1]))
+    h2h={}
+    for i in ordered_setcounts:
+        h2h[i]=ordered_setcounts[i][0]+ordered_setcounts[i][1]
+        
+    winrate_trie=sorted(winrate.items(), key=lambda x: h2h[x[0]], reverse=True)
+    winrate_trie=dict(sorted(winrate_trie, key=lambda x: x[1], reverse=True))
+
+    j=0
+    k=0
+    for i in winrate_trie:
+        if j<top and ordered_setcounts[i][0]+ordered_setcounts[i][1]>=min_h2h:
+            k+=1
+            print(k,") ",i[0]," sur ",i[1],": ",winrate_trie[i]*100,"% de winrate, nombre de sets:",ordered_setcounts[i][0]+ordered_setcounts[i][1],", setcount:",ordered_setcounts[i][0],"-",ordered_setcounts[i][1],sep="")
+            j+=1
     print()
 
 # Calcule le setcount entre les teams données dans les évènements donnés
@@ -501,20 +547,15 @@ def count_upsets(events,params,url,headers,silent):
         print()
     return(len(upsets))
 
-# Renvoie le/les plus gros upsets dans les évènements donnés
-def biggest_upset(events,params,url,headers):
-    UF_max=0
+# Renvoie les n plus gros upsets dans les évènements donnés
+def biggest_upsets(n,events,params,url,headers):
     upsets=get_upsets(events,params,url,headers)
-    for upset in upsets:
-        if upset[2]>UF_max:
-            biggest_upset=[]
-            biggest_upset.append(upset)
-            UF_max=upset[2]
-        elif upset[2]==UF_max:
-            biggest_upset.append(upset)
-    for upset in biggest_upset:
+    sorted_upsets = sorted(upsets, key=lambda x: x[2], reverse=True)
+    biggest_upsets = sorted_upsets[:n]
+    for upset in biggest_upsets:
         print(upset[0]," upset ",upset[1],", UF +",upset[2]," à l'évènement ",events[upset[3]],sep="")
-        print()
+    print()
+
 
 # Récupère le nombre d'upsets réalisés par chaque joueur
 def get_upsets_realises(events,params,url,headers):
@@ -636,3 +677,4 @@ def get_player_placement(player,events,params,url,headers):
             if split_noms(nplayer[0][0])[1] == player:
                 placements[event_id]=nplayer[1]
     return(placements)
+
