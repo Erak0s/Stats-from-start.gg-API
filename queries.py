@@ -125,9 +125,6 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
       perPage: $perPage
       sortType: STANDARD
     ) {
-      pageInfo {
-        total
-      }
       nodes {
         id
         winnerId
@@ -162,14 +159,15 @@ query get_sets_no_char($eventId: ID!, $page: Int!, $perPage: Int!) {
       perPage: $perPage
       sortType: STANDARD
     ) {
-      pageInfo {
-        total
-      }
       nodes {
         id
         winnerId
-        games {
-          winnerId
+        slots {
+          id
+          entrant {
+            id
+            name
+          }
         }
       }
     }
@@ -240,6 +238,7 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
     ) {
       nodes {
         winnerId
+        displayScore
         slots {
           entrant {
             id

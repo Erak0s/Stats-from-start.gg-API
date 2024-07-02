@@ -57,7 +57,6 @@ def is_singles(Name):
 # Récupère les évènements Simples parmis les évènements donnés
 def get_singles_id(params,url,headers):
     event_ids={}
-    test=[]
     if ("slug"in params):
         query=get_all_events_slug
     elif("distance" in params and "city" in params):
@@ -91,8 +90,8 @@ def get_standings(event_id,params,url,headers):
     return(standings)
 
 # Récupère la liste des seedings de l'event donné dans la requête donnée
-def get_seeding(event_id,params,url,headers):
-    params["eventId"] = str(event_id)
+def get_seeding(event_id,url,headers):
+    params = {"eventId": str(event_id), "perPage": 500, "page": 1}
     response = requests.post(url, headers=headers, json={'query': get_event_seeding, 'variables': params})
     request = response.json()
     seedings={}
@@ -114,7 +113,7 @@ def get_results(events,params,url,headers):
     for event_id in (events):
         df = pd.DataFrame(columns=["Placement", "Player", "Seeding", "SPR"])        
         standings = get_standings(event_id,params,url,headers)
-        seeding = get_seeding(event_id,params,url,headers)
+        seeding = get_seeding(event_id,url,headers)
         nb_entrants = get_nb_entrants(event_id, params, url, headers)
         for i in range (1,nb_entrants+1):
             for k, v in standings.items():
@@ -160,7 +159,7 @@ def best_performances(n,events,params,url,headers):
     perfs=[]
     for event_id in (events):
         standings_dict[event_id] = get_standings(event_id,params,url,headers)
-        seeding_dict[event_id] = get_seeding(event_id,params,url,headers)
+        seeding_dict[event_id] = get_seeding(event_id,url,headers)
         for key in (standings_dict[event_id]):
             SPR = SPR_player(key[0], event_id, seeding_dict[event_id], standings_dict[event_id])
             perfs.append([key[0],standings_dict[event_id][key],seeding_dict[event_id][key],SPR,event_id])
@@ -181,7 +180,7 @@ def worst_performances(n,events,params,url,headers):
     perfs=[]
     for event_id in (events):
         standings_dict[event_id] = get_standings(event_id,params,url,headers)
-        seeding_dict[event_id] = get_seeding(event_id,params,url,headers)
+        seeding_dict[event_id] = get_seeding(event_id,url,headers)
         for key in (standings_dict[event_id]):
             SPR = SPR_player(key[0], event_id, seeding_dict[event_id], standings_dict[event_id])
             perfs.append([key[0],standings_dict[event_id][key],seeding_dict[event_id][key],SPR,event_id])
@@ -200,26 +199,26 @@ def get_sum_spr(events,params,url,headers):
     sum_spr_dict={}
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
-        seeding = get_seeding(event_id,params,url,headers)
+        seeding = get_seeding(event_id,url,headers)
         for key in (standings):
             SPR = SPR_player(key[0], event_id, seeding, standings)
-            if split_noms(key[0])[1] not in sum_spr_dict:
-                sum_spr_dict[split_noms(key[0])[1]]=SPR
+            if split_noms(key[0])[-1] not in sum_spr_dict:
+                sum_spr_dict[split_noms(key[0])[-1]]=SPR
             else:
-                sum_spr_dict[split_noms(key[0])[1]]+=SPR
+                sum_spr_dict[split_noms(key[0])[-1]]+=SPR
     return(sum_spr_dict)
 
 def get_sum_abs_spr(events,params,url,headers):
     sum_spr_dict={}
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
-        seeding = get_seeding(event_id,params,url,headers)
+        seeding = get_seeding(event_id,url,headers)
         for key in (standings):
             SPR = SPR_player(key[0], event_id, seeding, standings)
-            if split_noms(key[0])[1] not in sum_spr_dict:
-                sum_spr_dict[split_noms(key[0])[1]]=abs(SPR)
+            if split_noms(key[0])[-1] not in sum_spr_dict:
+                sum_spr_dict[split_noms(key[0])[-1]]=abs(SPR)
             else:
-                sum_spr_dict[split_noms(key[0])[1]]+=abs(SPR)
+                sum_spr_dict[split_noms(key[0])[-1]]+=abs(SPR)
     return(sum_spr_dict)
 
 # Affiche la liste et le nombre des joueurs ayant fait au moins n évènements parmis ceux donnés
@@ -230,10 +229,10 @@ def taille_commu(n,events,params,url,headers):
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for player in (standings):
-            if split_noms(player[0])[1] not in players_list:
-                players_list[split_noms(player[0])[1]]=1
+            if split_noms(player[0])[-1] not in players_list:
+                players_list[split_noms(player[0])[-1]]=1
             else:
-                players_list[split_noms(player[0])[1]]+=1
+                players_list[split_noms(player[0])[-1]]+=1
     for player in players_list:
         total+=1
         if players_list[player]>=n:
@@ -251,10 +250,10 @@ def count_tournois(events,params,url,headers):
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for player in (standings):
-            if split_noms(player[0])[1] not in nb_tournois:
-                nb_tournois[split_noms(player[0])[1]]=1
+            if split_noms(player[0])[-1] not in nb_tournois:
+                nb_tournois[split_noms(player[0])[-1]]=1
             else:
-                nb_tournois[split_noms(player[0])[1]]+=1
+                nb_tournois[split_noms(player[0])[-1]]+=1
     return(nb_tournois)
 
 # Retourne le ou les joueurs ayant participé au plus de tournois sur les évènements donnés
@@ -271,10 +270,10 @@ def count_top_x(x,events,params,url,headers):
         standings = get_standings(event_id,params,url,headers)
         for player in standings.items():
             if player[1]<=x:
-                if split_noms(player[0][0])[1] in nb_top_x:
-                    nb_top_x[split_noms(player[0][0])[1]]+=1
+                if split_noms(player[0][0])[-1] in nb_top_x:
+                    nb_top_x[split_noms(player[0][0])[-1]]+=1
                 else:
-                    nb_top_x[split_noms(player[0][0])[1]]=1
+                    nb_top_x[split_noms(player[0][0])[-1]]=1
     return(nb_top_x)
 
 # Affiche les n joueurs ayant fait le plus de top x
@@ -325,7 +324,7 @@ def surseed_sousseed(n,nb_tourn,events,params,url,headers):
 def top_seed(n,events,params,url,headers):
     for event_id in (events):
         print("Top",n,"seeds in",events[event_id],":")
-        seeding = get_seeding(event_id,params,url,headers)
+        seeding = get_seeding(event_id,url,headers)
         for i in range (1,n+1):
             for k, v in seeding.items():
                 if v ==i:
@@ -337,7 +336,7 @@ def top_standings(n,events,params,url,headers):
     for event_id in (events):
         print("Top",n,"of",events[event_id],":")
         standings = get_standings(event_id,params,url,headers)
-        seeding = get_seeding(event_id,params,url,headers)
+        seeding = get_seeding(event_id,url,headers)
         for i in range (1,n+1):
             for k, v in standings.items():
                 if v ==i:
@@ -352,7 +351,7 @@ def get_results(events,params,url,headers):
     for event_id in (events):
 
         standings = get_standings(event_id,params,url,headers)
-        seeding = get_seeding(event_id,params,url,headers)
+        seeding = get_seeding(event_id,url,headers)
         entrants = get_entrants(event_id, params, url, headers)
         for i in range (1,entrants+1):
             for k, v in standings.items():
@@ -395,11 +394,11 @@ def get_setcount_players(playerA,playerB,events,params,url,headers):
         request = response.json()
         for i in request['data']['event']['sets']['nodes']:
             winner=i['winnerId']
-            if (((split_noms(i['slots'][0]['entrant']['name'])[1]==playerA) or (split_noms(i['slots'][0]['entrant']['name'])[1]==playerB)) and ((split_noms(i['slots'][1]['entrant']['name'])[1]==playerA) or (split_noms(i['slots'][1]['entrant']['name'])[1]==playerB))) :
+            if (((split_noms(i['slots'][0]['entrant']['name'])[-1]==playerA) or (split_noms(i['slots'][0]['entrant']['name'])[-1]==playerB)) and ((split_noms(i['slots'][1]['entrant']['name'])[-1]==playerA) or (split_noms(i['slots'][1]['entrant']['name'])[-1]==playerB))) :
                 if (i['slots'][0]['entrant']['id']==winner):
-                    setcount[split_noms(i['slots'][0]['entrant']['name'])[1]]+=1
+                    setcount[split_noms(i['slots'][0]['entrant']['name'])[-1]]+=1
                 elif (i['slots'][1]['entrant']['id']==winner):
-                    setcount[split_noms(i['slots'][1]['entrant']['name'])[1]]+=1
+                    setcount[split_noms(i['slots'][1]['entrant']['name'])[-1]]+=1
     print(playerA,setcount[playerA],"-",setcount[playerB],playerB)
     print()
 
@@ -411,8 +410,8 @@ def affrontements_freq(n,events,params,url,headers):
         response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
         request = response.json()
         for i in request['data']['event']['sets']['nodes']:
-            A=split_noms(i['slots'][0]['entrant']['name'])[1]
-            B=split_noms(i['slots'][1]['entrant']['name'])[1]
+            A=split_noms(i['slots'][0]['entrant']['name'])[-1]
+            B=split_noms(i['slots'][1]['entrant']['name'])[-1]
             if (A,B) in h2h:
                 h2h[A,B]+=1
             elif (B,A) in h2h:
@@ -431,8 +430,8 @@ def bracket_demon(top,min_h2h,events,params,url,headers):
         request = response.json()
         for i in request['data']['event']['sets']['nodes']:
             winner=i['winnerId']
-            A_name=split_noms(i['slots'][0]['entrant']['name'])[1]
-            B_name=split_noms(i['slots'][1]['entrant']['name'])[1]
+            A_name=split_noms(i['slots'][0]['entrant']['name'])[-1]
+            B_name=split_noms(i['slots'][1]['entrant']['name'])[-1]
             A_id=i['slots'][0]['entrant']['id']
             B_id=i['slots'][1]['entrant']['id']
             if (A_name,B_name) in setcounts:
@@ -567,79 +566,52 @@ def min_character_usage_rate(n,events,params,url,headers):
     print()
 
 # Renvoie la liste des upsets dans les évènements donnés     
-def get_upsets(events,params,url,headers):
+def get_upsets(events,url,headers):
     upsets=[]
     seeding={}
     for event_id in events:
-        dict_seeding=get_seeding(event_id, params, url, headers)
-        for i in dict_seeding:
-            seeding[i[0]]=dict_seeding[i]
-        params["eventId"] = str(event_id)
-        response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
-        request = response.json()
-        for node in request['data']['event']['sets']['nodes']:
-            winner_id=node['winnerId']
-            for entrant in node['slots']:
-                if winner_id!=None:
-                    if(entrant['entrant']['id'])==winner_id:
-                        winner_name=entrant['entrant']['name']
-                    else:
-                        loser_name=entrant['entrant']['name']
-                else:
-                    print("Winner non-renseigné pour le match:", event_id, "set:", node)
-            if winner_id!=None:
-                if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
-                    upsets.append([winner_name,loser_name,spr(seeding[winner_name],seeding[loser_name]),event_id])
-    return(upsets)
-
-def get_upsets2(events,params,url,headers):
-    upsets=[]
-    seeding={}
-    for event_id in events:
-        dict_seeding=get_seeding(event_id, params, url, headers)
+        result = None
+        parametres = {"perPage": 50, "eventId": str(event_id)}
+        dict_seeding=get_seeding(event_id, url, headers)
         for i in dict_seeding:
             seeding[i[0]]=dict_seeding[i]
 
-        pages = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': params}).json()['data']['event']['sets']['pageInfo']['totalPages']
-        
+        pages = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': parametres}).json()['data']['event']['sets']['pageInfo']['totalPages']
         for i in range(1,pages+1):
-            parametres = {"perPage": 5, "page": i, "eventId": str(event_id)}
+            parametres["page"]=i
             request = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': parametres}).json()
-            try:
-                result
-            except NameError:
+            if result == None:
                 result = request
             else:
-                print(len(result['data']['event']['sets']['nodes']))
-                result['data']['event']['sets']['nodes']+=request['data']['event']['sets']['nodes']
-                print(len(result['data']['event']['sets']['nodes']))
+                result['data']['event']['sets']['nodes']+=(request['data']['event']['sets']['nodes'])
 
         for node in result['data']['event']['sets']['nodes']:
             winner_id=node['winnerId']
-            for entrant in node['slots']:
-                if winner_id!=None:
-                    if(entrant['entrant']['id'])==winner_id:
-                        winner_name=entrant['entrant']['name']
+            if node['displayScore']!='DQ':
+                for entrant in node['slots']:
+                    if winner_id!=None:
+                        if(entrant['entrant']['id'])==winner_id:
+                            winner_name=entrant['entrant']['name']
+                        else:
+                            loser_name=entrant['entrant']['name']
                     else:
-                        loser_name=entrant['entrant']['name']
-                else:
-                    print("Winner non-renseigné pour le match:", event_id, "set:", node)
-            if winner_id!=None:
-                if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
-                    upsets.append([winner_name,loser_name,spr(seeding[winner_name],seeding[loser_name]),event_id])
+                        print("Winner non-renseigné pour le match:", event_id, "set:", node)
+                if winner_id!=None:
+                    if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
+                        upsets.append([winner_name,loser_name,spr(seeding[winner_name],seeding[loser_name]),event_id])
     return(upsets)
 
 # Compte les upsets dans les évènements donnés
 def count_upsets(events,params,url,headers,silent):
-    upsets=get_upsets2(events,params,url,headers)
+    upsets=get_upsets(events,url,headers)
     if silent is not True:
         print("Nombre d'upsets:",len(upsets))
         print()
     return(len(upsets))
 
 # Renvoie les n plus gros upsets dans les évènements donnés
-def biggest_upsets(n,events,params,url,headers):
-    upsets=get_upsets2(events,params,url,headers)
+def biggest_upsets(n,events,url,headers):
+    upsets=get_upsets(events,url,headers)
     sorted_upsets = sorted(upsets, key=lambda x: x[2], reverse=True)
     biggest_upsets = sorted_upsets[:n]
     for upset in biggest_upsets:
@@ -652,7 +624,7 @@ def get_upsets_realises(events,params,url,headers):
     nb_upsets={}
     seeding={}
     for event_id in events:
-        dict_seeding=get_seeding(event_id, params, url, headers)
+        dict_seeding=get_seeding(event_id, url, headers)
         for i in dict_seeding:
             seeding[i[0]]=dict_seeding[i]
         params["eventId"] = str(event_id)
@@ -666,10 +638,10 @@ def get_upsets_realises(events,params,url,headers):
                 else:
                     loser_name=entrant['entrant']['name']
             if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
-                if split_noms(winner_name)[1] in nb_upsets:
-                    nb_upsets[split_noms(winner_name)[1]]+=1
+                if split_noms(winner_name)[-1] in nb_upsets:
+                    nb_upsets[split_noms(winner_name)[-1]]+=1
                 else:
-                    nb_upsets[split_noms(winner_name)[1]]=1
+                    nb_upsets[split_noms(winner_name)[-1]]=1
     # nb_tournois=count_tournois(events,params,url,headers)
     # for player in nb_upsets:
     #     nb_upsets[player]=((nb_upsets[player]/nb_tournois[player])*100)
@@ -680,7 +652,7 @@ def get_upsets_subis(events,params,url,headers):
     nb_upsets={}
     seeding={}
     for event_id in events:
-        dict_seeding=get_seeding(event_id, params, url, headers)
+        dict_seeding=get_seeding(event_id, url, headers)
         seeding={}
         for i in dict_seeding:
             seeding[i[0]]=dict_seeding[i]
@@ -695,10 +667,10 @@ def get_upsets_subis(events,params,url,headers):
                 else:
                     loser_name=entrant['entrant']['name']
             if seed_round(seeding[(winner_name)])>seed_round(seeding[(loser_name)]):
-                if split_noms(loser_name)[1] in nb_upsets:
-                    nb_upsets[split_noms(loser_name)[1]]+=1
+                if split_noms(loser_name)[-1] in nb_upsets:
+                    nb_upsets[split_noms(loser_name)[-1]]+=1
                 else:
-                    nb_upsets[split_noms(loser_name)[1]]=1
+                    nb_upsets[split_noms(loser_name)[-1]]=1
     return(nb_upsets)
 
 # Récupère le nombre de défaite par joueur
@@ -713,10 +685,10 @@ def get_defaites(events,params,url,headers):
             for entrant in node['slots']:
                 # print(entrant)
                 if(entrant['entrant']['id'])!=winner_id:
-                    if (split_noms(entrant['entrant']['name'])[1]) not in nb_defaite:
-                        nb_defaite[split_noms(entrant['entrant']['name'])[1]]=1
+                    if (split_noms(entrant['entrant']['name'])[-1]) not in nb_defaite:
+                        nb_defaite[split_noms(entrant['entrant']['name'])[-1]]=1
                     else:
-                        nb_defaite[split_noms(entrant['entrant']['name'])[1]]+=1
+                        nb_defaite[split_noms(entrant['entrant']['name'])[-1]]+=1
     return(nb_defaite)
 
 # Affiche les n joueurs ayant le plus réalisé d'uppsets
@@ -764,7 +736,7 @@ def get_player_placement(player,events,params,url,headers):
     for event_id in (events):
         standings = get_standings(event_id,params,url,headers)
         for nplayer in standings.items():
-            if split_noms(nplayer[0][0])[1] == player:
+            if split_noms(nplayer[0][0])[-1] == player:
                 placements[event_id]=nplayer[1]
     return(placements)
 

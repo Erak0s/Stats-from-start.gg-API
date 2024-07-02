@@ -152,23 +152,29 @@ Bracket demon: (triés selon le winrate mais après tu prends ceux qui t'intére
 	19) Flynn sur Threllox: 83.33333333333334% de winrate, nombre de sets:6, setcount:5-1
 	20) ZeroFK sur Mephy: 80.0% de winrate, nombre de sets:10, setcount:8-2
 
-Plus gros upsets: (/!\ contient des DQs) (pareil qu'avant en fait y a moyen que ça soit que des DQs mdr, je vais essayer de fix ça)
+Plus gros upsets: (j'ai vérifié que les 2 premiers mais c'était pas des DQs donc j'ai l'impression que c'est bon)
 
-	KSO | Just_N upset IZI | Eko, UF +12 à l'évènement The Flamin'Goat #4 - Smash à Lez x MES Esport
-	TEK | Kywi upset IZI | Eko, UF +11 à l'évènement The Flamin'Goat #4 - Smash à Lez x MES Esport
-	Skyflooze upset IZI | Eko, UF +10 à l'évènement Yggdrasil #3
-	Sharkrai upset IZI | Eko, UF +10 à l'évènement Yggdrasil #3
-	Hookaï upset Valve, UF +10 à l'évènement Smash Downtown #25 - Smash à Lez x Burnout
-	AMU | RED upset TR NMS | Zenatti, UF +9 à l'évènement Yggdrasil #3
 	Her | Ninjabranleur upset Flynn, UF +9 à l'évènement Smash Downtown #28 - Smash à Lez x Burnout
-	CTS | ShiiroNeko upset Flynn, UF +8 à l'évènement The Flamin'Goat #6 - Smash à Lez x MES Esport
-	CTS | Ikcrow upset Valve, UF +8 à l'évènement Smash Downtown #25 - Smash à Lez x Burnout
-	Diabetox upset Her | Yas As1, UF +8 à l'évènement Smash Downtown #22 - Smash à Lez x Meltdown
-	OSEF | Stice upset Her | Yas As1, UF +8 à l'évènement Smash Downtown #22 - Smash à Lez x Meltdown
-	ETY ECR | | Pacha upset TR NMS | Zenatti, UF +7 à l'évènement Yggdrasil #3
 	RODAS KSO | Pipibox upset Flynn, UF +7 à l'évènement The Roll’Inn#23
 	Tyzoute upset Her | Yas As1, UF +7 à l'évènement Smash Downtown #31 - Smash à Lez x Burnout
 	KSO | pollito upset Her | Yas As1, UF +7 à l'évènement The Roll’Inn#22
+	EnzoW upset CTS | Mephy, UF +7 à l'évènement Smash Downtown #30 - Smash à Lez x Burnout
+	CTS | Mephy upset CG | ECR | WooxTom, UF +7 à l'évènement The Flamin'Goat #6 - Smash à Lez x MES Esport
+	CTS | Nono upset Flynn, UF +7 à l'évènement Smash Downtown #28 - Smash à Lez x Burnout
+	Enzale upset Babyman, UF +7 à l'évènement Yggdrasil #2
+	Echo CTS | Mika upset TLSE | Oxyzz, UF +7 à l'évènement Yggdrasil #2
+	Her | Yas As1 upset CG | Spectral, UF +7 à l'évènement The Flamin'Goat #5 - Smash à Lez x MES Esport
+	KSO | Bizaute upset CTS | Goison, UF +7 à l'évènement Smash Downtown #23 - Smash à Lez x Meltdown
+	KSO | Bizaute upset Flynn, UF +6 à l'évènement The Roll’Inn#25
+	Her | Next upset Flynn, UF +6 à l'évènement Smash Downtown #30 - Smash à Lez x Burnout
+	GGO | DenPuShi upset CG | ECR | WooxTom, UF +6 à l'évènement The Flamin'Goat #6 - Smash à Lez x MES Esport
+	CTS | TarteAuPastek upset Her | Yas As1, UF +6 à l'évènement Smash Downtown #28 - Smash à Lez x Burnout
+	BxH | El Tépe upset Flynn, UF +6 à l'évènement Smash Downtown #27 - Smash à Lez x Burnout
+	Magicana upset CTS | Goison, UF +6 à l'évènement Smash Downtown #24 - Smash à Lez x Meltdown
+	KSO GN! | Zelume upset Her | Yas As1, UF +6 à l'évènement The Roll’Inn#19
+	Her | Yas As1 upset TR NMS | Zenatti, UF +6 à l'évènement The Flamin'Goat #5 - Smash à Lez x MES Esport
+	Her | Yas As1 upset TR NMS | Zenatti, UF +6 à l'évènement The Flamin'Goat #5 - Smash à Lez x MES Esport
+	Cake | Renwa upset Her | Yas As1, UF +6 à l'évènement The Roll’Inn#16
 
 
 Bonus: j'avais fait ça pour la saison dernière mais cette fois c'est moins marqué: 
