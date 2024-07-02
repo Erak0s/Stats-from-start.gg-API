@@ -6,7 +6,10 @@
 
 # Améliorations à apporter
 
-Biggest upsets : TEJ LES WINS PAR DQ !!!!
+- CHANGER LA STRUCUTRE: FAIRE LA REQUETE UNE FOIS PUIS LA STOCKER ET TOUT CALCULER A PARTIR DE CA
+- Biggest upsets : TEJ LES WINS PAR DQ !!!! (tej sets sans score donné)
+- PASSER SOUS R
+- Interfacer avec shiny
 
 # Fonctionnalités à ajouter
 
@@ -14,6 +17,7 @@ Biggest upsets : TEJ LES WINS PAR DQ !!!!
 
 ## Analyses:
 
+- Faire ranking glicko
 - les plus souvent sous-seed (nb de fois ou ils font SPR+2 / nb de tournois)
 - tournois avec le plus/moins d'upsets 
 
@@ -23,7 +27,7 @@ Biggest upsets : TEJ LES WINS PAR DQ !!!!
 
 ## Problèmes connus mais résolution abandonnée
 
-- requête par nombre d'entrants max -> pas possible de query sur les évènements
+- requête par nombre d'entrants max -> pas possible de query sur les évènements -> tout récup et filtrer ensuite
 
 - Bien filtrer les évènements de type singles
 

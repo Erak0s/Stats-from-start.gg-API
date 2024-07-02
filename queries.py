@@ -19,6 +19,7 @@ query get_events_loc($name: String, $distance: String, $city: String, $perPage: 
     nodes {
       name
       slug
+      city
       countryCode
       postalCode
       events (filter: {videogameId: $gameId}) {
@@ -68,11 +69,22 @@ query get_standings($eventId: ID!, $perPage: Int) {
 }
 """
 
+get_event_nb_entrants="""
+query get_standings($eventId: ID!) {
+  event(id: $eventId) {
+    id
+    name
+    numEntrants
+  }
+}
+"""
+
 get_event_seeding="""
 query get_seeding($eventId: ID!, $perPage: Int) {
   event(id: $eventId) {
     id
     name
+    
     phases {
       id
       seeds(query: {perPage: $perPage}, eventId: $eventId) {
@@ -84,6 +96,18 @@ query get_seeding($eventId: ID!, $perPage: Int) {
             name
           }
         }
+      }
+    }
+  }
+}
+"""
+
+get_sets_pages="""
+query get_sets($eventId: ID!, $perPage: Int!) {
+  event(id: $eventId) {
+    sets(perPage: $perPage, sortType: STANDARD) {
+      pageInfo {
+        totalPages
       }
     }
   }
