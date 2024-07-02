@@ -578,7 +578,6 @@ def get_upsets(events,params,url,headers):
         response = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params})
         request = response.json()
         for node in request['data']['event']['sets']['nodes']:
-            print(node)
             winner_id=node['winnerId']
             for entrant in node['slots']:
                 if winner_id!=None:
@@ -593,7 +592,6 @@ def get_upsets(events,params,url,headers):
                     upsets.append([winner_name,loser_name,spr(seeding[winner_name],seeding[loser_name]),event_id])
     return(upsets)
 
-# Renvoie la liste des upsets dans les évènements donnés     
 def get_upsets2(events,params,url,headers):
     upsets=[]
     seeding={}
@@ -601,16 +599,22 @@ def get_upsets2(events,params,url,headers):
         dict_seeding=get_seeding(event_id, params, url, headers)
         for i in dict_seeding:
             seeding[i[0]]=dict_seeding[i]
-        params["eventId"] = str(event_id)
 
-        pages_query = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': params}).json()
+        pages = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': params}).json()['data']['event']['sets']['pageInfo']['totalPages']
+        
+        for i in range(1,pages+1):
+            parametres = {"perPage": 5, "page": i, "eventId": str(event_id)}
+            request = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': parametres}).json()
+            try:
+                result
+            except NameError:
+                result = request
+            else:
+                print(len(result['data']['event']['sets']['nodes']))
+                result['data']['event']['sets']['nodes']+=request['data']['event']['sets']['nodes']
+                print(len(result['data']['event']['sets']['nodes']))
 
-        print(pages_query)
-
-        request = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': params}).json()
-
-        for node in request['data']['event']['sets']['nodes']:
-            print(node)
+        for node in result['data']['event']['sets']['nodes']:
             winner_id=node['winnerId']
             for entrant in node['slots']:
                 if winner_id!=None:
@@ -627,7 +631,7 @@ def get_upsets2(events,params,url,headers):
 
 # Compte les upsets dans les évènements donnés
 def count_upsets(events,params,url,headers,silent):
-    upsets=get_upsets(events,params,url,headers)
+    upsets=get_upsets2(events,params,url,headers)
     if silent is not True:
         print("Nombre d'upsets:",len(upsets))
         print()
@@ -635,7 +639,7 @@ def count_upsets(events,params,url,headers,silent):
 
 # Renvoie les n plus gros upsets dans les évènements donnés
 def biggest_upsets(n,events,params,url,headers):
-    upsets=get_upsets(events,params,url,headers)
+    upsets=get_upsets2(events,params,url,headers)
     sorted_upsets = sorted(upsets, key=lambda x: x[2], reverse=True)
     biggest_upsets = sorted_upsets[:n]
     for upset in biggest_upsets:
