@@ -25,6 +25,7 @@ query get_events_loc($name: String, $distance: String, $city: String, $perPage: 
       events (filter: {videogameId: $gameId}) {
         name
         id
+        slug
       }
     }
   }
