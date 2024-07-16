@@ -2,12 +2,9 @@
 
 # Bugs à fix 
 
-- requêtes sur le nombre de persos pas possible dès qu'on dépasse un certain nombre de sets (pour environ 50 entrantes) -> fix en faisant plusieurs requêtes pour chaque tournoi ?
-
 # Améliorations à apporter
 
 - CHANGER LA STRUCUTRE: FAIRE LA REQUETE UNE FOIS PUIS LA STOCKER ET TOUT CALCULER A PARTIR DE CA
-- Biggest upsets : TEJ LES WINS PAR DQ !!!! (tej sets sans score donné)
 - PASSER SOUS R
 - Interfacer avec shiny
 
@@ -17,7 +14,7 @@
 
 ## Analyses:
 
-- Faire ranking glicko
+- joueur ayant joué le plus de persos différents
 - les plus souvent sous-seed (nb de fois ou ils font SPR+2 / nb de tournois)
 - tournois avec le plus/moins d'upsets 
 
@@ -31,11 +28,7 @@
 
 - Bien filtrer les évènements de type singles
 
-- worst_perf: pire perf sur les gros tournois = top qui DQ -> comment filtrer les DQs ?
-
-- Fonction calcul character usage 
-    -> persos les plus/moins utilisés
-    + winrate par personnage (ou juste pour Link)
+- Winrate par personnage
 
 ## Abandonné car osef
 
@@ -58,8 +51,6 @@
 
 - les joueurs qui ont changé de pseudos auront leurs stats faussées, chaque nom différent sera compté comme 2 joueurs
 
-- pas pu faire de stats sur les personnages car requête trop limitée par l'API
-
 # Disclaimer
 
-Je ne suis ni développeur, ni expert en statistiques. Certaines mesures ne seront pas pertinentes et le programme est implémentée de manire tout au plus fonctionnelle. Si vous souhaitez l'améliorer, vous pouvez me contacter ou le faire de votre côté.
+Je ne suis ni développeur, ni expert en statistiques. Certaines mesures ne seront peut-être pas pertinentes et le programme est implémentée de manière à peine fonctionnelle. Si vous souhaitez l'améliorer, vous pouvez me contacter ou le faire de votre côté.

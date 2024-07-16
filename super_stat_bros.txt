@@ -1,9 +1,8 @@
 #### STATS TOURNOIS SMASH MONTPELLIER ####
 
 ----------------------- DISCLAIMER ------------------------------------
-Les joueurs qui ont rename pendant la période sont surement mal comptabilisés je sais pas comment faire autrement dsl force à eux
+Les joueurs qui ont rename pendant la période sont sûrement mal comptabilisés je sais pas comment faire autrement dsl force à eux
 Pour les Roll'inn vous avez changé le nom entre le #21 et le #22, avant c'était Roll'Inn et maintenant c'est Roll’Inn (c'est pas la même apostrophe) je sais pas si c'est fait exprès mais voilà
-Y a quelque trucs pas bon, j'ai mis un /!\ devant comme ça tu peux ctrl+F pour les trouver
 Si t'as des questions, suggestions ou autre hésite pas
 -----------------------------------------------------------------------
 
@@ -36,7 +35,7 @@ Joueurs ayant fait le plus de tournois:
 	7. Orik - 32
 	8. égalité: Bizaute, Next, Nono - 29
 
-Meilleure(s) performance(s):
+Meilleure performances:
 
 	EnzoW à l'évènement Smash Downtown #30 - Smash à Lez x Burnout (Seed 30, placement 3, SPR +7)
 	Her | Yas As1 à l'évènement The Flamin'Goat #5 - Smash à Lez x MES Esport (Seed 13, placement 1, SPR +7)
@@ -59,28 +58,28 @@ Meilleure(s) performance(s):
 	CTS | Mephy à l'évènement Smash Downtown #28 - Smash à Lez x Burnout (Seed 7, placement 2, SPR +4)
 	BxH | Ewanz à l'évènement Smash Downtown #26 - Smash à Lez x Burnout (Seed 22, placement 5, SPR +4)
 
-Pire performances: (/!\ contient des DQs) (y a même moyen, que ça soit que des DQ en fait mdr faudra que je fix ça)
+Pires performances:
 
-	IZI | Eko à l'évènement The Flamin'Goat #4 - Smash à Lez x MES Esport (Seed 1, placement 65, SPR -12)
-	IZI | Eko à l'évènement Yggdrasil #3 (Seed 3, placement 65, SPR -10)
-	Valve à l'évènement Smash Downtown #25 - Smash à Lez x Burnout (Seed 3, placement 49, SPR -9)
-	TR NMS | Zenatti à l'évènement Yggdrasil #3 (Seed 6, placement 65, SPR -8)
-	Flynn à l'évènement The Flamin'Goat #6 - Smash à Lez x MES Esport (Seed 6, placement 65, SPR -8)
 	Flynn à l'évènement Smash Downtown #28 - Smash à Lez x Burnout (Seed 2, placement 25, SPR -8)
-	Her | Yas As1 à l'évènement Smash Downtown #22 - Smash à Lez x Meltdown (Seed 3, placement 33, SPR -8)
 	Her | Yas As1 à l'évènement The Roll’Inn#22 (Seed 1, placement 13, SPR -7)
-	EDC | Astral à l'évènement The Flamin'Goat #6 - Smash à Lez x MES Esport (Seed 8, placement 65, SPR -7)
 	TLSE | Oxyzz à l'évènement Yggdrasil #2 (Seed 1, placement 13, SPR -7)
 	Flynn à l'évènement The Roll’Inn#23 (Seed 1, placement 9, SPR -6)
 	CTS | Goison à l'évènement Smash Downtown #23 - Smash à Lez x Meltdown (Seed 2, placement 13, SPR -6)
 	Flynn à l'évènement The Roll’Inn#25 (Seed 1, placement 7, SPR -5)
-	Echo CTS | Mika à l'évènement Yggdrasil #3 (Seed 22, placement 97, SPR -5)
 	Her | Yas As1 à l'évènement Smash Downtown #32 - Smash à Lez x Burnout (Seed 2, placement 9, SPR -5)
 	Francis à l'évènement The Roll’Inn#23 (Seed 4, placement 17, SPR -5)
 	Her | Yas As1 à l'évènement Smash Downtown #31 - Smash à Lez x Burnout (Seed 2, placement 9, SPR -5)
 	Flynn à l'évènement Smash Downtown #30 - Smash à Lez x Burnout (Seed 2, placement 9, SPR -5)
 	CG | ECR | WooxTom à l'évènement The Flamin'Goat #6 - Smash à Lez x MES Esport (Seed 3, placement 13, SPR -5)
 	ZZ | | Elfo à l'évènement Miss'Tech#53 (Seed 3, placement 13, SPR -5)
+	BxH | Orik à l'évènement Smash Downtown #24 - Smash à Lez x Meltdown (Seed 4, placement 17, SPR -5)
+	AUEC CTS | Goison à l'évènement Miss'Tech#42 (Seed 2, placement 9, SPR -5)
+	Her | Yas As1 à l'évènement The Roll’Inn#17 (Seed 3, placement 13, SPR -5)
+	BxH | Orik à l'évènement Smash Downtown #21 - Smash à Lez x Meltdown (Seed 4, placement 17, SPR -5)
+	CTS | Goison à l'évènement Yggdrasil #3 (Seed 10, placement 33, SPR -4)
+	GS HER | Juartz à l'évènement Smash Downtown #32 - Smash à Lez x Burnout (Seed 8, placement 25, SPR -4)
+	Her | Yas As1 à l'évènement The Roll’Inn#23 (Seed 2, placement 7, SPR -4)
+	Flynn à l'évènement Smash Downtown #31 - Smash à Lez x Burnout (Seed 3, placement 9, SPR -4)
 
 Joueurs les plus sur/sous-seed (5 tournois minimum): c'est les SPR moyens donc en gros 1 ça veut dire que le joueur va en moyenne 1 round plus loin que son seed
 	

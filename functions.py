@@ -173,25 +173,64 @@ def best_performances(n,events,params,url,headers):
               )
     print()
 
+def get_dq_list(event_id, url, headers):
+    dq_list=[]
+    result = None
+    parametres = {"perPage": 50, "eventId": str(event_id)}
+    pages = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': parametres}).json()['data']['event']['sets']['pageInfo']['totalPages']
+    for i in range(1,pages+1):
+        parametres["page"]=i
+        request = requests.post(url, headers=headers, json={'query': get_sets_dq, 'variables': parametres}).json()
+        if result == None:
+            result = request
+        else:
+            result['data']['event']['sets']['nodes']+=(request['data']['event']['sets']['nodes'])
+
+    data = result['data']['event']['sets']['nodes']
+
+    for set in data:
+        if set["displayScore"]=="DQ":
+            winner_id = set['winnerId']
+            for player in set["slots"]:
+                if (player["entrant"]["id"]!=winner_id and player["entrant"]["name"].split("| ")[-1] not in dq_list):
+                    dq_list.append(player["entrant"]["name"].split("| ")[-1])
+    return(dq_list)    
+
 # Calcule la/les pire performance (en terme de SPR) sur les évènements donnés
 def worst_performances(n,events,params,url,headers):
     standings_dict={}
     seeding_dict={}
     perfs=[]
+    k=0 
+    i=0
     for event_id in (events):
+        dq_list = get_dq_list(event_id, url, headers)
         standings_dict[event_id] = get_standings(event_id,params,url,headers)
         seeding_dict[event_id] = get_seeding(event_id,url,headers)
+
         for key in (standings_dict[event_id]):
-            SPR = SPR_player(key[0], event_id, seeding_dict[event_id], standings_dict[event_id])
-            perfs.append([key[0],standings_dict[event_id][key],seeding_dict[event_id][key],SPR,event_id])
-    sorted_perfs=sorted(perfs, key=lambda x: x[3], reverse=False)
-    worst_perfs=sorted_perfs[:n]
-    print("Pire(s) performance(s): ")            
-    for i in range (len(worst_perfs)):
+            if key[0].split("| ")[-1] not in dq_list:
+                SPR = SPR_player(key[0], event_id, seeding_dict[event_id], standings_dict[event_id])
+                perfs.append([key[0],standings_dict[event_id][key],seeding_dict[event_id][key],SPR,event_id])
+    worst_perfs=sorted(perfs, key=lambda x: x[3], reverse=False)
+
+    result = None
+    parametres = {"perPage": 50, "eventId": str(event_id)}
+    pages = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': parametres}).json()['data']['event']['sets']['pageInfo']['totalPages']
+    for i in range(1,pages+1):
+        parametres["page"]=i
+        request = requests.post(url, headers=headers, json={'query': get_sets_nogames, 'variables': parametres}).json()
+        if result == None:
+            result = request
+        else:
+            result['data']['event']['sets']['nodes']+=(request['data']['event']['sets']['nodes'])
+
+    print("Pire(s) performance(s): ")          
+    for i in range (min(n, len(worst_perfs))):
         print(worst_perfs[i][0]," à l'évènement ",events[worst_perfs[i][4]],
-              " (Seed " ,worst_perfs[i][2],", placement ",worst_perfs[i][1],
-              ", SPR ",worst_perfs[i][3],")", sep=''
-              )
+            " (Seed " ,worst_perfs[i][2],", placement ",worst_perfs[i][1],
+            ", SPR ",worst_perfs[i][3],")", sep=''
+            )
     print()
 
 # Calcule la somme du SPR pour chaque joueur sur les évènements donnés
@@ -501,69 +540,43 @@ def get_setcount_prefix(teamA,teamB,events,params,url,headers):
     print()
 
 # Compte le nombre d'utilisations de chaque personnage
-def get_character_usage(events,params,url,headers):
+def get_character_usage(events,url,headers):
     character_usage={}
+    nb_games = 0
     for event_id in events:
-        params["eventId"] = str(event_id)
-        response = requests.post(url, headers=headers, json={'query': get_characters, 'variables': params})
-        request = response.json()
-        for node in request['data']['event']['sets']['nodes']:
+        result = None
+        parametres = {"perPage": 20, "eventId": str(event_id)}
+        pages = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': parametres}).json()['data']['event']['sets']['pageInfo']['totalPages']
+        for i in range(1,pages+1):
+            parametres["page"]=i
+            request = requests.post(url, headers=headers, json={'query': get_characters, 'variables': parametres}).json()
+            if result == None:
+                result = request
+            else:
+                result['data']['event']['sets']['nodes']+=(request['data']['event']['sets']['nodes'])
+        for node in result['data']['event']['sets']['nodes']:
             if (node['games']!=None):
                 for game in node['games']:
-                    for selection in game['selections']:
-                        if selection['character']['name'] not in character_usage:
-                            character_usage[selection['character']['name']]=1
-                        else:
-                            character_usage[selection['character']['name']]+=1
-    return(character_usage)
+                    winnerId = game["winnerId"]
+                    if game['selections']!=None:
+                        nb_games+=1
+                        for selection in game['selections']:
+                            if selection['character']['name'] not in character_usage:
+                                character_usage[selection['character']['name']]=[1,0,0,0]
+                            else:
+                                character_usage[selection['character']['name']][0]+=1
+                            if selection['entrant']['id'] == winnerId:
+                                character_usage[selection['character']['name']][2]+=1
+    for character in character_usage.keys():
+        character_usage[character][1]=(character_usage[character][0]/(2*nb_games))
+        character_usage[character][3]=(character_usage[character][2]/character_usage[character][0])
 
-# Calcule le tauxx d'utilisation de chaque personnage sur les évènements donnés
-def get_character_usage_rate(events,params,url,headers):
-    character_usage_rate={}
-    nb_games=count_games(events,params,url,headers)
-    for event_id in events:
-        params["eventId"] = str(event_id)
-        response = requests.post(url, headers=headers, json={'query': get_characters, 'variables': params})
-        request = response.json()
-        for node in request['data']['event']['sets']['nodes']:
-            if (node['games']!=None):
-                for game in node['games']:
-                    for selection in game['selections']:
-                        if selection['character']['name'] not in character_usage_rate:
-                            character_usage_rate[selection['character']['name']]=1
-                        else:
-                            character_usage_rate[selection['character']['name']]+=1
-    for i in character_usage_rate:
-        character_usage_rate[i]=(character_usage_rate[i]/(2*nb_games))*100
-    return(character_usage_rate)
+    df = pd.DataFrame.from_dict(character_usage, orient="index", columns=["Games","Usage rate","Wins","Winrate"])
+    df.loc['Total']= df.sum()
 
-# Affiche les n personnages les plus utilisés (nombre d'utilisations)
-def max_character_usage(n,events,params,url,headers):
-    character_usage=get_character_usage(events,params,url,headers)
-    print("Les",n,"personnages les plus joués:")
-    max_dico(n,character_usage)
-    print()
-
-# Affiche les n personnages les moins utilisés (mais pick au moins une fois) (nombre d'utilisations)
-def min_character_usage(n,events,params,url,headers):
-    character_usage=get_character_usage(events,params,url,headers)
-    print("Les",n,"personnages les moins joués:")
-    min_dico(n,character_usage)
-    print()
-
-# Affiche les n personnages les plus utilisés (taux d'utilisation)
-def max_character_usage_rate(n,events,params,url,headers):
-    character_usage_rate=get_character_usage_rate(events,params,url,headers)
-    print("Les",n,"personnages les plus joués:")
-    max_dico(n,character_usage_rate)
-    print()
-
-# Affiche les n personnages les moins utilisés (mais pick au moins une fois) (taux d'utilisation)
-def min_character_usage_rate(n,events,params,url,headers):
-    character_usage_rate=get_character_usage_rate(events,params,url,headers)
-    print("Les",n,"personnages les moins joués:")
-    min_dico(n,character_usage_rate)
-    print()
+    print(f"{nb_games} games played")
+    
+    return(df)
 
 # Renvoie la liste des upsets dans les évènements donnés     
 def get_upsets(events,url,headers):
@@ -726,7 +739,7 @@ def min_upsets_subis(n,events,params,url,headers):
     print()
 
 def split_noms(nom):
-    if "|" in nom:
+    if "| " in nom:
         return(nom.split(" | "))
     else:
         return["",nom]
@@ -740,3 +753,45 @@ def get_player_placement(player,events,params,url,headers):
                 placements[event_id]=nplayer[1]
     return(placements)
 
+# Compte le nombre d'utilisations de chaque personnage
+def player_most_characters(events,url,headers):
+    players_character={}
+    nb_characters_per_player={}
+    players_per_character={}
+    nb_players_per_character={}
+    for event_id in events:
+        result = None
+        parametres = {"perPage": 20, "eventId": str(event_id)}
+        pages = requests.post(url, headers=headers, json={'query': get_sets_pages, 'variables': parametres}).json()['data']['event']['sets']['pageInfo']['totalPages']
+        for i in range(1,pages+1):
+            parametres["page"]=i
+            request = requests.post(url, headers=headers, json={'query': get_characters, 'variables': parametres}).json()
+            if result == None:
+                result = request
+            else:
+                result['data']['event']['sets']['nodes']+=(request['data']['event']['sets']['nodes'])
+
+        for node in result['data']['event']['sets']['nodes']:
+            if (node['games']!=None):
+                for game in node['games']:
+                    if game['selections']!=None:
+                        for selection in game['selections']:
+                            if selection['entrant']['name'].split("| ")[-1] not in players_character:
+                                players_character[selection['entrant']['name'].split("| ")[-1]] = []
+                            if selection['character']['name'] not in players_character[selection['entrant']['name'].split("| ")[-1]]:
+                                players_character[selection['entrant']['name'].split("| ")[-1]].append(selection['character']['name'])
+
+    for player in players_character.keys():
+        nb_characters_per_player[player] = len(players_character[player])
+    #     for charac in players_character[player]:
+    #         if charac not in players_per_character:
+    #             players_per_character[charac]=[]
+    #         players_per_character[charac].append(player)
+    # for charac in players_per_character:
+    #     nb_players_per_character[charac]=len(players_per_character[charac])
+
+    print(players_character)
+
+    dico_trie=dict(sorted(nb_characters_per_player.items(), key=lambda item: item[1], reverse=True))
+
+    return(dico_trie)

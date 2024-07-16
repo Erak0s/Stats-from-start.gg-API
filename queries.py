@@ -149,6 +149,31 @@ query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
 }
 """
 
+get_sets_dq="""
+query get_sets($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    id
+    name
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      nodes {
+        winnerId
+        displayScore
+        slots {
+          entrant {
+            name
+            id
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
 get_sets_no_char="""
 query get_sets_no_char($eventId: ID!, $page: Int!, $perPage: Int!) {
   event(id: $eventId) {
@@ -214,7 +239,12 @@ query get_characters($eventId: ID!, $page: Int!, $perPage: Int!) {
     ) {
       nodes {
         games {
+          winnerId
           selections{
+            entrant{
+              name
+              id
+            }
             character{
               name
             }
