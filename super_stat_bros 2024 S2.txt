@@ -1,6 +1,4 @@
 A POSTER DE MON COTÉ
-- chart des persos les plus joués
-- chart des persos avec le meilleur winrate (?)
 - chart des persos que les joueur les plus polyvalents ont joué
 - nombre / taux d'upsets totaux
 - joueurs ayant fait le plus d'upsets

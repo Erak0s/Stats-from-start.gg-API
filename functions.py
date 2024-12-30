@@ -4,6 +4,7 @@ from datetime import *
 import pandas as pd
 import os
 import pickle
+import colorsys
 
 # Affiche les tournois dans lesquels sont les évènements analysés
 def print_tournaments(events):
@@ -802,14 +803,24 @@ def add_all_tournaments(data, events, url, headers):
         with open(data, 'wb') as f:
             pickle.dump(tournament_data, f)
 
-def summarize_character_data(character_data, threshold):
+def summarize_character_data(character_data, col, threshold):
+    # col 1 = games, 2 = pickrate, 3 = wins, 4 = winrate
     autre = ["Autres",0,0,0,0]
     for i in character_data.iterrows():
-        if i[1][2]<threshold:
+        if i[1][col]<threshold:
             autre[1]+=i[1][1]
             autre[2]+=i[1][2]
             autre[3]+=i[1][3]
             autre[4] = autre[3]/autre[1]
     merged_data = character_data[character_data['Usage rate'] > threshold]
-    merged_data.loc[len(merged_data)] = autre
+    if autre != ["Autres",0,0,0,0]:
+        merged_data.loc[len(merged_data)] = autre
     return(merged_data)
+
+def hex2hsv(hex_value):
+    h = hex_value.strip("#") 
+    rgb = tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+    r = rgb[0]/float(255)
+    g = rgb[1]/float(255)
+    b = rgb[2]/float(255)
+    return(colorsys.rgb_to_hsv(r,g,b))
