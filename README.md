@@ -4,6 +4,8 @@
 
 # Améliorations à apporter
 
+- Filtrer les DQ dans get_standings
+
 - CHANGER LA STRUCUTRE: FAIRE LA REQUETE UNE FOIS PUIS LA STOCKER ET TOUT CALCULER A PARTIR DE CA
 - PASSER SOUS R
 - Interfacer avec shiny

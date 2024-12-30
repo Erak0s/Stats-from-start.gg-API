@@ -5,7 +5,7 @@ url = "https://api.start.gg/gql/alpha"
 
 # Token d'authentification
 headers = {
-  "Authorization": "Bearer 3622a9c31282bd7cea09d8c9874f18c4"
+  "Authorization": "Bearer 9dc1fd7e88be751220052ae5d0924ea4"
 }
 
 today = int(datetime.now().timestamp())

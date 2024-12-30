@@ -22,6 +22,7 @@ query get_events_loc($name: String, $distance: String, $city: String, $perPage: 
       city
       countryCode
       postalCode
+      startAt
       events (filter: {videogameId: $gameId}) {
         name
         id
@@ -295,6 +296,70 @@ query get_sets_nb($eventId: ID!, $page: Int!, $perPage: Int!) {
     ) {
       pageInfo {
         total
+      }
+    }
+  }
+}
+"""
+
+get_all_tournament_data="""
+query get_all_tournament_data($eventId: ID!, $page: Int!, $perPage: Int!) {
+  event(id: $eventId) {
+    id
+    name
+    phases {
+      id
+      seeds(query: {perPage: 500}, eventId: $eventId) {
+        nodes {
+          id
+          seedNum
+          entrant {
+            id
+            name
+          }
+        }
+      }
+    }
+    standings(query: {perPage: 500}) {
+      nodes {
+        placement
+        entrant {
+          id
+          name
+        }
+      }
+    }
+    sets(
+      page: $page
+      perPage: $perPage
+      sortType: STANDARD
+    ) {
+      pageInfo {
+        total
+      }
+      nodes {
+        id
+        winnerId
+        displayScore
+        slots {
+          id
+          entrant {
+            id
+            name
+          }
+        }
+        games {
+          winnerId
+          selections{
+            entrant{
+              name
+              id
+            }
+            character{
+              name
+            }
+          }
+        }
       }
     }
   }

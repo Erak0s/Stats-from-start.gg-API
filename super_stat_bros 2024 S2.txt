@@ -1,0 +1,183 @@
+A POSTER DE MON COTÉ
+- chart des persos les plus joués
+- chart des persos avec le meilleur winrate (?)
+- chart des persos que les joueur les plus polyvalents ont joué
+- nombre / taux d'upsets totaux
+- joueurs ayant fait le plus d'upsets
+- joueur ayant le plus top 8 / top 1
++ trucs du reste du doc pas déjà postés
++ check thread semestre dernier
+
+
+#### STATS TOURNOIS SMASH MONTPELLIER ####
+
+----------------------- DISCLAIMER ------------------------------------
+Les joueurs qui ont rename pendant la période sont sûrement mal comptabilisés je sais pas comment faire autrement dsl force à eux
+Si t'as des questions, suggestions ou autre hésite pas
+-----------------------------------------------------------------------
+
+Période: 01/07 - 31/12/2024 (inclus)
+
+34 tournois sur la période:
+	- 12 Miss'Tech
+	- 19 Downtown
+	- 1 Roll'Inn
+	- 1 Flamin'Goat
+	- 1 Yggdrasil
+	
+2848 sets joués sur la période (dont 601 upsets, soit 21,1%)
+
+7449 games jouées sur la période
+
+Taille de la commu: 
+	- minimum 1 tournoi sur la période: 374
+	- 5 tournois: 88
+	- 10 tournois: 42
+
+Joueurs ayant fait le plus de tournois:
+	1) Bizaute: 30
+	2) Emitchoum: 29
+	3) Kajou, Martow Pillow, Pipibox, Tyzoute, Tigno: 27
+	8) Next: 25
+	9) TarteAuPastek ඞ, Poade: 24
+
+Meilleure performances:
+	UFO | jaja à l'évènement Smash Downtown #51 - Smash à Lez x Burnout (Seed 18, placement 4, SPR +5)
+	UFO | jaja à l'évènement Smash Downtown #47 - Smash à Lez x Burnout (Seed 12, placement 2, SPR +5)
+	Mr.Grizzly à l'évènement Miss'Tech#70 (Seed 16, placement 3, SPR +5)
+	JRJ | Djevebran à l'évènement Smash Downtown #46 - Smash à Lez x Burnout (Seed 11, placement 2, SPR +5)
+	Pipibox à l'évènement Smash Downtown #45 - Smash à Lez x Burnout (Seed 9, placement 2, SPR +5)
+	Lyrone à l'évènement Smash Downtown #44 - Smash à Lez x Burnout (Seed 13, placement 3, SPR +5)
+	Pipibox à l'évènement Smash Downtown #41 - Smash à Lez x Burnout (Seed 19, placement 4, SPR +5)
+	jaja à l'évènement Smash Downtown #41 - Smash à Lez x Burnout (Seed 27, placement 5, SPR +5)
+	Tyzoute à l'évènement Smash Downtown #39 - Smash à Lez x Burnout (Seed 39, placement 7, SPR +5)
+	GS HER | Juartz à l'évènement Smash Downtown #38 - Smash à Lez x Burnout (Seed 29, placement 5, SPR +5)
+	Her | Poade à l'évènement Smash Downtown #38 - Smash à Lez x Burnout (Seed 37, placement 7, SPR +5)
+	CTS | TarteAuPastek ඞ à l'évènement Smash Downtown #37 - Smash à Lez x Burnout (Seed 9, placement 2, SPR +5)
+	CTS | Erakos à l'évènement Smash Downtown #36 - Smash à Lez x Burnout (Seed 16, placement 3, SPR +5)
+	OriXDie à l'évènement Smash Downtown #36 - Smash à Lez x Burnout (Seed 19, placement 4, SPR +5)
+	Skyflooze à l'évènement Smash Downtown #35 - Smash à Lez x Burnout (Seed 36, placement 7, SPR +5)
+	Her | Next à l'évènement Smash Downtown #50 - Smash à Lez x Burnout (Seed 7, placement 2, SPR +4)
+	Her | Jonathan Gaming ! à l'évènement Smash Downtown #50 - Smash à Lez x Burnout (Seed 11, placement 3, SPR +4)
+	CTS | TarteAuPastek ඞ à l'évènement Smash Downtown #49 - Smash à Lez x Burnout (Seed 7, placement 2, SPR +4)
+	POM | Tima à l'évènement Smash Downtown #49 - Smash à Lez x Burnout (Seed 13, placement 4, SPR +4)
+	JRJ | Djevebran à l'évènement Smash Downtown #48 - Smash à Lez x Burnout (Seed 7, placement 2, SPR +4)
+	Her | Trozer176 à l'évènement Smash Downtown #48 - Smash à Lez x Burnout (Seed 21, placement 5, SPR +4)
+	UFO | Bizaute à l'évènement Smash Downtown #47 - Smash à Lez x Burnout (Seed 6, placement 1, SPR +4)
+	Her | Tyzoute à l'évènement Smash Downtown #46 - Smash à Lez x Burnout (Seed 18, placement 5, SPR +4)
+	JRJ | LG à l'évènement The Flamin'Goat #7 - Smash à Lez x MES Esport (Seed 24, placement 5, SPR +4)
+	Orik à l'évènement The Flamin'Goat #7 - Smash à Lez x MES Esport (Seed 28, placement 7, SPR +4)
+	Her | Next à l'évènement Miss'Tech#66 (Seed 13, placement 4, SPR +4)
+	Her | Antouane à l'évènement Smash Downtown #41 - Smash à Lez x Burnout (Seed 30, placement 7, SPR +4)
+	Her | Jonathan Gaming ! à l'évènement Smash Downtown #41 - Smash à Lez x Burnout (Seed 33, placement 9, SPR +4)
+	CTS | Goison à l'évènement Smash Downtown #38 - Smash à Lez x Burnout (Seed 10, placement 3, SPR +4)
+	Threllox à l'évènement Smash Downtown #38 - Smash à Lez x Burnout (Seed 22, placement 5, SPR +4)
+	Kana à l'évènement Smash Downtown #34 - Smash à Lez x Burnout (Seed 28, placement 7, SPR +4)
+	KSO | Vasochak à l'évènement The Roll’Inn#28 (Seed 14, placement 4, SPR +4)
+
+Pire(s) performance(s): 
+	Her | Yas As1 à l'évènement Smash Downtown #36 - Smash à Lez x Burnout (Seed 1, placement 13, SPR -7)
+	Flynn à l'évènement Miss'Tech#68 (Seed 1, placement 9, SPR -6)
+	CTS | Goison à l'évènement Smash Downtown #36 - Smash à Lez x Burnout (Seed 3, placement 17, SPR -6)
+	VLK | ZeroFK à l'évènement Smash Downtown #49 - Smash à Lez x Burnout (Seed 2, placement 9, SPR -5)
+	VLK | ZeroFK à l'évènement Miss'Tech#71 (Seed 2, placement 9, SPR -5)
+	Flynn à l'évènement Smash Downtown #47 - Smash à Lez x Burnout (Seed 1, placement 7, SPR -5)
+	Her | Yas As1 à l'évènement Smash Downtown #47 - Smash à Lez x Burnout (Seed 3, placement 13, SPR -5)
+	Her | Yas As1 à l'évènement Smash Downtown #46 - Smash à Lez x Burnout (Seed 3, placement 13, SPR -5)
+	MYS | Jibay à l'évènement The Flamin'Goat #7 - Smash à Lez x MES Esport (Seed 6, placement 25, SPR -5)
+	CTS | UFO | Goison à l'évènement Smash Downtown #41 - Smash à Lez x Burnout (Seed 3, placement 13, SPR -5)
+	KSO | Bizaute à l'évènement Smash Downtown #37 - Smash à Lez x Burnout (Seed 8, placement 33, SPR -5)
+	BxH | Orik à l'évènement Smash Downtown #33 - Smash à Lez x Burnout (Seed 5, placement 25, SPR -5)
+
+Joueurs les plus sur/sous-seed (5 tournois minimum): c'est les SPR moyens donc en gros 1 ça veut dire que le joueur va en moyenne 1 round plus loin que son seed
+	Les plus sous-seed:
+	1) jaja: 2.5555555555555554
+	2) Djevebran: 1.5555555555555556
+	3) Lyrone: 1.0
+	4) Jonathan Gaming !: 0.8421052631578947
+	5) Greed: 0.75
+	6) Poade: 0.6666666666666666
+	7) Sly Feit: 0.6
+	8) Kywi: 0.5833333333333334
+	9) Sharkrai: 0.5714285714285714
+	10) TimaChibre: 0.5714285714285714
+
+	Les plus sur-seed:
+	1) Flynn: -2.642857142857143
+	2) Yas As1: -2.0
+	3) Lunick: -1.8
+	4) ZeroFK: -1.5
+	5) Goison: -1.375
+	6) Honorably: -1.2
+	7) Orik: -1.1
+	8) Mr Parpaing: -0.8
+	9) Gohurisson: -0.6
+	10) Ewanz: -0.6
+
+Affrontements freq: 
+	1) ('Kajou', 'Flynn'): 13
+	2) ('Kajou', 'TarteAuPastek ඞ'): 12
+	3) ('ZeroFK', 'Kajou'): 8
+	4) ('Kajou', 'Martow Pillow'): 7
+	5) ('ZeroFK', 'Goison'): 7
+	6) ('Goison', 'Next'): 7
+	7) ('Que_ni_ni', 'Kajou'): 7
+	8) ('Djevebran', 'Kajou'): 6
+	9) ('Next', 'Pipibox'): 6
+	10) ('Next', 'TarteAuPastek ඞ'): 6
+	11) ('TarteAuPastek ඞ', 'Poade'): 6
+	12) ('Bizaute', 'Jonathan Gaming !'): 6
+	13) ('Kajou', 'Bizaute'): 6
+	14) ('Bizaute', 'TarteAuPastek ඞ'): 6
+	15) ('Threllox', 'Bizaute'): 6
+	16) ('Bizaute', 'Martow Pillow'): 6
+	17) ('Kajou', 'Mephy'): 6
+	18) ('Kajou', 'Pipibox'): 6
+
+Bracket demon: (triés selon le winrate mais après tu prends ceux qui t'intéressent le plus)
+	1) Kajou sur TarteAuPastek ඞ: 100.0% de winrate, nombre de sets:12, setcount:12-0
+	2) Kajou sur Martow Pillow: 100.0% de winrate, nombre de sets:7, setcount:7-0
+	3) Kajou sur Bizaute: 100.0% de winrate, nombre de sets:6, setcount:6-0
+	4) Bizaute sur Martow Pillow: 100.0% de winrate, nombre de sets:6, setcount:6-0
+	5) Kajou sur Mephy: 100.0% de winrate, nombre de sets:6, setcount:6-0
+	6) Kajou sur Pipibox: 100.0% de winrate, nombre de sets:6, setcount:6-0
+	7) Bizaute sur Zelume: 100.0% de winrate, nombre de sets:5, setcount:5-0
+	8) Kajou sur Threllox: 100.0% de winrate, nombre de sets:5, setcount:5-0
+	9) Que_ni_ni sur Kajou: 85.71428571428571% de winrate, nombre de sets:7, setcount:6-1
+	10) Kajou sur Djevebran: 83.33333333333334% de winrate, nombre de sets:6, setcount:5-1
+	11) TarteAuPastek ඞ sur Next: 83.33333333333334% de winrate, nombre de sets:6, setcount:5-1
+	12) | Goofyeur originel 7000 sur Martow Pillow: 80.0% de winrate, nombre de sets:5, setcount:4-1
+	13) ZeroFK sur Pipibox: 80.0% de winrate, nombre de sets:5, setcount:4-1
+	14) ZeroFK sur Bizaute: 80.0% de winrate, nombre de sets:5, setcount:4-1
+	15) TarteAuPastek ඞ sur EnzoW: 80.0% de winrate, nombre de sets:5, setcount:4-1
+	16) Bizaute sur jaja: 80.0% de winrate, nombre de sets:5, setcount:4-1
+	17) Kajou sur Flynn: 76.92307692307693% de winrate, nombre de sets:13, setcount:10-3
+	18) TarteAuPastek ඞ sur Poade: 66.66666666666666% de winrate, nombre de sets:6, setcount:4-2
+	19) Bizaute sur Jonathan Gaming !: 66.66666666666666% de winrate, nombre de sets:6, setcount:4-2
+	20) Kajou sur ZeroFK: 62.5% de winrate, nombre de sets:8, setcount:5-3
+
+Plus gros upsets: (j'ai vérifié que les 2 premiers mais c'était pas des DQs donc j'ai l'impression que c'est bon)
+	Her | Jonathan Gaming ! upset BB | OSLOW | Que_ni_ni, UF +8 à l'évènement Smash Downtown #39 - Smash à Lez x Burnout
+	Her | Victofu upset VLK | ZeroFK, UF +8 à l'évènement Smash Downtown #37 - Smash à Lez x Burnout
+	UFO | jaja upset Leazin, UF +7 à l'évènement Smash Downtown #51 - Smash à Lez x Burnout
+	UFO | jaja upset Leazin, UF +7 à l'évènement Smash Downtown #51 - Smash à Lez x Burnout
+	Pipibox upset VLK | ZeroFK, UF +7 à l'évènement Smash Downtown #49 - Smash à Lez x Burnout
+	KSO | Tigno upset Her | Yas As1, UF +7 à l'évènement Smash Downtown #46 - Smash à Lez x Burnout
+	Her | Next upset TCO | ZZ | | Elfo, UF +7 à l'évènement The Flamin'Goat #7 - Smash à Lez x MES Esport
+	Orik upset TLSE | Oxyzz, UF +7 à l'évènement The Flamin'Goat #7 - Smash à Lez x MES Esport
+	jaja upset CTS | UFO | Goison, UF +7 à l'évènement Smash Downtown #41 - Smash à Lez x Burnout
+	Her | Antouane upset CTS | UFO | Goison, UF +7 à l'évènement Smash Downtown #41 - Smash à Lez x Burnout
+	POM | OG | Adles upset Her | Yas As1, UF +7 à l'évènement Smash Downtown #36 - Smash à Lez x Burnout
+	CTS | Erakos upset Her | Yas As1, UF +7 à l'évènement Smash Downtown #36 - Smash à Lez x Burnout
+	Her | Poade upset Lyrone, UF +6 à l'évènement Smash Downtown #48 - Smash à Lez x Burnout
+	Cirdec upset Her | Yas As1, UF +6 à l'évènement Smash Downtown #47 - Smash à Lez x Burnout
+	Her | NoaH upset Her | Yas As1, UF +6 à l'évènement Smash Downtown #47 - Smash à Lez x Burnout
+	Martow Pillow upset Flynn, UF +6 à l'évènement Smash Downtown #46 - Smash à Lez x Burnout
+	Her | Next upset Flynn, UF +6 à l'évènement Miss'Tech#68
+	BxH | El Tépe upset Flynn, UF +6 à l'évènement Miss'Tech#68
+	Threllox upset Flynn, UF +6 à l'évènement Smash Downtown #40 - Smash à Lez x Burnout
+	Threllox upset VLK | ZeroFK, UF +6 à l'évènement Smash Downtown #38 - Smash à Lez x Burnout
+	Her | Poade upset CTS | TarteAuPastek ඞ, UF +6 à l'évènement Smash Downtown #38 - Smash à Lez x Burnout
+	Saelesal upset KSO | Bizaute, UF +6 à l'évènement Smash Downtown #37 - Smash à Lez x Burnout
+	OriXDie upset CTS | Goison, UF +6 à l'évènement Smash Downtown #36 - Smash à Lez x Burnout
+	CTS | Nono upset VLK | ZeroFK, UF +6 à l'évènement Smash Downtown #33 - Smash à Lez x Burnout
