@@ -801,3 +801,15 @@ def add_all_tournaments(data, events, url, headers):
         add_tournament(tournament_id, tournament_name, tournament_data, url, headers)
         with open(data, 'wb') as f:
             pickle.dump(tournament_data, f)
+
+def summarize_character_data(character_data, threshold):
+    autre = ["Autres",0,0,0,0]
+    for i in character_data.iterrows():
+        if i[1][2]<threshold:
+            autre[1]+=i[1][1]
+            autre[2]+=i[1][2]
+            autre[3]+=i[1][3]
+            autre[4] = autre[3]/autre[1]
+    merged_data = character_data[character_data['Usage rate'] > threshold]
+    merged_data.loc[len(merged_data)] = autre
+    return(merged_data)
