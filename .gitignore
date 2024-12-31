@@ -2,4 +2,4 @@ test.*
 *.log
 temp/
 __pycache__
-id_token.*
+id_token.py
