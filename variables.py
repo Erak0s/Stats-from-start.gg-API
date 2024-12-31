@@ -3,11 +3,6 @@ from datetime import *
 # URL de l'API de start.gg
 url = "https://api.start.gg/gql/alpha"
 
-# Token d'authentification
-headers = {
-  "Authorization": "Bearer 9dc1fd7e88be751220052ae5d0924ea4"
-}
-
 today = int(datetime.now().timestamp())
 
 ############
